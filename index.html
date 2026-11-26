@@ -169,11 +169,10 @@
         const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
         if (error) throw error;
         
-        showMessage('Success! Redirecting...', 'success');
-        setTimeout(() => {
-          alert('Login Successful! Aapka account verify ho gaya hai.');
-          // Aage yahan hum dashboard par redirect karenge
-        }, 1000);
+        showMessage('Success! Redirecting to Dashboard...', 'success');
+setTimeout(() => {
+  window.location.href = 'dashboard.html'; // Dashboard par bhej dein
+}, 1000);
         
       } else {
         // REAL SIGN UP
