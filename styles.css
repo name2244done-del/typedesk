@@ -111,3 +111,113 @@ a { color: var(--blue); text-decoration: none; }
   .content { padding: 20px 16px; }
   .topbar { padding: 0 16px; }
 }
+/* ============================================================
+   NEW DASHBOARD STYLES (PHASE 1)
+   ============================================================ */
+body { background: #f1f5f9; }
+
+/* Sidebar Tweaks */
+.sidebar.dark {
+  background: #0f172a;
+  border-right: none;
+}
+.sidebar.dark .brand-name, .sidebar.dark .nav-item, .sidebar.dark .nav-icon {
+  color: #94a3b8;
+}
+.sidebar.dark .brand-name { color: white; }
+.sidebar.dark .nav-item.active {
+  background: #2563eb;
+  color: white;
+}
+.sidebar.dark .nav-item:hover:not(.active) {
+  background: #1e293b;
+  color: white;
+}
+.sidebar.dark .nav-label { color: #475569; }
+
+/* Header Tweaks */
+.topbar { background: white; border-bottom: 1px solid var(--line); height: 72px; }
+.search-bar { 
+  background: #f8fafc; 
+  border: 1px solid var(--line); 
+  border-radius: 20px; 
+  padding: 8px 16px; 
+  width: 300px; 
+  font-size: 13px; 
+}
+
+/* Wallet Banner */
+.wallet-banner {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-lg);
+}
+.wallet-balance { display: flex; align-items: center; gap: 12px; font-size: 32px; font-weight: 750; }
+.wallet-coin { font-size: 40px; }
+.wallet-progress { background: #334155; height: 8px; border-radius: 4px; width: 200px; margin-top: 10px; }
+.wallet-progress-bar { background: #eab308; height: 100%; border-radius: 4px; width: 45%; }
+
+/* Metric Cards (Top Row) */
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.metric-card-new {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--line);
+}
+.metric-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  display: grid; place-items: center; font-size: 24px;
+}
+.metric-icon.blue { background: #eff6ff; color: #3b82f6; }
+.metric-icon.green { background: #f0fdf4; color: #22c55e; }
+.metric-icon.purple { background: #faf5ff; color: #a855f7; }
+.metric-icon.yellow { background: #fefce8; color: #eab308; }
+
+.metric-data h4 { font-size: 13px; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+.metric-data .value { font-size: 22px; font-weight: 750; color: var(--ink); }
+
+/* Task Grid */
+.task-grid-new {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+.task-card-new {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  text-align: center;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  transition: 0.2s;
+}
+.task-card-new:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.task-card-new .icon { font-size: 40px; margin-bottom: 12px; }
+.task-card-new h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.task-card-new p { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+.task-card-new .reward { color: #d97706; font-weight: 700; font-size: 14px; margin-bottom: 16px; }
+
+@media (max-width: 900px) {
+  .metrics-row { grid-template-columns: 1fr 1fr; }
+  .wallet-banner { flex-direction: column; align-items: flex-start; gap: 20px; }
+}
+@media (max-width: 600px) {
+  .metrics-row { grid-template-columns: 1fr; }
+  .search-bar { display: none; }
+}
