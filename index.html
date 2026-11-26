@@ -96,60 +96,103 @@
       </div>
     </main>
   </div>
+<!-- Supabase Library CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <script>
-    let mode = 'signin';
-    const tabs = document.querySelectorAll('.auth-tab');
-    const formTitle = document.getElementById('formTitle');
-    const formSubtitle = document.getElementById('formSubtitle');
-    const nameField = document.getElementById('nameField');
-    const submitBtn = document.getElementById('submitBtn');
-    const footerText = document.getElementById('footerText');
-    const footerLink = document.getElementById('footerLink');
-    const passwordHint = document.getElementById('passwordHint');
-    const authMessage = document.getElementById('authMessage');
+<script>
+  // 1. APNI SUPABASE KEYS YAHAN DALEIN (Quotes ke andar)
+  const SUPABASE_URL = 'https://garvndmevzmaydwbijin.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_DekByJ0YUQANObdBuj2nUA_LFdbompj';
+  
+  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    function setMode(newMode) {
-      mode = newMode;
-      tabs.forEach(t => t.classList.toggle('active', t.dataset.mode === newMode));
-      if (mode === 'signin') {
-        formTitle.textContent = 'Welcome back';
-        formSubtitle.textContent = 'Sign in to continue your typing practice.';
-        nameField.classList.add('hidden');
-        submitBtn.textContent = 'Sign In';
-        footerText.textContent = "Don't have an account?";
-        footerLink.textContent = 'Create one';
-        passwordHint.style.display = 'none';
-        document.getElementById('password').setAttribute('autocomplete', 'current-password');
-      } else {
-        formTitle.textContent = 'Create your account';
-        formSubtitle.textContent = 'Start your professional typing journey today.';
-        nameField.classList.remove('hidden');
-        submitBtn.textContent = 'Create Account';
-        footerText.textContent = 'Already have an account?';
-        footerLink.textContent = 'Sign in';
-        passwordHint.style.display = 'block';
-        document.getElementById('password').setAttribute('autocomplete', 'new-password');
-      }
-      hideMessage();
+  let mode = 'signin';
+  const tabs = document.querySelectorAll('.auth-tab');
+  const formTitle = document.getElementById('formTitle');
+  const formSubtitle = document.getElementById('formSubtitle');
+  const nameField = document.getElementById('nameField');
+  const submitBtn = document.getElementById('submitBtn');
+  const footerText = document.getElementById('footerText');
+  const footerLink = document.getElementById('footerLink');
+  const passwordHint = document.getElementById('passwordHint');
+  const authMessage = document.getElementById('authMessage');
+
+  function setMode(newMode) {
+    mode = newMode;
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.mode === newMode));
+    if (mode === 'signin') {
+      formTitle.textContent = 'Welcome back';
+      formSubtitle.textContent = 'Sign in to continue your typing practice.';
+      nameField.classList.add('hidden');
+      submitBtn.textContent = 'Sign In';
+      footerText.textContent = "Don't have an account?";
+      footerLink.textContent = 'Create one';
+      passwordHint.style.display = 'none';
+      document.getElementById('password').setAttribute('autocomplete', 'current-password');
+    } else {
+      formTitle.textContent = 'Create your account';
+      formSubtitle.textContent = 'Start your professional typing journey today.';
+      nameField.classList.remove('hidden');
+      submitBtn.textContent = 'Create Account';
+      footerText.textContent = 'Already have an account?';
+      footerLink.textContent = 'Sign in';
+      passwordHint.style.display = 'block';
+      document.getElementById('password').setAttribute('autocomplete', 'new-password');
     }
+    hideMessage();
+  }
 
-    tabs.forEach(tab => tab.addEventListener('click', () => setMode(tab.dataset.mode)));
-    footerLink.addEventListener('click', (e) => { e.preventDefault(); setMode(mode === 'signin' ? 'signup' : 'signin'); });
+  tabs.forEach(tab => tab.addEventListener('click', () => setMode(tab.dataset.mode)));
+  footerLink.addEventListener('click', (e) => { e.preventDefault(); setMode(mode === 'signin' ? 'signup' : 'signin'); });
 
-    function showMessage(text, type = 'error') { authMessage.textContent = text; authMessage.className = 'auth-message show ' + type; }
-    function hideMessage() { authMessage.className = 'auth-message'; }
+  function showMessage(text, type = 'error') { authMessage.textContent = text; authMessage.className = 'auth-message show ' + type; }
+  function hideMessage() { authMessage.className = 'auth-message'; }
 
-    document.getElementById('authForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-      const fullName = document.getElementById('fullName').value.trim();
-      if (!email || !password) { showMessage('Please fill in all required fields.', 'error'); return; }
-      if (mode === 'signup' && !fullName) { showMessage('Please enter your full name.', 'error'); return; }
-      if (mode === 'signup' && password.length < 8) { showMessage('Password must be at least 8 characters.', 'error'); return; }
-      showMessage(mode === 'signin' ? 'Sign in placeholder — Supabase will be connected in Step 2.' : 'Account creation placeholder — Supabase will be connected in Step 2.', 'success');
-    });
-  </script>
-</body>
-</html>
+  // 2. SUPABASE AUTHENTICATION LOGIC
+  document.getElementById('authForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const fullName = document.getElementById('fullName').value.trim();
+    
+    if (!email || !password) { showMessage('Please fill in all required fields.', 'error'); return; }
+    if (mode === 'signup' && !fullName) { showMessage('Please enter your full name.', 'error'); return; }
+    if (mode === 'signup' && password.length < 8) { showMessage('Password must be at least 8 characters.', 'error'); return; }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = mode === 'signin' ? 'Signing in...' : 'Creating account...';
+
+    try {
+      if (mode === 'signin') {
+        // REAL SIGN IN
+        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        
+        showMessage('Success! Redirecting...', 'success');
+        setTimeout(() => {
+          alert('Login Successful! Aapka account verify ho gaya hai.');
+          // Aage yahan hum dashboard par redirect karenge
+        }, 1000);
+        
+      } else {
+        // REAL SIGN UP
+        const { data, error } = await supabaseClient.auth.signUp({ 
+          email, 
+          password,
+          options: { data: { full_name: fullName } }
+        });
+        if (error) throw error;
+        
+        showMessage('Account created! Please sign in.', 'success');
+        setTimeout(() => setMode('signin'), 2000);
+      }
+    } catch (err) {
+      showMessage(err.message, 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = mode === 'signin' ? 'Sign In' : 'Create Account';
+    }
+  });
+        </script>
+  
