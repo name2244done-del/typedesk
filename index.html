@@ -3,197 +3,151 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign In · TypeDesk</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;750;800&display=swap" rel="stylesheet">
+  <title>TypeDesk · Improve Your Typing Skills</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <style>
-    .auth-page { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; background: var(--bg); }
-    .auth-hero { background: var(--navy); color: white; padding: 60px 56px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
-    .auth-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(40,102,178,0.3) 0%, transparent 50%); pointer-events: none; }
-    .auth-hero > * { position: relative; z-index: 1; }
-    .hero-brand { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 750; }
-    .hero-brand .brandmark { width: 42px; height: 42px; background: white; color: var(--navy); font-size: 20px; border-radius: var(--radius); display: grid; place-items: center; font-weight: 800; }
-    .hero-title { font-size: 36px; font-weight: 750; letter-spacing: -1px; line-height: 1.2; margin-bottom: 16px; }
-    .hero-desc { font-size: 15px; line-height: 1.7; opacity: 0.85; max-width: 420px; }
-    .hero-features { display: flex; flex-direction: column; gap: 14px; margin-top: 32px; }
-    .hero-feature { display: flex; align-items: center; gap: 12px; font-size: 14px; opacity: 0.9; }
-    .hero-feature .check { width: 22px; height: 22px; border-radius: 50%; background: rgba(255,255,255,0.15); display: grid; place-items: center; font-size: 12px; flex-shrink: 0; }
-    .hero-footer { font-size: 12px; opacity: 0.6; }
-    .auth-form-side { display: flex; align-items: center; justify-content: center; padding: 40px; }
-    .auth-form-wrap { width: 100%; max-width: 400px; }
-    .auth-form-head { margin-bottom: 32px; }
-    .auth-form-head h1 { font-size: 26px; font-weight: 750; letter-spacing: -0.6px; margin-bottom: 6px; }
-    .auth-form-head p { color: var(--muted); font-size: 14px; }
-    .auth-tabs { display: flex; gap: 4px; background: var(--bg); padding: 4px; border-radius: var(--radius-sm); margin-bottom: 26px; }
-    .auth-tab { flex: 1; padding: 9px; border-radius: 6px; font-weight: 600; font-size: 13px; color: var(--muted); text-align: center; transition: all 0.15s ease; }
-    .auth-tab.active { background: var(--white); color: var(--ink); box-shadow: var(--shadow-sm); }
-    .auth-footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 24px; }
-    .auth-footer a { color: var(--blue); font-weight: 600; }
-    .auth-message { padding: 12px 14px; border-radius: var(--radius-sm); font-size: 13px; margin-bottom: 18px; display: none; }
-    .auth-message.show { display: block; }
-    .auth-message.error { background: var(--red-bg); color: var(--red); border: 1px solid #f0cdd1; }
-    .auth-message.success { background: var(--green-bg); color: var(--green); border: 1px solid #c8ead7; }
-    @media (max-width: 900px) { .auth-page { grid-template-columns: 1fr; } .auth-hero { display: none; } }
-  </style>
 </head>
-<body>
-  <div class="auth-page">
-    <aside class="auth-hero">
-      <div class="hero-brand">
-        <div class="brandmark">T</div>
-        <span>TypeDesk</span>
+<body class="landing-page">
+
+  <!-- Navbar -->
+  <nav class="landing-nav">
+    <div class="landing-logo">
+      <div class="brandmark" style="width:36px; height:36px; background:#2563eb; font-size:18px; border-radius:10px;">T</div>
+      TypeDesk
+    </div>
+    <div class="landing-nav-links">
+      <a href="#">Home</a>
+      <a href="#">Features</a>
+      <a href="#">Challenges</a>
+      <a href="#">Rewards</a>
+      <a href="#">Pricing</a>
+    </div>
+    <div class="nav-auth">
+      <a href="login.html" class="btn btn-secondary" style="border:none; background:transparent; color:#2563eb;">Login</a>
+      <a href="login.html" class="btn btn-primary" style="background:#2563eb; border-radius:30px; padding:10px 24px;">Get Started</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-badge">🚀 Now Live - Earn Rewards While You Type</div>
+      <h1 class="hero-title">Improve Your Typing Skills <br><span>and Earn Rewards!</span></h1>
+      <p class="hero-desc">Master typing speed and accuracy with interactive drills, real-time analytics, and earn rewards you can redeem for gear, subscriptions, and more. Free to start.</p>
+      <div class="hero-btns">
+        <a href="login.html" class="btn btn-primary btn-lg" style="background:#2563eb; border-radius:30px;">↗ Start Typing Free</a>
+        <a href="#" class="btn btn-secondary btn-lg" style="border-radius:30px; background:white;">🎁 Explore Rewards</a>
       </div>
-      <div>
-        <h1 class="hero-title">Master the art of professional typing.</h1>
-        <p class="hero-desc">Join thousands of professionals who improve their typing speed and accuracy with structured practice sessions.</p>
-        <div class="hero-features">
-          <div class="hero-feature"><span class="check">✓</span><span>Structured typing tasks across Science, Business, and Education</span></div>
-          <div class="hero-feature"><span class="check">✓</span><span>Verified typing certificates for your professional profile</span></div>
-          <div class="hero-feature"><span class="check">✓</span><span>Real-time performance tracking and analytics</span></div>
-          <div class="hero-feature"><span class="check">✓</span><span>English and Hindi practice support</span></div>
+      <div class="trusted-by">
+        <div style="display:flex; gap:-5px;">
+          <div style="width:24px; height:24px; background:#cbd5e1; border-radius:50%; border:2px solid white;"></div>
+          <div style="width:24px; height:24px; background:#94a3b8; border-radius:50%; border:2px solid white; margin-left:-8px;"></div>
+          <div style="width:24px; height:24px; background:#64748b; border-radius:50%; border:2px solid white; margin-left:-8px;"></div>
+        </div>
+        Trusted by 10,000+ learners, students, and remote teams worldwide
+      </div>
+    </div>
+
+    <!-- Live Dashboard Panel -->
+    <div class="live-panel">
+      <div class="live-header">
+        <h3>Typing Session — Live Dashboard</h3>
+        <span class="badge">Live · 60s Test</span>
+      </div>
+      <div class="live-stats">
+        <div class="stat-box"><div class="lbl">WPM</div><div class="val" style="color:#2563eb;">78</div></div>
+        <div class="stat-box"><div class="lbl">Accuracy</div><div class="val" style="color:#16a34a;">96.4%</div></div>
+        <div class="stat-box"><div class="lbl">Time</div><div class="val">01:00</div></div>
+      </div>
+      <div class="live-text">
+        the quick brown fox jumps over the lazy dog and <span class="hl">practiced</span> daily to improve flow and rhythm<span class="hl">.</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:12px; color:#64748b; font-weight:600; margin-bottom:4px;">
+        <span>Progress 66%</span><span>2/3</span>
+      </div>
+      <div class="live-progress-bar"><div class="live-progress-fill"></div></div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features-section">
+    <div class="section-subtitle">FEATURES</div>
+    <h2 class="section-title">Everything you need to type faster and smarter</h2>
+    <div class="features-grid">
+      <div class="feat-card"><div class="feat-icon">⏱️</div><h4>Typing Speed</h4><p>Track your WPM over time with detailed charts and personalized drills to boost speed.</p></div>
+      <div class="feat-card"><div class="feat-icon">🎯</div><h4>Accuracy</h4><p>Focus on precision with error breakdowns and smart exercises to reduce mistakes.</p></div>
+      <div class="feat-card"><div class="feat-icon">🎁</div><h4>Rewards</h4><p>Earn points as you practice and redeem them for real rewards in our store.</p></div>
+      <div class="feat-card"><div class="feat-icon">🏆</div><h4>Leaderboard</h4><p>Compete globally or with your team on weekly leaderboards and challenges.</p></div>
+    </div>
+  </section>
+
+  <!-- Bottom Grid (Rewards, Testimonials, Pricing) -->
+  <div class="bottom-grid">
+    <!-- Rewards -->
+    <div class="rewards-box">
+      <div class="section-subtitle" style="font-size:11px;">REWARDS STORE</div>
+      <h3>Redeem your points for real rewards</h3>
+      <p>From mechanical keyboards to learning courses and gift cards — spend your points on items you actually want.</p>
+      <button class="btn btn-secondary" style="background:white; border-radius:30px;">Browse All Rewards →</button>
+    </div>
+
+    <!-- Testimonials -->
+    <div>
+      <div class="section-subtitle" style="text-align:center; font-size:11px;">TESTIMONIALS</div>
+      <h3 style="text-align:center; font-size:20px; font-weight:800; color:#0f172a; margin-bottom:20px;">Loved by typists and teams</h3>
+      <div class="testimonials-grid">
+        <div class="test-card">
+          <div class="stars">★★★★★</div>
+          <p>"TypeDesk made practice fun. I went from 45 to 75 WPM in 3 weeks!"</p>
+          <div class="test-user"><div class="test-avatar"></div><span style="font-size:11px; font-weight:700;">Sarah L. · Designer</span></div>
+        </div>
+        <div class="test-card">
+          <div class="stars">★★★★★</div>
+          <p>"The analytics are incredibly detailed. Our whole team now uses it."</p>
+          <div class="test-user"><div class="test-avatar"></div><span style="font-size:11px; font-weight:700;">Marcus T. · Manager</span></div>
         </div>
       </div>
-      <div class="hero-footer">© 2026 TypeDesk · Professional Typing Workspace</div>
-    </aside>
+    </div>
 
-    <main class="auth-form-side">
-      <div class="auth-form-wrap">
-        <div class="auth-form-head">
-          <h1 id="formTitle">Welcome back</h1>
-          <p id="formSubtitle">Sign in to continue your typing practice.</p>
-        </div>
-
-        <div class="auth-tabs">
-          <button class="auth-tab active" data-mode="signin">Sign In</button>
-          <button class="auth-tab" data-mode="signup">Create Account</button>
-        </div>
-
-        <div id="authMessage" class="auth-message"></div>
-
-        <form id="authForm" autocomplete="on">
-          <div id="nameField" class="form-group hidden">
-            <label class="form-label" for="fullName">Full Name</label>
-            <input class="form-input" id="fullName" type="text" placeholder="Your full name" autocomplete="name">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="email">Email Address</label>
-            <input class="form-input" id="email" type="email" placeholder="you@company.com" required autocomplete="email">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="password">Password</label>
-            <input class="form-input" id="password" type="password" placeholder="••••••••" required autocomplete="current-password">
-            <div class="form-hint" id="passwordHint" style="display:none">Minimum 8 characters</div>
-          </div>
-          <button type="submit" class="btn btn-primary btn-lg btn-full" id="submitBtn">Sign In</button>
-        </form>
-
-        <div class="auth-footer">
-          <span id="footerText">Don't have an account?</span>
-          <a href="#" id="footerLink">Create one</a>
-        </div>
-      </div>
-    </main>
+    <!-- Pricing -->
+    <div class="pricing-box" style="border: 2px solid #2563eb; position:relative;">
+      <span style="position:absolute; top:-12px; right:20px; background:#2563eb; color:white; padding:4px 12px; border-radius:20px; font-size:10px; font-weight:800;">PREMIUM</span>
+      <div class="price-amount">$8<span>/month</span></div>
+      <ul class="price-list">
+        <li>Advanced analytics & insights</li>
+        <li>Unlimited custom tests</li>
+        <li>Priority challenges</li>
+        <li>Exclusive rewards</li>
+      </ul>
+      <a href="login.html" class="btn btn-primary btn-full" style="background:#2563eb; border-radius:30px;">Get Started</a>
+    </div>
   </div>
-<!-- Supabase Library CDN -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script>
-  // 1. APNI SUPABASE KEYS YAHAN DALEIN (Quotes ke andar)
-  const SUPABASE_URL = 'https://garvndmevzmaydwbijin.supabase.co';
-  const SUPABASE_ANON_KEY = 'sb_publishable_DekByJ0YUQANObdBuj2nUA_LFdbompj';
-  
-  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  <!-- Footer -->
+  <footer class="landing-footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo"><div class="brandmark" style="width:30px; height:30px; background:#2563eb; font-size:16px;">T</div> TypeDesk</div>
+        <p class="footer-desc">Join thousands who improve typing skills while earning real rewards.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#">Features</a><a href="#">Challenges</a><a href="#">Rewards</a><a href="#">Pricing</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About Us</a><a href="#">Careers</a><a href="#">Blog</a><a href="#">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 TypeDesk. All rights reserved.</span>
+      <span>Built with ❤️ for typists everywhere</span>
+    </div>
+  </footer>
 
-  let mode = 'signin';
-  const tabs = document.querySelectorAll('.auth-tab');
-  const formTitle = document.getElementById('formTitle');
-  const formSubtitle = document.getElementById('formSubtitle');
-  const nameField = document.getElementById('nameField');
-  const submitBtn = document.getElementById('submitBtn');
-  const footerText = document.getElementById('footerText');
-  const footerLink = document.getElementById('footerLink');
-  const passwordHint = document.getElementById('passwordHint');
-  const authMessage = document.getElementById('authMessage');
-
-  function setMode(newMode) {
-    mode = newMode;
-    tabs.forEach(t => t.classList.toggle('active', t.dataset.mode === newMode));
-    if (mode === 'signin') {
-      formTitle.textContent = 'Welcome back';
-      formSubtitle.textContent = 'Sign in to continue your typing practice.';
-      nameField.classList.add('hidden');
-      submitBtn.textContent = 'Sign In';
-      footerText.textContent = "Don't have an account?";
-      footerLink.textContent = 'Create one';
-      passwordHint.style.display = 'none';
-      document.getElementById('password').setAttribute('autocomplete', 'current-password');
-    } else {
-      formTitle.textContent = 'Create your account';
-      formSubtitle.textContent = 'Start your professional typing journey today.';
-      nameField.classList.remove('hidden');
-      submitBtn.textContent = 'Create Account';
-      footerText.textContent = 'Already have an account?';
-      footerLink.textContent = 'Sign in';
-      passwordHint.style.display = 'block';
-      document.getElementById('password').setAttribute('autocomplete', 'new-password');
-    }
-    hideMessage();
-  }
-
-  tabs.forEach(tab => tab.addEventListener('click', () => setMode(tab.dataset.mode)));
-  footerLink.addEventListener('click', (e) => { e.preventDefault(); setMode(mode === 'signin' ? 'signup' : 'signin'); });
-
-  function showMessage(text, type = 'error') { authMessage.textContent = text; authMessage.className = 'auth-message show ' + type; }
-  function hideMessage() { authMessage.className = 'auth-message'; }
-
-  // 2. SUPABASE AUTHENTICATION LOGIC
-  document.getElementById('authForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value;
-    const fullName = document.getElementById('fullName').value.trim();
-    
-    if (!email || !password) { showMessage('Please fill in all required fields.', 'error'); return; }
-    if (mode === 'signup' && !fullName) { showMessage('Please enter your full name.', 'error'); return; }
-    if (mode === 'signup' && password.length < 8) { showMessage('Password must be at least 8 characters.', 'error'); return; }
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = mode === 'signin' ? 'Signing in...' : 'Creating account...';
-
-    try {
-      if (mode === 'signin') {
-        // REAL SIGN IN
-        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-        
-        showMessage('Success! Redirecting to Dashboard...', 'success');
-setTimeout(() => {
-  window.location.href = 'dashboard.html'; // Dashboard par bhej dein
-}, 1000);
-        
-      } else {
-        // REAL SIGN UP
-        const { data, error } = await supabaseClient.auth.signUp({ 
-          email, 
-          password,
-          options: { data: { full_name: fullName } }
-        });
-        if (error) throw error;
-        
-        showMessage('Account created! Please sign in.', 'success');
-        setTimeout(() => setMode('signin'), 2000);
-      }
-    } catch (err) {
-      showMessage(err.message, 'error');
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = mode === 'signin' ? 'Sign In' : 'Create Account';
-    }
-  });
-        </script>
-  </body> 
-  </html> 
-  
+</body>
+</html>
