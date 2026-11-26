@@ -2,10 +2,181 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=index.html">
-  <title>Redirecting · TypeDesk</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In · TypeDesk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;750;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .auth-page { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; background: var(--bg); }
+    .auth-hero { background: var(--navy); color: white; padding: 60px 56px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
+    .auth-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(40,102,178,0.3) 0%, transparent 50%); pointer-events: none; }
+    .auth-hero > * { position: relative; z-index: 1; }
+    .hero-brand { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 750; }
+    .hero-brand .brandmark { width: 42px; height: 42px; background: white; color: var(--navy); font-size: 20px; border-radius: var(--radius); display: grid; place-items: center; font-weight: 800; }
+    .hero-title { font-size: 36px; font-weight: 750; letter-spacing: -1px; line-height: 1.2; margin-bottom: 16px; }
+    .hero-desc { font-size: 15px; line-height: 1.7; opacity: 0.85; max-width: 420px; }
+    .hero-features { display: flex; flex-direction: column; gap: 14px; margin-top: 32px; }
+    .hero-feature { display: flex; align-items: center; gap: 12px; font-size: 14px; opacity: 0.9; }
+    .hero-feature .check { width: 22px; height: 22px; border-radius: 50%; background: rgba(255,255,255,0.15); display: grid; place-items: center; font-size: 12px; flex-shrink: 0; }
+    .hero-footer { font-size: 12px; opacity: 0.6; }
+    .auth-form-side { display: flex; align-items: center; justify-content: center; padding: 40px; }
+    .auth-form-wrap { width: 100%; max-width: 400px; }
+    .auth-form-head { margin-bottom: 32px; }
+    .auth-form-head h1 { font-size: 26px; font-weight: 750; letter-spacing: -0.6px; margin-bottom: 6px; }
+    .auth-form-head p { color: var(--muted); font-size: 14px; }
+    .auth-tabs { display: flex; gap: 4px; background: var(--bg); padding: 4px; border-radius: var(--radius-sm); margin-bottom: 26px; }
+    .auth-tab { flex: 1; padding: 9px; border-radius: 6px; font-weight: 600; font-size: 13px; color: var(--muted); text-align: center; transition: all 0.15s ease; }
+    .auth-tab.active { background: var(--white); color: var(--ink); box-shadow: var(--shadow-sm); }
+    .auth-footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 24px; }
+    .auth-footer a { color: var(--blue); font-weight: 600; }
+    .auth-message { padding: 12px 14px; border-radius: var(--radius-sm); font-size: 13px; margin-bottom: 18px; display: none; }
+    .auth-message.show { display: block; }
+    .auth-message.error { background: var(--red-bg); color: var(--red); border: 1px solid #f0cdd1; }
+    .auth-message.success { background: var(--green-bg); color: var(--green); border: 1px solid #c8ead7; }
+    @media (max-width: 900px) { .auth-page { grid-template-columns: 1fr; } .auth-hero { display: none; } }
+  </style>
 </head>
 <body>
-  <p>Redirecting to <a href="index.html">TypeDesk</a>…</p>
+  <div class="auth-page">
+    <aside class="auth-hero">
+      <div class="hero-brand">
+        <div class="brandmark">T</div>
+        <span>TypeDesk</span>
+      </div>
+      <div>
+        <h1 class="hero-title">Master the art of professional typing.</h1>
+        <p class="hero-desc">Join thousands of professionals who improve their typing speed and accuracy with structured practice sessions.</p>
+      </div>
+      <div class="hero-footer">© 2026 TypeDesk · Professional Typing Workspace</div>
+    </aside>
+
+    <main class="auth-form-side">
+      <div class="auth-form-wrap">
+        <div class="auth-form-head">
+          <h1 id="formTitle">Welcome back</h1>
+          <p id="formSubtitle">Sign in to continue your typing practice.</p>
+        </div>
+
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-mode="signin">Sign In</button>
+          <button class="auth-tab" data-mode="signup">Create Account</button>
+        </div>
+
+        <div id="authMessage" class="auth-message"></div>
+
+        <form id="authForm" autocomplete="on">
+          <div id="nameField" class="form-group hidden">
+            <label class="form-label" for="fullName">Full Name</label>
+            <input class="form-input" id="fullName" type="text" placeholder="Your full name" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input class="form-input" id="email" type="email" placeholder="you@company.com" required autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <input class="form-input" id="password" type="password" placeholder="••••••••" required autocomplete="current-password">
+            <div class="form-hint" id="passwordHint" style="display:none">Minimum 8 characters</div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg btn-full" id="submitBtn">Sign In</button>
+        </form>
+
+        <div class="auth-footer">
+          <span id="footerText">Don't have an account?</span>
+          <a href="#" id="footerLink">Create one</a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Supabase Script -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // ⚠️ APNI SUPABASE KEYS YAHAN DALEIN
+    const SUPABASE_URL = 'https://garvndmevzmaydwbijin.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_DekByJ0YUQANObdBuj2nUA_LFdbompj';
+    
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    let mode = 'signin';
+    const tabs = document.querySelectorAll('.auth-tab');
+    const formTitle = document.getElementById('formTitle');
+    const formSubtitle = document.getElementById('formSubtitle');
+    const nameField = document.getElementById('nameField');
+    const submitBtn = document.getElementById('submitBtn');
+    const footerText = document.getElementById('footerText');
+    const footerLink = document.getElementById('footerLink');
+    const passwordHint = document.getElementById('passwordHint');
+    const authMessage = document.getElementById('authMessage');
+
+    function setMode(newMode) {
+      mode = newMode;
+      tabs.forEach(t => t.classList.toggle('active', t.dataset.mode === newMode));
+      if (mode === 'signin') {
+        formTitle.textContent = 'Welcome back';
+        formSubtitle.textContent = 'Sign in to continue your typing practice.';
+        nameField.classList.add('hidden');
+        submitBtn.textContent = 'Sign In';
+        footerText.textContent = "Don't have an account?";
+        footerLink.textContent = 'Create one';
+        passwordHint.style.display = 'none';
+      } else {
+        formTitle.textContent = 'Create your account';
+        formSubtitle.textContent = 'Start your professional typing journey today.';
+        nameField.classList.remove('hidden');
+        submitBtn.textContent = 'Create Account';
+        footerText.textContent = 'Already have an account?';
+        footerLink.textContent = 'Sign in';
+        passwordHint.style.display = 'block';
+      }
+      hideMessage();
+    }
+
+    tabs.forEach(tab => tab.addEventListener('click', () => setMode(tab.dataset.mode)));
+    footerLink.addEventListener('click', (e) => { e.preventDefault(); setMode(mode === 'signin' ? 'signup' : 'signin'); });
+
+    function showMessage(text, type = 'error') { authMessage.textContent = text; authMessage.className = 'auth-message show ' + type; }
+    function hideMessage() { authMessage.className = 'auth-message'; }
+
+    document.getElementById('authForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const fullName = document.getElementById('fullName').value.trim();
+      
+      if (!email || !password) { showMessage('Please fill in all required fields.', 'error'); return; }
+      if (mode === 'signup' && !fullName) { showMessage('Please enter your full name.', 'error'); return; }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = mode === 'signin' ? 'Signing in...' : 'Creating account...';
+
+      try {
+        if (mode === 'signin') {
+          const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+          if (error) throw error;
+          
+          showMessage('Success! Redirecting to Dashboard...', 'success');
+          setTimeout(() => { window.location.href = 'dashboard.html'; }, 1000);
+          
+        } else {
+          const { data, error } = await supabaseClient.auth.signUp({ 
+            email, password, options: { data: { full_name: fullName } }
+          });
+          if (error) throw error;
+          
+          showMessage('Account created! Please sign in.', 'success');
+          setTimeout(() => setMode('signin'), 2000);
+        }
+      } catch (err) {
+        showMessage(err.message, 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = mode === 'signin' ? 'Sign In' : 'Create Account';
+      }
+    });
+  </script>
 </body>
 </html>
