@@ -321,7 +321,25 @@ async function finishTest() {
   document.getElementById('resultText').textContent =
     'Speed: ' + wpm + ' WPM · Accuracy: ' +
     accuracy + '% · Characters: ' + typed.length;
-}
+    const saveStatus = document.getElementById('saveStatus');
+
+  const { error } = await supabaseClient
+    .from('typing_results')
+    .insert({
+      user_id: currentUserId,
+      task_id: currentTaskId,
+      wpm: Math.min(500, Math.max(0, wpm)),
+      accuracy: accuracy,
+      characters_typed: typed.length,
+      duration_seconds: Math.max(1, Math.round(elapsed))
+    });
+
+  if (error) {
+    console.error('Result save error:', error);
+    saveStatus.textContent = 'Result could not be saved. Please try again.';
+  } else {
+    saveStatus.textContent = '✓ Your result has been saved!';
+  }
 
 input.addEventListener('input', () => {
   if (finished) return;
