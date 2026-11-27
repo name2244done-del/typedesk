@@ -140,6 +140,7 @@
   <div id="result">
     <h2>Test Completed!</h2>
     <p id="resultText"></p>
+    <p id="saveStatus">Saving result...</p>
   </div>
 </main>
 
@@ -182,7 +183,8 @@ let timeLeft = duration;
 let startTime = null;
 let timerInterval = null;
 let finished = false;
-
+let currentUserId = null;
+let currentTaskId = null;
 async function initialize() {
   const { data: { session }, error } =
     await supabaseClient.auth.getSession();
@@ -190,8 +192,9 @@ async function initialize() {
   if (error || !session) {
     window.location.href = 'login.html';
     return;
+    currentUserId = session.user.id;
   }
-
+currentTaskId = taskId || null;
   const taskId = new URLSearchParams(location.search).get('id');
 
   if (!taskId) {
@@ -286,7 +289,7 @@ function calculate() {
   }
 }
 
-function finishTest() {
+async function finishTest() {
   if (finished) return;
 
   finished = true;
