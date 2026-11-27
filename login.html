@@ -119,7 +119,7 @@ const supabaseClient = window.supabase.createClient(
     const passwordHint = document.getElementById('passwordHint');
   const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
     const authMessage = document.getElementById('authMessage');
-
+  const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
     function setMode(newMode) {
       mode = newMode;
       tabs.forEach(t => t.classList.toggle('active', t.dataset.mode === newMode));
