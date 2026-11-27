@@ -160,7 +160,7 @@ const supabaseClient = window.supabase.createClient(
   config.publishableKey
 );
 
-const passageText =
+let passageText =
   "Typing is an important skill in the modern digital world. " +
   "Regular practice helps improve speed, accuracy and confidence. " +
   "A good typist focuses on the screen instead of looking at the keyboard. " +
@@ -205,7 +205,7 @@ async function initialize() {
   const { data: task, error: taskError } =
     await supabaseClient
       .from('typing_tasks')
-      .select('id,title,category,time_limit_minutes,is_active')
+      .select('id,title,category,time_limit_minutes,is_active,passage_text')
       .eq('id', taskId)
       .eq('is_active', true)
       .maybeSingle();
@@ -218,7 +218,9 @@ async function initialize() {
 
   document.getElementById('taskTitle').textContent =
     task.title + ' · ' + task.category;
-
+if (task.passage_text && task.passage_text.trim()) {
+  passageText = task.passage_text.trim();
+}
   duration = Math.max(
     60,
     Number(task.time_limit_minutes || 1) * 60
