@@ -1,153 +1,266 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TypeDesk · Improve Your Typing Skills</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#eff7ff">
+  <meta name="description" content="TypeDesk helps you build typing speed, accuracy and confidence through typing practice and challenges.">
+  <title>TypeDesk — Master Your Typing Skills</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="landing.css">
 </head>
 <body class="landing-page">
 
-  <!-- Navbar -->
-  <nav class="landing-nav">
-    <div class="landing-logo">
-      <div class="brandmark" style="width:36px; height:36px; background:#2563eb; font-size:18px; border-radius:10px;">T</div>
-      TypeDesk
+<header class="site-header">
+  <nav class="navbar">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">T</span>
+      <span>TypeDesk<span class="logo-dot">.</span></span>
+    </a>
+
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#practice">Practice</a>
+      <a href="#challenges">Challenges</a>
+      <a href="#rewards">Rewards</a>
     </div>
-    <div class="landing-nav-links">
-      <a href="#">Home</a>
-      <a href="#">Features</a>
-      <a href="#">Challenges</a>
-      <a href="#">Rewards</a>
-      <a href="#">Pricing</a>
-    </div>
-    <div class="nav-auth">
-      <a href="login.html" class="btn btn-secondary" style="border:none; background:transparent; color:#2563eb;">Login</a>
-      <a href="login.html" class="btn btn-primary" style="background:#2563eb; border-radius:30px; padding:10px 24px;">Get Started</a>
+
+    <div class="nav-actions">
+      <a href="login.html" class="login-link">Login</a>
+      <a href="login.html" class="button button-primary nav-cta">Get Started <span>→</span></a>
     </div>
   </nav>
+</header>
 
-  <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="hero-content">
-      <div class="hero-badge">🚀 Now Live - Earn Rewards While You Type</div>
-      <h1 class="hero-title">Improve Your Typing Skills <br><span>and Earn Rewards!</span></h1>
-      <p class="hero-desc">Master typing speed and accuracy with interactive drills, real-time analytics, and earn rewards you can redeem for gear, subscriptions, and more. Free to start.</p>
-      <div class="hero-btns">
-        <a href="login.html" class="btn btn-primary btn-lg" style="background:#2563eb; border-radius:30px;">↗ Start Typing Free</a>
-        <a href="#" class="btn btn-secondary btn-lg" style="border-radius:30px; background:white;">🎁 Explore Rewards</a>
-      </div>
-      <div class="trusted-by">
-        <div style="display:flex; gap:-5px;">
-          <div style="width:24px; height:24px; background:#cbd5e1; border-radius:50%; border:2px solid white;"></div>
-          <div style="width:24px; height:24px; background:#94a3b8; border-radius:50%; border:2px solid white; margin-left:-8px;"></div>
-          <div style="width:24px; height:24px; background:#64748b; border-radius:50%; border:2px solid white; margin-left:-8px;"></div>
-        </div>
-        Trusted by 10,000+ learners, students, and remote teams worldwide
-      </div>
+<main>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="eyebrow-pill"><span class="pulse-dot"></span> YOUR JOURNEY TO BETTER TYPING STARTS HERE</div>
+
+    <h1>Type faster.<br>Think smarter.<br><span>Go further.</span></h1>
+
+    <p class="hero-description">
+      Turn everyday typing into a skill. Practice at your own pace,
+      take on challenges and watch your confidence grow with TypeDesk.
+    </p>
+
+    <div class="hero-actions">
+      <a href="login.html" class="button button-primary button-large">Start Typing Free <span>→</span></a>
+      <a href="#features" class="button button-glass button-large">Explore Features <span>↘</span></a>
     </div>
 
-    <!-- Live Dashboard Panel -->
-    <div class="live-panel">
-      <div class="live-header">
-        <h3>Typing Session — Live Dashboard</h3>
-        <span class="badge">Live · 60s Test</span>
-      </div>
-      <div class="live-stats">
-        <div class="stat-box"><div class="lbl">WPM</div><div class="val" style="color:#2563eb;">78</div></div>
-        <div class="stat-box"><div class="lbl">Accuracy</div><div class="val" style="color:#16a34a;">96.4%</div></div>
-        <div class="stat-box"><div class="lbl">Time</div><div class="val">01:00</div></div>
-      </div>
-      <div class="live-text">
-        the quick brown fox jumps over the lazy dog and <span class="hl">practiced</span> daily to improve flow and rhythm<span class="hl">.</span>
-      </div>
-      <div style="display:flex; justify-content:space-between; font-size:12px; color:#64748b; font-weight:600; margin-bottom:4px;">
-        <span>Progress 66%</span><span>2/3</span>
-      </div>
-      <div class="live-progress-bar"><div class="live-progress-fill"></div></div>
-    </div>
-  </section>
-
-  <!-- Features -->
-  <section class="features-section">
-    <div class="section-subtitle">FEATURES</div>
-    <h2 class="section-title">Everything you need to type faster and smarter</h2>
-    <div class="features-grid">
-      <div class="feat-card"><div class="feat-icon">⏱️</div><h4>Typing Speed</h4><p>Track your WPM over time with detailed charts and personalized drills to boost speed.</p></div>
-      <div class="feat-card"><div class="feat-icon">🎯</div><h4>Accuracy</h4><p>Focus on precision with error breakdowns and smart exercises to reduce mistakes.</p></div>
-      <div class="feat-card"><div class="feat-icon">🎁</div><h4>Rewards</h4><p>Earn points as you practice and redeem them for real rewards in our store.</p></div>
-      <div class="feat-card"><div class="feat-icon">🏆</div><h4>Leaderboard</h4><p>Compete globally or with your team on weekly leaderboards and challenges.</p></div>
-    </div>
-  </section>
-
-  <!-- Bottom Grid (Rewards, Testimonials, Pricing) -->
-  <div class="bottom-grid">
-    <!-- Rewards -->
-    <div class="rewards-box">
-      <div class="section-subtitle" style="font-size:11px;">REWARDS STORE</div>
-      <h3>Redeem your points for real rewards</h3>
-      <p>From mechanical keyboards to learning courses and gift cards — spend your points on items you actually want.</p>
-      <button class="btn btn-secondary" style="background:white; border-radius:30px;">Browse All Rewards →</button>
-    </div>
-
-    <!-- Testimonials -->
-    <div>
-      <div class="section-subtitle" style="text-align:center; font-size:11px;">TESTIMONIALS</div>
-      <h3 style="text-align:center; font-size:20px; font-weight:800; color:#0f172a; margin-bottom:20px;">Loved by typists and teams</h3>
-      <div class="testimonials-grid">
-        <div class="test-card">
-          <div class="stars">★★★★★</div>
-          <p>"TypeDesk made practice fun. I went from 45 to 75 WPM in 3 weeks!"</p>
-          <div class="test-user"><div class="test-avatar"></div><span style="font-size:11px; font-weight:700;">Sarah L. · Designer</span></div>
-        </div>
-        <div class="test-card">
-          <div class="stars">★★★★★</div>
-          <p>"The analytics are incredibly detailed. Our whole team now uses it."</p>
-          <div class="test-user"><div class="test-avatar"></div><span style="font-size:11px; font-weight:700;">Marcus T. · Manager</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Pricing -->
-    <div class="pricing-box" style="border: 2px solid #2563eb; position:relative;">
-      <span style="position:absolute; top:-12px; right:20px; background:#2563eb; color:white; padding:4px 12px; border-radius:20px; font-size:10px; font-weight:800;">PREMIUM</span>
-      <div class="price-amount">$8<span>/month</span></div>
-      <ul class="price-list">
-        <li>Advanced analytics & insights</li>
-        <li>Unlimited custom tests</li>
-        <li>Priority challenges</li>
-        <li>Exclusive rewards</li>
-      </ul>
-      <a href="login.html" class="btn btn-primary btn-full" style="background:#2563eb; border-radius:30px;">Get Started</a>
+    <div class="hero-trust">
+      <span class="trust-icon">✦</span>
+      <span>Practice at your pace. Improve one keystroke at a time.</span>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="landing-footer">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-logo"><div class="brandmark" style="width:30px; height:30px; background:#2563eb; font-size:16px;">T</div> TypeDesk</div>
-        <p class="footer-desc">Join thousands who improve typing skills while earning real rewards.</p>
+  <div class="hero-visual">
+    <div class="floating-chip chip-top"><span>⌨</span> Typing practice</div>
+
+    <div class="typing-window">
+      <div class="window-top">
+        <div class="window-dots"><i></i><i></i><i></i></div>
+        <span>TypeDesk · Practice preview</span>
+        <span class="window-status">PREVIEW</span>
       </div>
-      <div class="footer-col">
-        <h4>Product</h4>
-        <a href="#">Features</a><a href="#">Challenges</a><a href="#">Rewards</a><a href="#">Pricing</a>
-      </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <a href="#">About Us</a><a href="#">Careers</a><a href="#">Blog</a><a href="#">Contact</a>
-      </div>
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a>
+
+      <div class="typing-window-body">
+        <div class="preview-label">YOUR NEXT PRACTICE SESSION</div>
+        <h3>Find your typing rhythm.</h3>
+        <p class="preview-copy">The best way to improve is to practice consistently, focus on accuracy and enjoy the process.</p>
+
+        <div class="preview-stats">
+          <div><span>MODE</span><strong>Practice</strong></div>
+          <div><span>FOCUS</span><strong>Accuracy</strong></div>
+          <div><span>LEVEL</span><strong>Your pace</strong></div>
+        </div>
+
+        <div class="keyboard">
+          <div class="key-row">
+            <span>Q</span><span>W</span><span>E</span><span>R</span><span>T</span><span>Y</span><span>U</span><span>I</span><span>O</span><span>P</span>
+          </div>
+          <div class="key-row">
+            <span>A</span><span>S</span><span>D</span><span>F</span><span>G</span><span>H</span><span>J</span><span>K</span><span>L</span>
+          </div>
+          <div class="key-row">
+            <span>Z</span><span>X</span><span>C</span><span>V</span><span>B</span><span>N</span><span>M</span>
+          </div>
+          <div class="space-key"></div>
+        </div>
+
+        <div class="preview-bottom"><span>Designed for focused practice</span><span>✦ TypeDesk</span></div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>© 2024 TypeDesk. All rights reserved.</span>
-      <span>Built with ❤️ for typists everywhere</span>
+
+    <div class="floating-chip chip-bottom"><span>✦</span> Every keystroke counts</div>
+  </div>
+</section>
+
+<section class="trust-strip">
+  <span>BUILT FOR YOUR TYPING JOURNEY</span>
+  <div><b>⌨</b> Practice</div>
+  <div><b>◎</b> Accuracy</div>
+  <div><b>⚡</b> Challenges</div>
+  <div><b>✦</b> Progress</div>
+</section>
+
+<section class="section features-section" id="features">
+  <div class="section-heading">
+    <span class="section-kicker">WHY TYPEDESK</span>
+    <h2>Everything you need to<br><span>level up your typing.</span></h2>
+    <p>A simple and engaging space to build better typing habits.</p>
+  </div>
+
+  <div class="feature-grid">
+    <article class="feature-card">
+      <div class="feature-icon icon-blue">⌨</div>
+      <span class="feature-number">01</span>
+      <h3>Typing Practice</h3>
+      <p>Build your skills with focused typing exercises and practice tasks.</p>
+      <a href="#practice">Explore practice <span>→</span></a>
+    </article>
+
+    <article class="feature-card">
+      <div class="feature-icon icon-purple">◎</div>
+      <span class="feature-number">02</span>
+      <h3>Accuracy First</h3>
+      <p>Develop better control and make every keystroke count.</p>
+      <a href="#practice">Improve accuracy <span>→</span></a>
+    </article>
+
+    <article class="feature-card">
+      <div class="feature-icon icon-cyan">⚡</div>
+      <span class="feature-number">03</span>
+      <h3>Challenges</h3>
+      <p>Explore available typing tasks and challenge yourself.</p>
+      <a href="#challenges">View challenges <span>→</span></a>
+    </article>
+
+    <article class="feature-card">
+      <div class="feature-icon icon-gold">✦</div>
+      <span class="feature-number">04</span>
+      <h3>Points & Rewards</h3>
+      <p>Earn points through eligible tasks and follow your progress.</p>
+      <a href="#rewards">Explore rewards <span>→</span></a>
+    </article>
+  </div>
+</section>
+
+<section class="practice-section" id="practice">
+  <div class="practice-inner">
+    <div class="practice-copy">
+      <span class="section-kicker">YOUR WAY TO PRACTICE</span>
+      <h2>Start simple.<br><span>Grow stronger.</span></h2>
+      <p>Choose the kind of typing practice that suits your learning journey.</p>
+      <a href="login.html" class="button button-primary">Start Practicing <span>→</span></a>
     </div>
-  </footer>
+
+    <div class="practice-options">
+      <div class="practice-option">
+        <span class="option-icon">⌨</span>
+        <div><strong>Words</strong><small>Build your foundations</small></div>
+        <span class="option-arrow">↗</span>
+      </div>
+      <div class="practice-option">
+        <span class="option-icon">☷</span>
+        <div><strong>Sentences</strong><small>Improve your flow</small></div>
+        <span class="option-arrow">↗</span>
+      </div>
+      <div class="practice-option">
+        <span class="option-icon">▤</span>
+        <div><strong>Paragraphs</strong><small>Practice longer passages</small></div>
+        <span class="option-arrow">↗</span>
+      </div>
+      <div class="practice-option">
+        <span class="option-icon">✎</span>
+        <div><strong>Custom practice</strong><small>Choose your own text</small></div>
+        <span class="option-arrow">↗</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section challenge-section" id="challenges">
+  <div class="challenge-banner">
+    <div>
+      <span class="section-kicker">READY FOR A CHALLENGE?</span>
+      <h2>Make every session<br>count.</h2>
+      <p>Sign in to explore available typing tasks and earn points.</p>
+      <a href="login.html" class="button button-white">Explore Challenges <span>→</span></a>
+    </div>
+    <div class="challenge-art" aria-hidden="true">
+      <div class="orbit orbit-one"></div>
+      <div class="orbit orbit-two"></div>
+      <div class="trophy">🏆</div>
+      <span class="spark spark-one">✦</span>
+      <span class="spark spark-two">✧</span>
+    </div>
+  </div>
+</section>
+
+<section class="section rewards-section" id="rewards">
+  <div class="rewards-content">
+    <div class="reward-symbol">✦</div>
+    <span class="section-kicker">YOUR EFFORT MATTERS</span>
+    <h2>Practice. Earn points.<br><span>Keep moving forward.</span></h2>
+    <p>TypeDesk includes a points system for eligible typing tasks. Sign in to see your available points and explore your progress.</p>
+    <a href="login.html" class="button button-primary">Get Started <span>→</span></a>
+  </div>
+  <div class="reward-visual">
+    <div class="reward-orb">✦</div>
+    <div class="reward-card">
+      <span>YOUR POINTS</span>
+      <strong>✦ Points</strong>
+      <small>Check your account after signing in</small>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <span class="section-kicker">THE NEXT KEYSTROKE IS YOURS</span>
+  <h2>Ready to build a better<br><span>typing habit?</span></h2>
+  <p>Your typing journey starts with one small step.</p>
+  <a href="login.html" class="button button-primary button-large">Join TypeDesk <span>→</span></a>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-main">
+    <div class="footer-brand">
+      <a href="index.html" class="logo footer-logo"><span class="logo-icon">T</span><span>TypeDesk<span class="logo-dot">.</span></span></a>
+      <p>A focused space to practice, improve and grow your typing skills.</p>
+    </div>
+    <div class="footer-column">
+      <h4>Explore</h4>
+      <a href="#features">Features</a>
+      <a href="#practice">Practice</a>
+      <a href="#challenges">Challenges</a>
+    </div>
+    <div class="footer-column">
+      <h4>Account</h4>
+      <a href="login.html">Login</a>
+      <a href="login.html">Get Started</a>
+      <a href="#rewards">Points & Rewards</a>
+    </div>
+    <div class="footer-column">
+      <h4>TypeDesk</h4>
+      <a href="index.html">Home</a>
+      <a href="#features">About the features</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 TypeDesk. All rights reserved.</span>
+    <span>Made for better typing. <b>✦</b></span>
+  </div>
+</footer>
 
 </body>
 </html>
