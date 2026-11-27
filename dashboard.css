@@ -1,1 +1,314 @@
 
+/* =========================================
+   TYPEDESK — WHITE BLUE GLASSMORPHISM
+   Dashboard Design System
+========================================= */
+
+:root {
+  --td-blue: #087bfa;
+  --td-cyan: #16c8f5;
+  --td-navy: #10265c;
+  --td-text: #142653;
+  --td-muted: #60749c;
+  --td-glass: rgba(255,255,255,.58);
+  --td-border: rgba(255,255,255,.85);
+  --td-shadow: 0 12px 35px rgba(40,110,220,.13);
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 10% 10%, #c8e6ff 0, transparent 40%),
+    radial-gradient(ellipse at 90% 15%, #c5d9ff 0, transparent 38%),
+    linear-gradient(135deg,#eaf6ff,#dceaff,#f5f9ff) !important;
+  color: var(--td-text);
+  min-height: 100vh;
+}
+
+.dash-container {
+  width: min(1500px,100%) !important;
+  max-width: 1500px !important;
+  margin: auto !important;
+  padding: 24px !important;
+}
+
+/* Glass panels */
+
+.dash-nav,
+.wallet-card,
+.m-card,
+.task-card {
+  background: var(--td-glass) !important;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border: 1px solid var(--td-border) !important;
+  box-shadow: var(--td-shadow) !important;
+  border-radius: 24px !important;
+}
+
+/* Top navigation */
+
+.dash-nav {
+  padding: 15px 22px !important;
+  min-height: 76px;
+  margin-bottom: 28px !important;
+}
+
+.user-profile {
+  gap: 13px !important;
+}
+
+.avatar-circle {
+  width: 48px !important;
+  height: 48px !important;
+  background: linear-gradient(135deg,#08a9ff,#185bea) !important;
+  color: white !important;
+  box-shadow: 0 5px 15px #168bfa55;
+}
+
+#userName {
+  color: var(--td-navy) !important;
+  font-size: 16px !important;
+}
+
+#logoutBtn {
+  border-radius: 30px !important;
+  background: white !important;
+  border: 1px solid #c9e1ff !important;
+  color: var(--td-blue) !important;
+}
+
+/* Hero */
+
+.hero-text {
+  padding: 30px 32px;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 85% 50%,#b8dcff 0,transparent 35%),
+    linear-gradient(120deg,rgba(255,255,255,.88),rgba(216,237,255,.72));
+  border: 1px solid white;
+  box-shadow: var(--td-shadow);
+  margin-bottom: 24px;
+}
+
+.hero-text h1 {
+  color: var(--td-navy) !important;
+  font-size: clamp(27px,3vw,42px) !important;
+  letter-spacing: -1.2px;
+}
+
+.hero-text h1 span {
+  color: var(--td-blue) !important;
+}
+
+.hero-text p {
+  color: var(--td-muted) !important;
+  font-size: 15px !important;
+}
+
+/* Wallet */
+
+.wallet-card {
+  background:
+    radial-gradient(circle at 85% 15%,#43c8ff99,transparent 35%),
+    linear-gradient(125deg,#087bfa,#1454d9) !important;
+  color: white !important;
+  padding: 26px !important;
+  margin: 0 0 24px !important;
+  border-radius: 25px !important;
+  box-shadow: 0 14px 35px #1477ef40 !important;
+}
+
+.wallet-coins {
+  font-size: 38px !important;
+  color: white !important;
+}
+
+.progress-track {
+  background: #ffffff44 !important;
+}
+
+.progress-fill {
+  background: #8df2ff !important;
+}
+
+.history-btn {
+  background: white !important;
+  color: var(--td-blue) !important;
+  border-radius: 30px !important;
+  padding: 11px 22px !important;
+}
+
+/* Statistics */
+
+.metric-row {
+  grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+  gap: 18px !important;
+  margin-bottom: 30px !important;
+}
+
+.m-card {
+  padding: 22px !important;
+  gap: 16px !important;
+  min-height: 110px;
+}
+
+.m-icon {
+  width: 52px !important;
+  height: 52px !important;
+  border-radius: 17px !important;
+  background: linear-gradient(135deg,#d7efff,#b8d9ff) !important;
+  color: var(--td-blue) !important;
+}
+
+.m-icon.green {
+  background: linear-gradient(135deg,#d9fff1,#b5f4dc) !important;
+  color: #0baf78 !important;
+}
+
+.m-data h4 {
+  color: var(--td-muted) !important;
+  font-size: 13px !important;
+}
+
+.m-data .val {
+  color: var(--td-navy) !important;
+  font-size: 25px !important;
+}
+
+/* Challenges */
+
+.section-head {
+  color: var(--td-navy) !important;
+  font-size: 22px !important;
+  margin: 26px 0 18px !important;
+}
+
+.task-grid {
+  grid-template-columns: repeat(auto-fit,minmax(230px,1fr)) !important;
+  gap: 18px !important;
+}
+
+.task-card {
+  padding: 24px !important;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.task-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px #3988e52a !important;
+}
+
+.task-card .icon {
+  font-size: 38px !important;
+}
+
+.task-card h3 {
+  color: var(--td-navy) !important;
+}
+
+.task-card p {
+  color: var(--td-muted) !important;
+}
+
+.task-card .coins {
+  color: #db9a16 !important;
+}
+
+.task-card .btn-primary {
+  background: linear-gradient(110deg,#13baf5,#1263ed) !important;
+  color: white !important;
+  border-radius: 30px !important;
+  padding: 12px !important;
+  box-shadow: 0 6px 18px #1477ef40;
+}
+
+/* Tablet */
+
+@media (min-width: 601px) and (max-width: 950px) {
+  .dash-container {
+    padding: 18px !important;
+  }
+
+  .task-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  .dash-container {
+    padding: 14px 12px 28px !important;
+  }
+
+  .dash-nav {
+    flex-direction: row !important;
+    text-align: left !important;
+    padding: 12px 14px !important;
+    margin-bottom: 18px !important;
+    gap: 8px !important;
+  }
+
+  .avatar-circle {
+    width: 42px !important;
+    height: 42px !important;
+  }
+
+  .hero-text {
+    padding: 23px 19px;
+    border-radius: 23px;
+  }
+
+  .hero-text h1 {
+    font-size: 27px !important;
+  }
+
+  .hero-text p {
+    font-size: 13px !important;
+  }
+
+  .wallet-card {
+    padding: 21px !important;
+  }
+
+  .wallet-coins {
+    font-size: 32px !important;
+  }
+
+  .metric-row {
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+    gap: 10px !important;
+  }
+
+  .m-card {
+    flex-direction: column !important;
+    text-align: center !important;
+    padding: 15px 8px !important;
+    gap: 8px !important;
+    min-height: 120px;
+  }
+
+  .m-icon {
+    width: 43px !important;
+    height: 43px !important;
+    font-size: 20px !important;
+  }
+
+  .m-data .val {
+    font-size: 21px !important;
+  }
+
+  .task-grid {
+    grid-template-columns: 1fr !important;
+    gap: 13px !important;
+  }
+
+  .task-card {
+    padding: 20px !important;
+  }
+
+  .section-head {
+    font-size: 19px !important;
+  }
+}
+
