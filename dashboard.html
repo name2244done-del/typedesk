@@ -298,6 +298,53 @@
       document.getElementById('metricSessions').textContent =
         sessionCount ?? 0;
     }
+            const activityBox = document.getElementById('recentActivity');
+
+    const { data: recentResults, error: activityError } =
+      await supabaseClient
+        .from('typing_results')
+        .select('wpm, accuracy, characters_typed, duration_seconds, task_id, created_at')
+        .eq('user_id', session.user.id)
+        .order('created_at', { ascending: false })
+        .limit(5);
+
+    if (activityError) {
+      console.error('Recent activity error:', activityError);
+      activityBox.textContent = 'Could not load recent activity.';
+    } else if (!recentResults || recentResults.length === 0) {
+      activityBox.textContent = 'No typing sessions completed yet.';
+    } else {
+      activityBox.replaceChildren();
+
+      recentResults.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'activity-item';
+
+        const details = document.createElement('div');
+        const title = document.createElement('strong');
+        const date = document.createElement('small');
+
+        title.textContent = item.task_id
+          ? 'Typing Challenge'
+          : 'Free Practice';
+
+        date.textContent = new Date(item.created_at).toLocaleString();
+
+        details.append(title, date);
+
+        const score = document.createElement('div');
+        const speed = document.createElement('strong');
+        const accuracy = document.createElement('small');
+
+        speed.textContent = item.wpm + ' WPM';
+        accuracy.textContent =
+          Number(item.accuracy).toFixed(0) + '% Accuracy';
+
+        score.append(speed, accuracy);
+        row.append(details, score);
+        activityBox.appendChild(row);
+      });
+    }
     await loadTasks();
   }
 
