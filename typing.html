@@ -190,12 +190,14 @@ async function initialize() {
     await supabaseClient.auth.getSession();
 
   if (error || !session) {
-    window.location.href = 'login.html';
-    return;
-    currentUserId = session.user.id;
-  }
+  window.location.href = 'login.html';
+  return;
+}
+
+currentUserId = session.user.id;
+
+const taskId = new URLSearchParams(location.search).get('id');
 currentTaskId = taskId || null;
-  const taskId = new URLSearchParams(location.search).get('id');
 
   if (!taskId) {
     document.getElementById('taskTitle').textContent =
