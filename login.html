@@ -122,6 +122,8 @@ const supabaseClient = window.supabase.createClient(
   
     function setMode(newMode) {
       mode = newMode;
+            forgotPasswordBtn.style.display =
+        mode === 'signin' ? 'block' : 'none';
       tabs.forEach(t => t.classList.toggle('active', t.dataset.mode === newMode));
       if (mode === 'signin') {
         formTitle.textContent = 'Welcome back';
