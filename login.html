@@ -95,12 +95,12 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-config.js"></script>
 <script>
-    // ⚠️ APNI SUPABASE KEYS YAHAN DALEIN
-    const SUPABASE_URL = 'https://garvndmevzmaydwbijin.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_DekByJ0YUQANObdBuj2nUA_LFdbompj';
-    
-    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const config = window.TYPEDESK_SUPABASE_CONFIG;
 
+const supabaseClient = window.supabase.createClient(
+  config.url,
+  config.publishableKey
+);
     let mode = 'signin';
     const tabs = document.querySelectorAll('.auth-tab');
     const formTitle = document.getElementById('formTitle');
