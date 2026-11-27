@@ -129,12 +129,14 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    // ⚠️ APNI SUPABASE KEYS YAHAN DALEIN
-    const SUPABASE_URL = 'YAHAN_APNA_PROJECT_URL_DALEIN';
-    const SUPABASE_ANON_KEY = 'YAHAN_APNI_ANON_KEY_DALEIN';
-    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+<script src="supabase-config.js"></script>
+<script>
+    const config = window.TYPEDESK_SUPABASE_CONFIG;
 
+const supabaseClient = window.supabase.createClient(
+  config.url,
+  config.publishableKey
+);
     async function initDashboard() {
       const { data: { session }, error } = await supabaseClient.auth.getSession();
       if (error || !session) { window.location.href = 'login.html'; return; }
