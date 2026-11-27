@@ -150,7 +150,42 @@ const supabaseClient = window.supabase.createClient(
 
     function showMessage(text, type = 'error') { authMessage.textContent = text; authMessage.className = 'auth-message show ' + type; }
     function hideMessage() { authMessage.className = 'auth-message'; }
+    forgotPasswordBtn.addEventListener('click', async () => {
+      const email = document.getElementById('email').value.trim();
 
+      if (!email) {
+        showMessage('Please enter your email address first.', 'error');
+        return;
+      }
+
+      forgotPasswordBtn.disabled = true;
+      forgotPasswordBtn.textContent = 'Sending...';
+
+      try {
+        const redirectTo = new URL(
+          'reset-password.html',
+          window.location.href
+        ).href;
+
+        const { error } = await supabaseClient.auth.resetPasswordForEmail(
+          email,
+          { redirectTo }
+        );
+
+        if (error) throw error;
+
+        showMessage(
+          'If an account exists for this email, a password reset link has been sent.',
+          'success'
+        );
+
+      } catch (error) {
+        showMessage(error.message || 'Could not send reset email.', 'error');
+      } finally {
+        forgotPasswordBtn.disabled = false;
+        forgotPasswordBtn.textContent = 'Forgot password?';
+      }
+    });
     document.getElementById('authForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('email').value.trim();
