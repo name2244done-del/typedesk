@@ -241,7 +241,30 @@
     } catch (e) {
       console.log('Profile fetch error:', e);
     }
+    const { data: latestResult, error: resultError } =
+      await supabaseClient
+        .from('typing_results')
+        .select('wpm, accuracy, created_at')
+        .eq('user_id', session.user.id)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
 
+    if (resultError) {
+      console.error('Typing statistics error:', resultError);
+    } else if (latestResult) {
+      document.getElementById('metricWpm').textContent =
+        latestResult.wpm;
+
+      document.getElementById('metricAccuracy').textContent =
+        Number(latestResult.accuracy).toFixed(0) + '%';
+
+      document.getElementById('metricWpmNote').textContent =
+        'Latest saved session';
+
+      document.getElementById('metricAccuracyNote').textContent =
+        'Latest typing accuracy';
+    }
     await loadTasks();
   }
 
