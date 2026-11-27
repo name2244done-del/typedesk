@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Practice · TypeDesk</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      min-height: 100vh;
+      padding: 24px;
+      background: #f2f7ff;
+      font-family: Inter, Arial, sans-serif;
+    }
+    .practice {
+      max-width: 850px;
+      margin: 35px auto;
+      padding: 28px;
+      border: 1px solid #fff;
+      border-radius: 22px;
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 15px 45px #315b9015;
+    }
+    .top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 12px;
+      margin: 22px 0;
+    }
+    .stat {
+      padding: 16px;
+      background: #f1f6ff;
+      border-radius: 14px;
+    }
+    .stat strong {
+      display: block;
+      font-size: 25px;
+      color: #3478f6;
+    }
+    .passage {
+      padding: 22px;
+      border-radius: 14px;
+      background: #f7faff;
+      color: #344b6a;
+      line-height: 2;
+      font-size: 16px;
+      margin-bottom: 18px;
+    }
+    textarea {
+      width: 100%;
+      min-height: 150px;
+      padding: 16px;
+      border: 1px solid #d8e5f5;
+      border-radius: 13px;
+      font: inherit;
+      resize: vertical;
+      outline: none;
+    }
+    textarea:focus {
+      border-color: #3478f6;
+      box-shadow: 0 0 0 3px #3478f620;
+    }
+    button {
+      margin-top: 16px;
+      padding: 13px 22px;
+      border: 0;
+      border-radius: 10px;
+      background: #3478f6;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+    #result {
+      display: none;
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 14px;
+      background: #eaf7f0;
+      color: #176b49;
+    }
+    @media(max-width:550px) {
+      body { padding: 12px; }
+      .practice { padding: 18px; }
+      .stats { gap: 7px; }
+      .stat { padding: 10px; }
+      .stat strong { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<main class="practice">
+  <div class="top">
+    <div>
+      <h1>Typing Practice</h1>
+      <p id="taskTitle">Loading challenge...</p>
+    </div>
+    <a href="dashboard.html">← Dashboard</a>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <span>Time Left</span>
+      <strong id="timer">--:--</strong>
+    </div>
+    <div class="stat">
+      <span>Speed</span>
+      <strong id="wpm">0</strong>
+      <small>WPM</small>
+    </div>
+    <div class="stat">
+      <span>Accuracy</span>
+      <strong id="accuracy">100%</strong>
+    </div>
+  </div>
+
+  <div class="passage" id="passage">
+    Loading typing passage...
+  </div>
+
+  <textarea
+    id="typingInput"
+    placeholder="Start typing the passage here..."
+    disabled
+  ></textarea>
+
+  <button id="restartBtn" type="button">Restart Test</button>
+
+  <div id="result">
+    <h2>Test Completed!</h2>
+    <p id="resultText"></p>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+
+<script>
+const config = window.TYPEDESK_SUPABASE_CONFIG;
+
+if (!config || !config.url || !config.publishableKey) {
+  document.getElementById('taskTitle').textContent =
+    'Configuration unavailable.';
+  throw new Error('Supabase configuration missing.');
+}
+
+const supabaseClient = window.supabase.createClient(
+  config.url,
+  config.publishableKey
+);
+
+const passageText =
+  "Typing is an important skill in the modern digital world. " +
+  "Regular practice helps improve speed, accuracy and confidence. " +
+  "A good typist focuses on the screen instead of looking at the keyboard. " +
+  "Start slowly and maintain a comfortable rhythm. " +
+  "With patience and consistent practice, your typing skills can improve. " +
+  "Technology makes communication faster and helps people complete " +
+  "their daily work more efficiently. Learning a new skill takes time, " +
+  "but small improvements every day can create excellent results.";
+
+const input = document.getElementById('typingInput');
+const passage = document.getElementById('passage');
+const timerDisplay = document.getElementById('timer');
+const wpmDisplay = document.getElementById('wpm');
+const accuracyDisplay = document.getElementById('accuracy');
+const result = document.getElementById('result');
+
+let duration = 60;
+let timeLeft = duration;
+let startTime = null;
+let timerInterval = null;
+let finished = false;
+
+async function initialize() {
+  const { data: { session }, error } =
+    await supabaseClient.auth.getSession();
+
+  if (error || !session) {
+    window.location.href = 'login.html';
+    return;
+  }
+
+  const taskId = new URLSearchParams(location.search).get('id');
+
+  if (!taskId) {
+    document.getElementById('taskTitle').textContent =
+      'Free Practice';
+    input.disabled = false;
+    startTest();
+    return;
+  }
+
+  const { data: task, error: taskError } =
+    await supabaseClient
+      .from('typing_tasks')
+      .select('id,title,category,time_limit_minutes,is_active')
+      .eq('id', taskId)
+      .eq('is_active', true)
+      .maybeSingle();
+
+  if (taskError || !task) {
+    document.getElementById('taskTitle').textContent =
+      'Challenge unavailable.';
+    return;
+  }
+
+  document.getElementById('taskTitle').textContent =
+    task.title + ' · ' + task.category;
+
+  duration = Math.max(
+    60,
+    Number(task.time_limit_minutes || 1) * 60
+  );
+
+  input.disabled = false;
+  startTest();
+}
+
+function startTest() {
+  clearInterval(timerInterval);
+
+  timeLeft = duration;
+  startTime = null;
+  finished = false;
+
+  input.value = '';
+  input.disabled = false;
+  passage.textContent = passageText;
+  result.style.display = 'none';
+
+  wpmDisplay.textContent = '0';
+  accuracyDisplay.textContent = '100%';
+  updateTimer();
+
+  input.focus();
+}
+
+function updateTimer() {
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+
+  timerDisplay.textContent =
+    String(minutes).padStart(2,'0') + ':' +
+    String(seconds).padStart(2,'0');
+}
+
+function calculate() {
+  const typed = input.value;
+  const elapsed = startTime
+    ? Math.max(1, (Date.now() - startTime) / 1000)
+    : 1;
+
+  let correct = 0;
+
+  for (let i = 0; i < typed.length; i++) {
+    if (typed[i] === passageText[i]) correct++;
+  }
+
+  const accuracy = typed.length
+    ? Math.round((correct / typed.length) * 100)
+    : 100;
+
+  const wpm = Math.round(
+    (typed.length / 5) / (elapsed / 60)
+  );
+
+  wpmDisplay.textContent = wpm;
+  accuracyDisplay.textContent = accuracy + '%';
+
+  if (typed.length >= passageText.length) {
+    finishTest();
+  }
+}
+
+function finishTest() {
+  if (finished) return;
+
+  finished = true;
+  clearInterval(timerInterval);
+  input.disabled = true;
+
+  const elapsed = startTime
+    ? Math.max(1, (Date.now() - startTime) / 1000)
+    : 1;
+
+  const typed = input.value;
+  let correct = 0;
+
+  for (let i = 0; i < typed.length; i++) {
+    if (typed[i] === passageText[i]) correct++;
+  }
+
+  const accuracy = typed.length
+    ? Math.round((correct / typed.length) * 100)
+    : 100;
+
+  const wpm = Math.round(
+    (typed.length / 5) / (elapsed / 60)
+  );
+
+  result.style.display = 'block';
+  document.getElementById('resultText').textContent =
+    'Speed: ' + wpm + ' WPM · Accuracy: ' +
+    accuracy + '% · Characters: ' + typed.length;
+}
+
+input.addEventListener('input', () => {
+  if (finished) return;
+
+  if (!startTime) {
+    startTime = Date.now();
+
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      updateTimer();
+
+      if (timeLeft <= 0) finishTest();
+    }, 1000);
+  }
+
+  calculate();
+});
+
+document.getElementById('restartBtn')
+  .addEventListener('click', startTest);
+
+initialize();
+</script>
+
+</body>
+</html>
