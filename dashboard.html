@@ -273,6 +273,18 @@
       document.getElementById('metricAccuracyNote').textContent =
         'Latest typing accuracy';
     }
+            const { count: sessionCount, error: sessionCountError } =
+      await supabaseClient
+        .from('typing_results')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', session.user.id);
+
+    if (sessionCountError) {
+      console.error('Session count error:', sessionCountError);
+    } else {
+      document.getElementById('metricSessions').textContent =
+        sessionCount ?? 0;
+    }
     await loadTasks();
   }
 
