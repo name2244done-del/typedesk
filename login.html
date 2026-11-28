@@ -1,114 +1,599 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#edf5ff">
   <title>Sign In · TypeDesk</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;750;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+
   <style>
-    .auth-page { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; background: var(--bg); }
-    .auth-hero { background: var(--navy); color: white; padding: 60px 56px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
-    .auth-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(40,102,178,0.3) 0%, transparent 50%); pointer-events: none; }
-    .auth-hero > * { position: relative; z-index: 1; }
-    .hero-brand { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 750; }
-    .hero-brand .brandmark { width: 42px; height: 42px; background: white; color: var(--navy); font-size: 20px; border-radius: var(--radius); display: grid; place-items: center; font-weight: 800; }
-    .hero-title { font-size: 36px; font-weight: 750; letter-spacing: -1px; line-height: 1.2; margin-bottom: 16px; }
-    .hero-desc { font-size: 15px; line-height: 1.7; opacity: 0.85; max-width: 420px; }
-    .hero-features { display: flex; flex-direction: column; gap: 14px; margin-top: 32px; }
-    .hero-feature { display: flex; align-items: center; gap: 12px; font-size: 14px; opacity: 0.9; }
-    .hero-feature .check { width: 22px; height: 22px; border-radius: 50%; background: rgba(255,255,255,0.15); display: grid; place-items: center; font-size: 12px; flex-shrink: 0; }
-    .hero-footer { font-size: 12px; opacity: 0.6; }
-    .auth-form-side { display: flex; align-items: center; justify-content: center; padding: 40px; }
-    .auth-form-wrap { width: 100%; max-width: 400px; }
-    .auth-form-head { margin-bottom: 32px; }
-    .auth-form-head h1 { font-size: 26px; font-weight: 750; letter-spacing: -0.6px; margin-bottom: 6px; }
-    .auth-form-head p { color: var(--muted); font-size: 14px; }
-    .auth-tabs { display: flex; gap: 4px; background: var(--bg); padding: 4px; border-radius: var(--radius-sm); margin-bottom: 26px; }
-    .auth-tab { flex: 1; padding: 9px; border-radius: 6px; font-weight: 600; font-size: 13px; color: var(--muted); text-align: center; transition: all 0.15s ease; }
-    .auth-tab.active { background: var(--white); color: var(--ink); box-shadow: var(--shadow-sm); }
-    .auth-footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 24px; }
-    .auth-footer a { color: var(--blue); font-weight: 600; }
-    .auth-message { padding: 12px 14px; border-radius: var(--radius-sm); font-size: 13px; margin-bottom: 18px; display: none; }
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      background:
+        radial-gradient(circle at 8% 12%, #d4ebff 0, transparent 35%),
+        radial-gradient(circle at 90% 85%, #dce7ff 0, transparent 35%),
+        linear-gradient(135deg,#edf7ff,#f5f8ff);
+      color: #20385f;
+      font-family: Inter, sans-serif;
+    }
+
+    .auth-page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+      align-items: center;
+      gap: 45px;
+      max-width: 1440px;
+      margin: auto;
+      padding: 55px 7%;
+    }
+
+    /* Left information panel */
+
+    .auth-hero {
+      position: relative;
+      min-height: 590px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 43px;
+      border: 1px solid rgba(255,255,255,.95);
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at 85% 20%,#b7e4ff 0,transparent 34%),
+        linear-gradient(140deg,rgba(255,255,255,.95),rgba(218,237,255,.78));
+      box-shadow: 0 20px 55px rgba(52,112,190,.12);
+    }
+
+    .auth-hero::after {
+      content: "⌨";
+      position: absolute;
+      right: -20px;
+      bottom: 55px;
+      color: rgba(45,126,221,.10);
+      font-size: 230px;
+      font-weight: 800;
+      transform: rotate(-12deg);
+      pointer-events: none;
+    }
+
+    .hero-brand {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #173b67;
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: -.7px;
+    }
+
+    .brandmark {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: linear-gradient(135deg,#20baf2,#1763e9);
+      color: white;
+      font-size: 23px;
+      box-shadow: 0 8px 18px #1685ed35;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 480px;
+      padding: 45px 0;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border: 1px solid white;
+      border-radius: 30px;
+      background: rgba(255,255,255,.75);
+      color: #2478d5;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .hero-title {
+      margin: 22px 0 15px;
+      color: #173b67;
+      font-size: clamp(34px,4vw,48px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1.8px;
+    }
+
+    .hero-title span { color: #2478e5; }
+
+    .hero-desc {
+      max-width: 410px;
+      color: #7185a7;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .hero-features {
+      display: grid;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .hero-feature {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #526d92;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .hero-feature .check {
+      width: 27px;
+      height: 27px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      border-radius: 9px;
+      background: #e0f3ff;
+      color: #1686e9;
+      font-size: 13px;
+    }
+
+    .hero-footer {
+      position: relative;
+      z-index: 1;
+      color: #91a3bd;
+      font-size: 10px;
+    }
+
+    /* Right form panel */
+
+    .auth-form-side {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .auth-form-wrap {
+      width: 100%;
+      max-width: 440px;
+      padding: 38px;
+      border: 1px solid rgba(255,255,255,.98);
+      border-radius: 26px;
+      background: rgba(255,255,255,.76);
+      box-shadow: 0 20px 55px rgba(52,112,190,.12);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+    }
+
+    .mobile-brand {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 30px;
+      color: #173b67;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .mobile-brand .brandmark {
+      width: 38px;
+      height: 38px;
+      font-size: 19px;
+    }
+
+    .auth-form-head { margin-bottom: 25px; }
+
+    .form-eyebrow {
+      color: #2478d5;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.3px;
+    }
+
+    .auth-form-head h1 {
+      margin: 10px 0 7px;
+      color: #173b67;
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -.9px;
+    }
+
+    .auth-form-head p {
+      color: #8293af;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .auth-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      padding: 5px;
+      margin-bottom: 23px;
+      border: 1px solid #e8f0fb;
+      border-radius: 14px;
+      background: #edf5ff;
+    }
+
+    .auth-tab {
+      min-height: 41px;
+      padding: 9px;
+      border: 0;
+      border-radius: 10px;
+      background: transparent;
+      color: #8193ae;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .auth-tab.active {
+      background: white;
+      color: #176fe0;
+      box-shadow: 0 3px 10px rgba(52,112,190,.10);
+    }
+
+    .form-group { margin-bottom: 18px; }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      color: #526d92;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .form-input {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 15px;
+      border: 1px solid #dce8f7;
+      border-radius: 12px;
+      outline: none;
+      background: rgba(255,255,255,.88);
+      color: #20385f;
+      font-size: 13px;
+      transition: .2s ease;
+    }
+
+    .form-input::placeholder { color: #a7b5c9; }
+
+    .form-input:focus {
+      border-color: #3988ef;
+      box-shadow: 0 0 0 4px rgba(52,120,246,.10);
+      background: white;
+    }
+
+    .form-hint {
+      margin-top: 7px;
+      color: #8293af;
+      font-size: 10px;
+    }
+
+    .forgot-password {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+      padding: 3px 0;
+      border: 0;
+      background: transparent;
+      color: #2478e5;
+      text-align: right;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .forgot-password:hover { color: #1557c9; }
+
+    .forgot-password:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    .auth-submit {
+      width: 100%;
+      min-height: 49px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      margin-top: 9px;
+      border: 0;
+      border-radius: 13px;
+      background: linear-gradient(110deg,#19baf0,#1764e9);
+      color: white;
+      font-size: 12px;
+      font-weight: 800;
+      box-shadow: 0 8px 19px rgba(27,112,229,.25);
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .auth-submit:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(27,112,229,.32);
+    }
+
+    .auth-submit:disabled {
+      opacity: .65;
+      cursor: wait;
+    }
+
+    .auth-message {
+      display: none;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      border-radius: 11px;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
     .auth-message.show { display: block; }
-    .auth-message.error { background: var(--red-bg); color: var(--red); border: 1px solid #f0cdd1; }
-    .auth-message.success { background: var(--green-bg); color: var(--green); border: 1px solid #c8ead7; }
-    @media (max-width: 900px) { .auth-page { grid-template-columns: 1fr; } .auth-hero { display: none; } }
+
+    .auth-message.error {
+      border: 1px solid #f0cdd1;
+      background: #fff1f2;
+      color: #b83b4b;
+    }
+
+    .auth-message.success {
+      border: 1px solid #c8ead7;
+      background: #e9f7f0;
+      color: #16845b;
+    }
+
+    .auth-footer {
+      margin-top: 23px;
+      color: #8293af;
+      text-align: center;
+      font-size: 11px;
+    }
+
+    .auth-footer a {
+      margin-left: 4px;
+      color: #2478e5;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .auth-footer a:hover { text-decoration: underline; }
+
+    .security-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      margin-top: 25px;
+      color: #9aa9bd;
+      font-size: 10px;
+    }
+
+    @media (max-width: 900px) {
+      .auth-page {
+        grid-template-columns: 1fr;
+        max-width: 560px;
+        padding: 35px 22px;
+      }
+
+      .auth-hero { display: none; }
+
+      .auth-form-wrap {
+        max-width: 470px;
+        padding: 35px;
+      }
+
+      .mobile-brand { display: flex; }
+    }
+
+    @media (max-width: 480px) {
+      .auth-page { padding: 18px 13px; }
+
+      .auth-form-wrap {
+        padding: 25px 20px;
+        border-radius: 21px;
+      }
+
+      .auth-form-head h1 { font-size: 24px; }
+
+      .auth-tabs { margin-bottom: 20px; }
+    }
   </style>
 </head>
+
 <body>
   <div class="auth-page">
+
     <aside class="auth-hero">
-      <div class="hero-brand">
-        <div class="brandmark">T</div>
+      <a class="hero-brand" href="index.html">
+        <span class="brandmark">T</span>
         <span>TypeDesk</span>
+      </a>
+
+      <div class="hero-content">
+        <span class="hero-badge">✦ YOUR TYPING WORKSPACE</span>
+
+        <h1 class="hero-title">
+          Build speed.<br>
+          Improve <span>accuracy.</span>
+        </h1>
+
+        <p class="hero-desc">
+          Make every keystroke count. Practice typing, track your performance
+          and work towards your personal goals with TypeDesk.
+        </p>
+
+        <div class="hero-features">
+          <div class="hero-feature">
+            <span class="check">✓</span>
+            Track typing speed and accuracy
+          </div>
+
+          <div class="hero-feature">
+            <span class="check">✓</span>
+            Practice with structured challenges
+          </div>
+
+          <div class="hero-feature">
+            <span class="check">✓</span>
+            Monitor your progress over time
+          </div>
+        </div>
       </div>
-      <div>
-        <h1 class="hero-title">Master the art of professional typing.</h1>
-        <p class="hero-desc">Join thousands of professionals who improve their typing speed and accuracy with structured practice sessions.</p>
+
+      <div class="hero-footer">
+        © 2026 TypeDesk · Professional Typing Workspace
       </div>
-      <div class="hero-footer">© 2026 TypeDesk · Professional Typing Workspace</div>
     </aside>
 
     <main class="auth-form-side">
       <div class="auth-form-wrap">
+
+        <a class="mobile-brand" href="index.html">
+          <span class="brandmark">T</span>
+          <span>TypeDesk</span>
+        </a>
+
         <div class="auth-form-head">
+          <span class="form-eyebrow">WELCOME TO TYPEDESK</span>
           <h1 id="formTitle">Welcome back</h1>
-          <p id="formSubtitle">Sign in to continue your typing practice.</p>
+          <p id="formSubtitle">
+            Sign in to continue your typing practice.
+          </p>
         </div>
 
         <div class="auth-tabs">
-          <button class="auth-tab active" data-mode="signin">Sign In</button>
-          <button class="auth-tab" data-mode="signup">Create Account</button>
+          <button type="button" class="auth-tab active" data-mode="signin">
+            Sign In
+          </button>
+
+          <button type="button" class="auth-tab" data-mode="signup">
+            Create Account
+          </button>
         </div>
 
-        <div id="authMessage" class="auth-message"></div>
+        <div id="authMessage" class="auth-message" role="status" aria-live="polite"></div>
 
         <form id="authForm" autocomplete="on">
+
           <div id="nameField" class="form-group hidden">
             <label class="form-label" for="fullName">Full Name</label>
-            <input class="form-input" id="fullName" type="text" placeholder="Your full name" autocomplete="name">
+            <input
+              class="form-input"
+              id="fullName"
+              type="text"
+              placeholder="Enter your full name"
+              autocomplete="name"
+            >
           </div>
+
           <div class="form-group">
             <label class="form-label" for="email">Email Address</label>
-            <input class="form-input" id="email" type="email" placeholder="you@company.com" required autocomplete="email">
+            <input
+              class="form-input"
+              id="email"
+              type="email"
+              placeholder="you@example.com"
+              required
+              autocomplete="email"
+            >
           </div>
+
           <div class="form-group">
             <label class="form-label" for="password">Password</label>
-            <input class="form-input" id="password" type="password" placeholder="••••••••" required autocomplete="current-password">
-            <div class="form-hint" id="passwordHint" style="display:none">Minimum 8 characters</div>
+            <input
+              class="form-input"
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              required
+              autocomplete="current-password"
+            >
+
+            <div class="form-hint" id="passwordHint" style="display:none">
+              Minimum 8 characters
+            </div>
+
             <button
-  type="button"
-  id="forgotPasswordBtn"
-  style="display:block;margin-top:9px;width:100%;text-align:right;color:var(--blue);font-size:12px;font-weight:600;"
->
-  Forgot password?
+              type="button"
+              id="forgotPasswordBtn"
+              class="forgot-password"
+            >
+              Forgot password?
             </button>
           </div>
-          <button type="submit" class="btn btn-primary btn-lg btn-full" id="submitBtn">Sign In</button>
+
+          <button
+            type="submit"
+            class="auth-submit"
+            id="submitBtn"
+          >
+            Sign In <span>→</span>
+          </button>
+
         </form>
 
         <div class="auth-footer">
           <span id="footerText">Don't have an account?</span>
           <a href="#" id="footerLink">Create one</a>
         </div>
+
+        <div class="security-note">
+          <span>🔒</span>
+          Secure authentication powered by Supabase
+        </div>
+
       </div>
     </main>
+
   </div>
 
-  <!-- Supabase Script -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase-config.js"></script>
-<script>
+  <script src="supabase-config.js"></script>
+
+  <script>
     const config = window.TYPEDESK_SUPABASE_CONFIG;
 
-const supabaseClient = window.supabase.createClient(
-  config.url,
-  config.publishableKey
-);
+    if (!config || !config.url || !config.publishableKey) {
+      document.getElementById('authMessage').textContent =
+        'Authentication configuration is unavailable. Please try again later.';
+
+      document.getElementById('authMessage').className =
+        'auth-message show error';
+
+      document.getElementById('submitBtn').disabled = true;
+
+      throw new Error('TypeDesk Supabase configuration is missing.');
+    }
+
+    const supabaseClient = window.supabase.createClient(
+      config.url,
+      config.publishableKey
+    );
+
     let mode = 'signin';
+
     const tabs = document.querySelectorAll('.auth-tab');
     const formTitle = document.getElementById('formTitle');
     const formSubtitle = document.getElementById('formSubtitle');
@@ -117,44 +602,86 @@ const supabaseClient = window.supabase.createClient(
     const footerText = document.getElementById('footerText');
     const footerLink = document.getElementById('footerLink');
     const passwordHint = document.getElementById('passwordHint');
-  const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
+    const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
     const authMessage = document.getElementById('authMessage');
-  
+
     function setMode(newMode) {
       mode = newMode;
-            forgotPasswordBtn.style.display =
+
+      forgotPasswordBtn.style.display =
         mode === 'signin' ? 'block' : 'none';
-      tabs.forEach(t => t.classList.toggle('active', t.dataset.mode === newMode));
+
+      tabs.forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.mode === newMode);
+      });
+
       if (mode === 'signin') {
         formTitle.textContent = 'Welcome back';
-        formSubtitle.textContent = 'Sign in to continue your typing practice.';
+        formSubtitle.textContent =
+          'Sign in to continue your typing practice.';
+
         nameField.classList.add('hidden');
-        submitBtn.textContent = 'Sign In';
+        submitBtn.innerHTML = 'Sign In <span>→</span>';
+
         footerText.textContent = "Don't have an account?";
         footerLink.textContent = 'Create one';
+
         passwordHint.style.display = 'none';
+        document.getElementById('password').autocomplete =
+          'current-password';
+
       } else {
         formTitle.textContent = 'Create your account';
-        formSubtitle.textContent = 'Start your professional typing journey today.';
+        formSubtitle.textContent =
+          'Start your professional typing journey today.';
+
         nameField.classList.remove('hidden');
-        submitBtn.textContent = 'Create Account';
+        submitBtn.innerHTML = 'Create Account <span>→</span>';
+
         footerText.textContent = 'Already have an account?';
         footerLink.textContent = 'Sign in';
+
         passwordHint.style.display = 'block';
+        document.getElementById('password').autocomplete =
+          'new-password';
       }
+
       hideMessage();
     }
 
-    tabs.forEach(tab => tab.addEventListener('click', () => setMode(tab.dataset.mode)));
-    footerLink.addEventListener('click', (e) => { e.preventDefault(); setMode(mode === 'signin' ? 'signup' : 'signin'); });
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        setMode(tab.dataset.mode);
+      });
+    });
 
-    function showMessage(text, type = 'error') { authMessage.textContent = text; authMessage.className = 'auth-message show ' + type; }
-    function hideMessage() { authMessage.className = 'auth-message'; }
+    footerLink.addEventListener('click', event => {
+      event.preventDefault();
+
+      setMode(mode === 'signin' ? 'signup' : 'signin');
+    });
+
+    function showMessage(text, type = 'error') {
+      authMessage.textContent = text;
+      authMessage.className = 'auth-message show ' + type;
+    }
+
+    function hideMessage() {
+      authMessage.className = 'auth-message';
+      authMessage.textContent = '';
+    }
+
+    /* Forgot password */
+
     forgotPasswordBtn.addEventListener('click', async () => {
       const email = document.getElementById('email').value.trim();
 
       if (!email) {
-        showMessage('Please enter your email address first.', 'error');
+        showMessage(
+          'Please enter your email address first.',
+          'error'
+        );
+        document.getElementById('email').focus();
         return;
       }
 
@@ -167,10 +694,11 @@ const supabaseClient = window.supabase.createClient(
           window.location.href
         ).href;
 
-        const { error } = await supabaseClient.auth.resetPasswordForEmail(
-          email,
-          { redirectTo }
-        );
+        const { error } =
+          await supabaseClient.auth.resetPasswordForEmail(
+            email,
+            { redirectTo }
+          );
 
         if (error) throw error;
 
@@ -180,49 +708,119 @@ const supabaseClient = window.supabase.createClient(
         );
 
       } catch (error) {
-        showMessage(error.message || 'Could not send reset email.', 'error');
+        showMessage(
+          error.message || 'Could not send reset email.',
+          'error'
+        );
+
       } finally {
         forgotPasswordBtn.disabled = false;
         forgotPasswordBtn.textContent = 'Forgot password?';
       }
     });
-    document.getElementById('authForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-      const fullName = document.getElementById('fullName').value.trim();
-      
-      if (!email || !password) { showMessage('Please fill in all required fields.', 'error'); return; }
-      if (mode === 'signup' && !fullName) { showMessage('Please enter your full name.', 'error'); return; }
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = mode === 'signin' ? 'Signing in...' : 'Creating account...';
+    /* Sign in and account creation */
 
-      try {
-        if (mode === 'signin') {
-          const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-          if (error) throw error;
-          
-          showMessage('Success! Redirecting to Dashboard...', 'success');
-          setTimeout(() => { window.location.href = 'dashboard.html'; }, 1000);
-          
-        } else {
-          const { data, error } = await supabaseClient.auth.signUp({ 
-            email, password, options: { data: { full_name: fullName } }
-          });
-          if (error) throw error;
-          
-          showMessage('Account created! Please sign in.', 'success');
-          setTimeout(() => setMode('signin'), 2000);
+    document.getElementById('authForm').addEventListener(
+      'submit',
+      async event => {
+        event.preventDefault();
+
+        const email =
+          document.getElementById('email').value.trim();
+
+        const password =
+          document.getElementById('password').value;
+
+        const fullName =
+          document.getElementById('fullName').value.trim();
+
+        if (!email || !password) {
+          showMessage(
+            'Please fill in all required fields.',
+            'error'
+          );
+          return;
         }
-      } catch (err) {
-        showMessage(err.message, 'error');
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = mode === 'signin' ? 'Sign In' : 'Create Account';
-      }
-    });
-  </script>
-<script src="desktop-notice.js"></script>  
-</body>
-</html>
+
+        if (mode === 'signup' && !fullName) {
+          showMessage(
+            'Please enter your full name.',
+            'error'
+          );
+          return;
+        }
+
+        if (mode === 'signup' && password.length < 8) {
+          showMessage(
+            'Password must be at least 8 characters long.',
+            'error'
+          );
+          return;
+        }
+
+        submitBtn.disabled = true;
+        forgotPasswordBtn.disabled = true;
+
+        submitBtn.textContent =
+          mode === 'signin'
+            ? 'Signing in...'
+            : 'Creating account...';
+
+        try {
+          if (mode === 'signin') {
+            const { error } =
+              await supabaseClient.auth.signInWithPassword({
+                email,
+                password
+              });
+
+            if (error) throw error;
+
+            showMessage(
+              'Success! Redirecting to Dashboard...',
+              'success'
+            );
+
+            setTimeout(() => {
+              window.location.href = 'dashboard.html';
+            }, 1000);
+
+          } else {
+            const { error } =
+              await supabaseClient.auth.signUp({
+                email,
+                password,
+                options: {
+                  data: {
+                    full_name: fullName
+                  }
+                }
+              });
+
+            if (error) throw error;
+
+            showMessage(
+              'Account created! Please sign in.',
+              'success'
+            );
+
+            setTimeout(() => {
+              setMode('signin');
+            }, 2000);
+          }
+
+        } catch (error) {
+          showMessage(
+            error.message || 'Authentication failed. Please try again.',
+            'error'
+          );
+
+        } finally {
+          submitBtn.disabled = false;
+          forgotPasswordBtn.disabled = false;
+
+          submitBtn.innerHTML =
+            mode === 'signin'
+              ? 'Sign In <span>→</span>'
+            
