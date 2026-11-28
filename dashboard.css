@@ -185,6 +185,42 @@ button {
   margin-bottom: 25px;
 }
 
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.topbar-subtitle {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.quick-practice-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 43px;
+  padding: 0 19px;
+  border: 1px solid rgba(255,255,255,.9);
+  border-radius: 14px;
+  background: linear-gradient(110deg,#18baf2,#1764ed);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 7px 17px #1477ef30;
+  transition: .2s ease;
+}
+
+.quick-practice-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px #1477ef45;
+}
+
 .topbar-title {
   margin-top: 6px;
   font-size: 23px;
