@@ -911,12 +911,15 @@ button {
 }
 
 .progress-icon {
-  width: 37px;
-  height: 37px;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
   display: grid;
   place-items: center;
-  border-radius: 12px;
-  background: #edf5ff;
+  border: 1px solid rgba(52, 120, 246, 0.12);
+  border-radius: 13px;
+  background: linear-gradient(145deg, #edf5ff, #ffffff);
+  box-shadow: 0 4px 12px rgba(52, 120, 246, 0.08);
   font-size: 18px;
 }
 
