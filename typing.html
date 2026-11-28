@@ -1,147 +1,480 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Typing Practice · TypeDesk</title>
+  <meta name="theme-color" content="#f3f7ff">
+  <title>Typing Practice | TypeDesk</title>
+
   <link rel="stylesheet" href="styles.css">
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
+      margin: 0;
       min-height: 100vh;
       padding: 24px;
-      background: #f2f7ff;
       font-family: Inter, Arial, sans-serif;
+      color: #19345a;
+      background:
+        radial-gradient(circle at 10% 5%, #dceaff 0, transparent 32%),
+        radial-gradient(circle at 90% 90%, #e2efff 0, transparent 35%),
+        #f4f8ff;
     }
-    .practice {
-      max-width: 850px;
-      margin: 35px auto;
-      padding: 28px;
-      border: 1px solid #fff;
-      border-radius: 22px;
-      background: rgba(255,255,255,.9);
-      box-shadow: 0 15px 45px #315b9015;
+
+    .practice-shell {
+      max-width: 1050px;
+      margin: 20px auto;
     }
-    .top {
+
+    .topbar {
       display: flex;
       justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 25px;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 22px;
     }
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 12px;
-      margin: 22px 0;
+
+    .brand {
+      font-size: 23px;
+      font-weight: 800;
+      color: #2469db;
+      letter-spacing: -.7px;
     }
-    .stat {
-      padding: 16px;
-      background: #f1f6ff;
-      border-radius: 14px;
-    }
-    .stat strong {
-      display: block;
-      font-size: 25px;
+
+    .back-link {
+      text-decoration: none;
       color: #3478f6;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 11px 16px;
+      border: 1px solid #dce8fa;
+      border-radius: 12px;
+      background: rgba(255,255,255,.8);
     }
+
+    .practice-card {
+      padding: 30px;
+      border: 1px solid rgba(255,255,255,.95);
+      border-radius: 25px;
+      background: rgba(255,255,255,.88);
+      box-shadow: 0 18px 55px rgba(48,91,150,.10);
+      backdrop-filter: blur(16px);
+    }
+
+    .heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: #3478f6;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: #17365f;
+      font-size: 29px;
+      letter-spacing: -.8px;
+    }
+
+    #taskTitle {
+      margin: 9px 0 0;
+      color: #7185a2;
+      font-size: 14px;
+    }
+
+    .live-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 12px;
+      border: 1px solid #d9f0e5;
+      border-radius: 30px;
+      background: #f0fbf5;
+      color: #21845a;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #27b878;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin: 28px 0 22px;
+    }
+
+    .stat-card {
+      padding: 19px;
+      border: 1px solid #e4edfa;
+      border-radius: 17px;
+      background: linear-gradient(145deg, #fff, #f3f7ff);
+    }
+
+    .stat-label {
+      display: block;
+      margin-bottom: 10px;
+      color: #7185a2;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .stat-value {
+      color: #286de5;
+      font-size: 29px;
+      font-weight: 800;
+      letter-spacing: -.8px;
+    }
+
+    .stat-unit {
+      margin-left: 5px;
+      color: #8a9bb3;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .progress-section {
+      margin: 0 0 25px;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 9px;
+      color: #7286a2;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .progress-track {
+      height: 8px;
+      overflow: hidden;
+      border-radius: 20px;
+      background: #e9f0fb;
+    }
+
+    #progressBar {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #3478f6, #61a4ff);
+      transition: width .2s ease;
+    }
+
+    .section-label {
+      margin: 0 0 12px;
+      color: #526b8c;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
     .passage {
-      padding: 22px;
-      border-radius: 14px;
-      background: #f7faff;
-      color: #344b6a;
-      line-height: 2;
-      font-size: 16px;
-      margin-bottom: 18px;
-    }
-    textarea {
-      width: 100%;
       min-height: 150px;
-      padding: 16px;
-      border: 1px solid #d8e5f5;
-      border-radius: 13px;
-      font: inherit;
-      resize: vertical;
-      outline: none;
+      padding: 23px;
+      border: 1px solid #e2ebf9;
+      border-radius: 17px;
+      background: #f7faff;
+      color: #506987;
+      font-size: 16px;
+      line-height: 2;
+      overflow-wrap: anywhere;
     }
+
+    .typing-area {
+      margin-top: 23px;
+    }
+
+    textarea {
+      display: block;
+      width: 100%;
+      min-height: 170px;
+      padding: 19px;
+      border: 1px solid #dce7f7;
+      border-radius: 16px;
+      outline: none;
+      resize: vertical;
+      background: #fff;
+      color: #243f62;
+      font: inherit;
+      font-size: 15px;
+      line-height: 1.8;
+      transition: border .2s, box-shadow .2s;
+    }
+
     textarea:focus {
       border-color: #3478f6;
-      box-shadow: 0 0 0 3px #3478f620;
+      box-shadow: 0 0 0 4px rgba(52,120,246,.10);
     }
-    button {
-      margin-top: 16px;
-      padding: 13px 22px;
-      border: 0;
-      border-radius: 10px;
-      background: #3478f6;
-      color: white;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    button:disabled {
-      opacity: .5;
+
+    textarea:disabled {
+      background: #f5f8fd;
       cursor: not-allowed;
     }
+
+    .input-hint {
+      margin: 9px 2px 0;
+      color: #91a0b6;
+      font-size: 12px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .action-btn {
+      min-height: 46px;
+      padding: 0 22px;
+      border: 0;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .primary-btn {
+      color: #fff;
+      background: linear-gradient(135deg, #3478f6, #2465dc);
+      box-shadow: 0 7px 18px rgba(52,120,246,.22);
+    }
+
+    .secondary-btn {
+      color: #3478f6;
+      border: 1px solid #dce8fa;
+      background: #f5f8ff;
+    }
+
+    .action-btn:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
     #result {
       display: none;
-      margin-top: 20px;
-      padding: 18px;
-      border-radius: 14px;
-      background: #eaf7f0;
-      color: #176b49;
+      margin-top: 25px;
+      padding: 24px;
+      border: 1px solid #d7ecdf;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #f0fbf5, #f8fffb);
     }
-    @media(max-width:550px) {
-      body { padding: 12px; }
-      .practice { padding: 18px; }
-      .stats { gap: 7px; }
-      .stat { padding: 10px; }
-      .stat strong { font-size: 20px; }
+
+    #result h2 {
+      margin: 0 0 10px;
+      color: #19764d;
+      font-size: 22px;
+    }
+
+    #resultText {
+      margin: 0;
+      color: #39745b;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    #saveStatus {
+      margin: 12px 0 0;
+      color: #39745b;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    @media(max-width: 650px) {
+      body {
+        padding: 12px;
+      }
+
+      .practice-shell {
+        margin: 8px auto;
+      }
+
+      .practice-card {
+        padding: 19px;
+        border-radius: 20px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .stats-grid {
+        gap: 8px;
+        margin: 22px 0 19px;
+      }
+
+      .stat-card {
+        padding: 13px 10px;
+      }
+
+      .stat-value {
+        font-size: 23px;
+      }
+
+      .stat-label {
+        font-size: 11px;
+      }
+
+      .passage {
+        padding: 16px;
+        font-size: 14px;
+      }
+
+      textarea {
+        min-height: 155px;
+        padding: 15px;
+        font-size: 14px;
+      }
+
+      .action-btn {
+        flex: 1;
+        padding: 0 13px;
+      }
+    }
+
+    @media(max-width: 370px) {
+      .stat-value {
+        font-size: 20px;
+      }
+
+      .brand {
+        font-size: 20px;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<main class="practice">
-  <div class="top">
-    <div>
-      <h1>Typing Practice</h1>
-      <p id="taskTitle">Loading challenge...</p>
+<main class="practice-shell">
+
+  <header class="topbar">
+    <div class="brand">TypeDesk</div>
+    <a class="back-link" href="dashboard.html">← Dashboard</a>
+  </header>
+
+  <section class="practice-card">
+
+    <div class="heading">
+      <div>
+        <p class="eyebrow">Typing workspace</p>
+        <h1>Typing Practice</h1>
+        <p id="taskTitle">Loading challenge...</p>
+      </div>
+
+      <div class="live-label">
+        <span class="live-dot"></span>
+        Practice session
+      </div>
     </div>
-    <a href="dashboard.html">← Dashboard</a>
-  </div>
 
-  <div class="stats">
-    <div class="stat">
-      <span>Time Left</span>
-      <strong id="timer">--:--</strong>
+    <div class="stats-grid">
+
+      <div class="stat-card">
+        <span class="stat-label">Time Left</span>
+        <strong class="stat-value" id="timer">--:--</strong>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-label">Typing Speed</span>
+        <strong class="stat-value" id="wpm">0</strong>
+        <span class="stat-unit">WPM</span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-label">Accuracy</span>
+        <strong class="stat-value" id="accuracy">100%</strong>
+      </div>
+
     </div>
-    <div class="stat">
-      <span>Speed</span>
-      <strong id="wpm">0</strong>
-      <small>WPM</small>
+
+    <div class="progress-section">
+      <div class="progress-info">
+        <span>Typing progress</span>
+        <span id="progressText">0%</span>
+      </div>
+
+      <div class="progress-track">
+        <div id="progressBar"></div>
+      </div>
     </div>
-    <div class="stat">
-      <span>Accuracy</span>
-      <strong id="accuracy">100%</strong>
+
+    <p class="section-label">PASSAGE TO TYPE</p>
+
+    <div class="passage" id="passage">
+      Loading typing passage...
     </div>
-  </div>
 
-  <div class="passage" id="passage">
-    Loading typing passage...
-  </div>
+    <div class="typing-area">
+      <p class="section-label">YOUR TYPING AREA</p>
 
-  <textarea
-    id="typingInput"
-    placeholder="Start typing the passage here..."
-    disabled
-  ></textarea>
+      <textarea
+        id="typingInput"
+        placeholder="Start typing the passage here..."
+        disabled
+        spellcheck="false"
+        autocomplete="off"
+        autocapitalize="off"
+      ></textarea>
 
-  <button id="restartBtn" type="button">Restart Test</button>
+      <p class="input-hint">
+        Your timer starts automatically when you begin typing.
+      </p>
+    </div>
 
-  <div id="result">
-    <h2>Test Completed!</h2>
-    <p id="resultText"></p>
-    <p id="saveStatus">Saving result...</p>
-  </div>
+    <div class="actions">
+      <button
+        class="action-btn primary-btn"
+        id="finishBtn"
+        type="button"
+        disabled
+      >
+        Finish Test
+      </button>
+
+      <button
+        class="action-btn secondary-btn"
+        id="restartBtn"
+        type="button"
+        disabled
+      >
+        Restart Test
+      </button>
+    </div>
+
+    <div id="result">
+      <h2>Test Completed!</h2>
+      <p id="resultText"></p>
+      <p id="saveStatus">Saving result...</p>
+    </div>
+
+  </section>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -177,6 +510,10 @@ const timerDisplay = document.getElementById('timer');
 const wpmDisplay = document.getElementById('wpm');
 const accuracyDisplay = document.getElementById('accuracy');
 const result = document.getElementById('result');
+const progressBar = document.getElementById('progressBar');
+const progressText = document.getElementById('progressText');
+const finishBtn = document.getElementById('finishBtn');
+const restartBtn = document.getElementById('restartBtn');
 
 let duration = 60;
 let timeLeft = duration;
@@ -185,24 +522,28 @@ let timerInterval = null;
 let finished = false;
 let currentUserId = null;
 let currentTaskId = null;
+
 async function initialize() {
   const { data: { session }, error } =
     await supabaseClient.auth.getSession();
 
   if (error || !session) {
-  window.location.href = 'login.html';
-  return;
-}
+    window.location.href = 'login.html';
+    return;
+  }
 
-currentUserId = session.user.id;
+  currentUserId = session.user.id;
 
-const taskId = new URLSearchParams(location.search).get('id');
-currentTaskId = taskId || null;
+  const taskId = new URLSearchParams(location.search).get('id');
+  currentTaskId = taskId || null;
 
   if (!taskId) {
     document.getElementById('taskTitle').textContent =
       'Free Practice';
+
     input.disabled = false;
+    restartBtn.disabled = false;
+    finishBtn.disabled = false;
     startTest();
     return;
   }
@@ -223,15 +564,20 @@ currentTaskId = taskId || null;
 
   document.getElementById('taskTitle').textContent =
     task.title + ' · ' + task.category;
-if (task.passage_text && task.passage_text.trim()) {
-  passageText = task.passage_text.trim();
-}
+
+  if (task.passage_text && task.passage_text.trim()) {
+    passageText = task.passage_text.trim();
+  }
+
   duration = Math.max(
     60,
     Number(task.time_limit_minutes || 1) * 60
   );
 
   input.disabled = false;
+  restartBtn.disabled = false;
+  finishBtn.disabled = false;
+
   startTest();
 }
 
@@ -244,11 +590,18 @@ function startTest() {
 
   input.value = '';
   input.disabled = false;
+  input.maxLength = passageText.length;
+
   passage.textContent = passageText;
   result.style.display = 'none';
 
   wpmDisplay.textContent = '0';
   accuracyDisplay.textContent = '100%';
+
+  progressBar.style.width = '0%';
+  progressText.textContent = '0%';
+
+  finishBtn.disabled = false;
   updateTimer();
 
   input.focus();
@@ -259,8 +612,8 @@ function updateTimer() {
   const seconds = timeLeft % 60;
 
   timerDisplay.textContent =
-    String(minutes).padStart(2,'0') + ':' +
-    String(seconds).padStart(2,'0');
+    String(minutes).padStart(2, '0') + ':' +
+    String(seconds).padStart(2, '0');
 }
 
 function calculate() {
@@ -272,7 +625,9 @@ function calculate() {
   let correct = 0;
 
   for (let i = 0; i < typed.length; i++) {
-    if (typed[i] === passageText[i]) correct++;
+    if (typed[i] === passageText[i]) {
+      correct++;
+    }
   }
 
   const accuracy = typed.length
@@ -283,8 +638,15 @@ function calculate() {
     (typed.length / 5) / (elapsed / 60)
   );
 
+  const progress = passageText.length
+    ? Math.round((typed.length / passageText.length) * 100)
+    : 0;
+
   wpmDisplay.textContent = wpm;
   accuracyDisplay.textContent = accuracy + '%';
+
+  progressBar.style.width = progress + '%';
+  progressText.textContent = progress + '%';
 
   if (typed.length >= passageText.length) {
     finishTest();
@@ -296,7 +658,9 @@ async function finishTest() {
 
   finished = true;
   clearInterval(timerInterval);
+
   input.disabled = true;
+  finishBtn.disabled = true;
 
   const elapsed = startTime
     ? Math.max(1, (Date.now() - startTime) / 1000)
@@ -306,7 +670,9 @@ async function finishTest() {
   let correct = 0;
 
   for (let i = 0; i < typed.length; i++) {
-    if (typed[i] === passageText[i]) correct++;
+    if (typed[i] === passageText[i]) {
+      correct++;
+    }
   }
 
   const accuracy = typed.length
@@ -318,10 +684,12 @@ async function finishTest() {
   );
 
   result.style.display = 'block';
+
   document.getElementById('resultText').textContent =
     'Speed: ' + wpm + ' WPM · Accuracy: ' +
     accuracy + '% · Characters: ' + typed.length;
-    const saveStatus = document.getElementById('saveStatus');
+
+  const saveStatus = document.getElementById('saveStatus');
 
   const { error } = await supabaseClient
     .from('typing_results')
@@ -336,11 +704,14 @@ async function finishTest() {
 
   if (error) {
     console.error('Result save error:', error);
-    saveStatus.textContent = 'Result could not be saved. Please try again.';
+    saveStatus.textContent =
+      'Result could not be saved. Please try again.';
   } else {
-    saveStatus.textContent = '✓ Your result has been saved!';
+    saveStatus.textContent =
+      '✓ Your result has been saved!';
   }
 }
+
 input.addEventListener('input', () => {
   if (finished) return;
 
@@ -351,15 +722,18 @@ input.addEventListener('input', () => {
       timeLeft--;
       updateTimer();
 
-      if (timeLeft <= 0) finishTest();
+      if (timeLeft <= 0) {
+        finishTest();
+      }
     }, 1000);
   }
 
   calculate();
 });
 
-document.getElementById('restartBtn')
-  .addEventListener('click', startTest);
+finishBtn.addEventListener('click', finishTest);
+
+restartBtn.addEventListener('click', startTest);
 
 initialize();
 </script>
