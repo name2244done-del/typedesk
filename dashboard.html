@@ -1,776 +1,154 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard · TypeDesk</title>
-
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#edf7ff"><title>Dashboard · TypeDesk</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="dashboard.css"><link rel="stylesheet" href="dashboard-gamification.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
-
 <div class="app-shell">
-
   <aside class="sidebar">
-    <a class="brand" href="dashboard.html">
-      <span class="brand-mark">T</span>
-      <span>TypeDesk</span>
-    </a>
-
+    <a class="brand" href="dashboard.html"><span class="brand-mark">T</span><span>TypeDesk</span></a>
     <div class="nav-label">WORKSPACE</div>
-
     <nav class="side-nav" aria-label="Main navigation">
       <a class="nav-item active" href="#overview"><span>⌂</span> Dashboard</a>
       <a class="nav-item" href="#practice"><span>⌨</span> Typing Practice</a>
       <a class="nav-item" href="#challenges"><span>⚡</span> Challenges</a>
-      <a class="nav-item" href="#typing-progress"><span>▤</span> Analytics</a>
+      <a class="nav-item" href="#analytics"><span>▤</span> Analytics</a>
+      <a class="nav-item" href="#goals"><span>🎯</span> Goals</a>
       <a class="nav-item" href="#rewards"><span>✧</span> Rewards</a>
     </nav>
-
     <div class="sidebar-bottom">
-      <div class="help-card">
-        <div class="help-icon">✦</div>
-        <strong>Keep improving!</strong>
-        <p>Practice regularly and track your progress here.</p>
-      </div>
-
-      <button class="logout-link" id="logoutBtn">
-        <span>↪</span> Sign Out
-      </button>
+      <div class="help-card"><div class="help-icon">✦</div><strong>Keep improving!</strong><p>Practice regularly and track your progress here.</p></div>
+      <button class="logout-link" id="logoutBtn" type="button"><span>↪</span> Sign Out</button>
     </div>
   </aside>
-
   <main class="main-area">
-
     <header class="topbar">
-      <div>
-        <div class="eyebrow">WORKSPACE OVERVIEW</div>
-        <div class="topbar-title">Dashboard</div>
-        <p class="topbar-subtitle">
-          Track your progress and improve your typing skills.
-        </p>
-      </div>
-
+      <div><div class="eyebrow">WORKSPACE OVERVIEW</div><div class="topbar-title">Dashboard</div><p class="topbar-subtitle">Track your progress and improve your typing skills.</p></div>
       <div class="topbar-actions">
-        <a class="quick-practice-btn" href="typing.html">
-          <span>⌨</span> Quick Practice <span>→</span>
-        </a>
-
-        <div class="top-user">
-          <div class="avatar-circle" id="userAvatar">U</div>
-          <div class="top-user-info">
-            <strong id="userName">User</strong>
-            <span>Member</span>
-          </div>
-        </div>
+        <a class="quick-practice-btn" href="typing.html?mode=free"><span>⌨</span> Quick Practice <span>→</span></a>
+        <div class="top-user"><div class="avatar-circle" id="userAvatar">U</div><div class="top-user-info"><strong id="userName">Loading...</strong><span>Member</span></div></div>
       </div>
     </header>
-
+    <div id="globalStatus" class="dashboard-status" role="status" aria-live="polite"></div>
     <div class="content-grid">
-
       <section class="primary-content" id="overview">
-
-        <!-- PERFORMANCE STATISTICS -->
-
         <section class="stats-grid" aria-label="Typing statistics">
-
-          <article class="stat-card">
-            <div class="stat-icon blue">⌨</div>
-            <div>
-              <span class="stat-label">Average Speed</span>
-              <strong class="stat-value">
-                <span id="metricWpm">—</span> <small>WPM</small>
-              </strong>
-              <span class="stat-note" id="metricWpmNote">
-                Average typing speed
-              </span>
-            </div>
-          </article>
-
-          <article class="stat-card">
-            <div class="stat-icon green">◎</div>
-            <div>
-              <span class="stat-label">Accuracy</span>
-              <strong class="stat-value" id="metricAccuracy">—</strong>
-              <span class="stat-note" id="metricAccuracyNote">
-                Average accuracy
-              </span>
-            </div>
-          </article>
-
-          <article class="stat-card">
-            <div class="stat-icon blue">✓</div>
-            <div>
-              <span class="stat-label">Completed Tests</span>
-              <strong class="stat-value" id="metricSessions">0</strong>
-              <span class="stat-note">Total saved tests</span>
-            </div>
-          </article>
-
-          <article class="stat-card">
-            <div class="stat-icon green">✦</div>
-            <div>
-              <span class="stat-label">Personal Best</span>
-              <strong class="stat-value">
-                <span id="metricBestWpm">0</span>
-                <small>WPM</small>
-              </strong>
-              <span class="stat-note">Highest recorded speed</span>
-            </div>
-          </article>
-
-          <article class="stat-card">
-            <div class="stat-icon blue">◇</div>
-            <div>
-              <span class="stat-label">Available Points</span>
-              <strong class="stat-value" id="kpiPoints">0</strong>
-              <span class="stat-note">Your reward balance</span>
-            </div>
-          </article>
-
+          <article class="stat-card"><div class="stat-icon blue">⌨</div><div><span class="stat-label">Average Speed</span><strong class="stat-value"><span id="metricWpm">0</span> <small>WPM</small></strong><span class="stat-note">Across saved sessions</span></div></article>
+          <article class="stat-card"><div class="stat-icon green">◎</div><div><span class="stat-label">Accuracy</span><strong class="stat-value" id="metricAccuracy">0%</strong><span class="stat-note">Average accuracy</span></div></article>
+          <article class="stat-card"><div class="stat-icon blue">✓</div><div><span class="stat-label">Completed Tests</span><strong class="stat-value" id="metricSessions">0</strong><span class="stat-note">Total saved tests</span></div></article>
+          <article class="stat-card"><div class="stat-icon green">✦</div><div><span class="stat-label">Personal Best</span><strong class="stat-value"><span id="metricBestWpm">0</span> <small>WPM</small></strong><span class="stat-note">Highest recorded speed</span></div></article>
+          <article class="stat-card"><div class="stat-icon blue">◇</div><div><span class="stat-label">Available Points</span><strong class="stat-value" id="kpiPoints">0</strong><span class="stat-note">Your reward balance</span></div></article>
         </section>
-
-        <!-- PRACTICE MODES -->
-
         <section class="section-block" id="practice">
-
-          <div class="section-heading">
-            <div>
-              <span class="eyebrow">CHOOSE YOUR STYLE</span>
-              <h2>Typing Practice</h2>
-            </div>
-          </div>
-
+          <div class="section-heading"><div><span class="eyebrow">CHOOSE YOUR STYLE</span><h2>Typing Practice</h2></div></div>
           <div class="practice-grid">
-
-            <a class="practice-card" href="#challenges">
-              <span class="practice-icon">⌨</span>
-              <strong>Words</strong>
-              <small>Build your typing basics</small>
-              <span class="card-arrow">→</span>
-            </a>
-
-            <a class="practice-card" href="#challenges">
-              <span class="practice-icon">☷</span>
-              <strong>Sentences</strong>
-              <small>Improve your flow</small>
-              <span class="card-arrow">→</span>
-            </a>
-
-            <a class="practice-card" href="#challenges">
-              <span class="practice-icon">▤</span>
-              <strong>Paragraphs</strong>
-              <small>Practice longer passages</small>
-              <span class="card-arrow">→</span>
-            </a>
-
-            <a class="practice-card" href="typing.html">
-              <span class="practice-icon">✎</span>
-              <strong>Free Practice</strong>
-              <small>Start a free session</small>
-              <span class="card-arrow">→</span>
-            </a>
-
+            <a class="practice-card" href="typing.html?mode=words"><span class="practice-icon">⌨</span><strong>Words</strong><small>Build your typing basics</small><span class="card-arrow">→</span></a>
+            <a class="practice-card" href="typing.html?mode=sentences"><span class="practice-icon">☷</span><strong>Sentences</strong><small>Improve your flow</small><span class="card-arrow">→</span></a>
+            <a class="practice-card" href="typing.html?mode=paragraphs"><span class="practice-icon">▤</span><strong>Paragraphs</strong><small>Practice longer passages</small><span class="card-arrow">→</span></a>
+            <a class="practice-card" href="typing.html?mode=free"><span class="practice-icon">✎</span><strong>Free Practice</strong><small>Start a free session</small><span class="card-arrow">→</span></a>
           </div>
-
-          <p class="feature-note">
-            Choose a practice category or start a free typing session.
-            Dedicated word and sentence modes are planned for a later update.
-          </p>
-
+          <p class="feature-note">Each practice session uses a server-issued passage and server-calculated score.</p>
         </section>
-
-        <!-- CHALLENGES -->
-
         <section class="section-block" id="challenges">
-
-          <div class="section-heading">
-            <div>
-              <span class="eyebrow">PRACTICE AND EARN</span>
-              <h2>Typing Challenges</h2>
-            </div>
-
-            <span class="live-label"><i></i> LIVE TASKS</span>
-          </div>
-
-          <div class="task-grid" id="taskList">
-            <p class="empty-state">Loading challenges...</p>
-          </div>
-
+          <div class="section-heading"><div><span class="eyebrow">PRACTICE AND EARN</span><h2>Typing Challenges</h2></div><span class="live-label"><i></i> LIVE TASKS</span></div>
+          <div class="task-grid" id="taskList"><p class="empty-state">Loading challenges...</p></div>
         </section>
-
-        <!-- PERFORMANCE ANALYTICS -->
-
-        <section class="section-block" id="typing-progress">
-
-          <div class="section-heading">
-            <div>
-              <span class="eyebrow">PERFORMANCE TRACKER</span>
-              <h2>Typing Progress</h2>
-            </div>
-
-            <span class="live-label">LATEST 10 TESTS</span>
-          </div>
-
-          <div class="progress-chart-card">
-
-            <div class="chart-legend">
-              <span>WPM History</span>
-              <span>Accuracy History</span>
-            </div>
-
-            <canvas id="typingProgressChart"></canvas>
-
-            <p id="chartEmptyState" class="empty-state" hidden>
-              Complete typing sessions to see your progress.
-            </p>
-
-          </div>
-
+        <section class="section-block" id="analytics">
+          <div class="section-heading"><div><span class="eyebrow">PERFORMANCE TRACKER</span><h2>Typing Progress</h2></div><span class="live-label">LATEST 10 DAYS</span></div>
+          <div class="progress-chart-card"><div class="chart-legend"><span>WPM History</span><span>Accuracy History</span></div><canvas id="typingProgressChart"></canvas><p id="chartEmptyState" class="empty-state" hidden>Complete typing sessions to see your progress.</p></div>
         </section>
-
-        <!-- RECENT ACTIVITY -->
-
         <section class="section-block" id="recent-activity">
-
-          <div class="section-heading">
-            <div>
-              <span class="eyebrow">YOUR PERFORMANCE</span>
-              <h2>Recent Activity</h2>
-            </div>
-
-            <span class="live-label">LATEST 5</span>
-          </div>
-
-          <div id="recentActivity" class="recent-activity-list">
-            <p class="empty-state">Loading recent activity...</p>
-          </div>
-
+          <div class="section-heading"><div><span class="eyebrow">YOUR PERFORMANCE</span><h2>Recent Activity</h2></div><span class="live-label">LATEST 6</span></div>
+          <div id="recentActivity" class="recent-activity-list"><p class="empty-state">Loading recent activity...</p></div>
         </section>
-
       </section>
-
-      <!-- RIGHT PANEL -->
-
       <aside class="right-panel">
-
         <section class="wallet-panel" id="rewards">
-
-          <div class="panel-top">
-            <span>YOUR REWARDS</span>
-            <span class="coin-symbol">✧</span>
-          </div>
-
-          <p class="wallet-caption">Available points</p>
-
-          <div class="wallet-total">
-            <span>✦</span>
-            <strong id="walletBalance">0</strong>
-          </div>
-
-          <div class="wallet-progress">
-            <span></span>
-          </div>
-
-          <p class="wallet-footnote">
-            Keep completing tasks to earn more points.
-          </p>
-
-          <div class="wallet-divider"></div>
-
-          <div class="reward-status">
-            <span>Reward history</span>
-            <span class="coming-soon">Coming soon</span>
-          </div>
-
+          <div class="panel-top"><span>YOUR REWARDS</span><span class="coin-symbol">✧</span></div>
+          <p class="wallet-caption">Available points</p><div class="wallet-total"><span>✦</span><strong id="walletBalance">0</strong></div>
+          <div class="wallet-progress"><span id="walletProgressBar"></span></div>
+          <p class="wallet-footnote" id="walletFootnote">Earn points through practice and challenges.</p>
+          <div class="wallet-divider"></div><div class="reward-status"><span>Next milestone</span><strong id="nextRewardLabel">100 points</strong></div>
         </section>
-
-        <section class="side-panel" id="profile">
-
-          <div class="section-heading compact">
-            <div>
-              <span class="eyebrow">YOUR JOURNEY</span>
-              <h2>Progress</h2>
-            </div>
-          </div>
-
-          <div class="progress-row">
-            <span class="progress-icon">🔥</span>
-            <div>
-              <strong>Daily streak</strong>
-              <small>Not tracked yet</small>
-            </div>
-          </div>
-
-          <div class="progress-row">
-            <span class="progress-icon">🏆</span>
-            <div>
-              <strong>Leaderboard</strong>
-              <small>Coming soon</small>
-            </div>
-          </div>
-
-          <div class="progress-row">
-            <span class="progress-icon">🎯</span>
-            <div>
-              <strong>Typing goals</strong>
-              <small>Coming soon</small>
-            </div>
-          </div>
-
+        <section class="side-panel" id="journey">
+          <div class="section-heading compact"><div><span class="eyebrow">YOUR JOURNEY</span><h2>Daily Streak</h2></div></div>
+          <div class="streak-summary"><span class="streak-flame">🔥</span><div><strong id="streakCount">0 days</strong><small id="streakMessage">Complete a practice today to start.</small></div></div>
+          <div class="week-strip" id="weekStrip" aria-label="Weekly activity"></div>
         </section>
-
-        <div class="tip-card">
-          <span>✦ QUICK TIP</span>
-          <p>
-            Consistency matters. A little typing practice every day can
-            help you improve over time.
-          </p>
-        </div>
-
+        <section class="side-panel" id="goals">
+          <div class="section-heading compact"><div><span class="eyebrow">STAY CONSISTENT</span><h2>Typing Goals</h2></div></div>
+          <form id="goalForm" class="goal-form">
+            <label for="goalType">Goal</label><select id="goalType" required><option value="sessions">Practice sessions</option><option value="characters">Characters typed</option><option value="average_wpm">Average WPM</option><option value="average_accuracy">Average accuracy</option></select>
+            <label for="goalPeriod">Period</label><select id="goalPeriod"><option value="daily">Daily</option><option value="weekly">Weekly</option></select>
+            <label for="goalTarget">Target</label><input id="goalTarget" type="number" min="1" max="1000000" value="3" required>
+            <button class="task-button goal-submit" type="submit">Save Goal</button><p id="goalStatus" class="inline-status" role="status"></p>
+          </form>
+          <div id="goalList" class="goal-list"><p class="empty-state">Loading goals...</p></div>
+        </section>
+        <section class="side-panel" id="leaderboard">
+          <div class="section-heading compact"><div><span class="eyebrow">COMMUNITY</span><h2>Leaderboard</h2></div></div>
+          <div id="leaderboardList" class="leaderboard-list"><p class="empty-state">Loading leaderboard...</p></div>
+        </section>
+        <section class="side-panel" id="rewardStore">
+          <div class="section-heading compact"><div><span class="eyebrow">REDEEM POINTS</span><h2>Reward Store</h2></div></div>
+          <div id="rewardCatalog" class="reward-catalog"><p class="empty-state">Loading rewards...</p></div>
+          <div class="section-heading compact reward-history-heading"><div><span class="eyebrow">YOUR REDEMPTIONS</span><h2>Reward History</h2></div></div>
+          <div id="rewardHistory" class="reward-history"><p class="empty-state">Loading history...</p></div>
+        </section>
+        <section class="side-panel"><div class="section-heading compact"><div><span class="eyebrow">POINTS ACTIVITY</span><h2>Wallet History</h2></div></div><div id="pointsHistory" class="reward-history"><p class="empty-state">Loading transactions...</p></div></section>
+        <div class="tip-card"><span>✦ QUICK TIP</span><p>Consistency matters. A little typing practice every day can help you improve over time.</p></div>
       </aside>
-
     </div>
   </main>
 </div>
-
-<!-- MOBILE NAVIGATION -->
-
 <nav class="mobile-nav" aria-label="Mobile navigation">
-  <a class="mobile-nav-item active" href="#overview">
-    <span>⌂</span>Home
-  </a>
-
-  <a class="mobile-nav-item" href="#practice">
-    <span>⌨</span>Practice
-  </a>
-
-  <a class="mobile-nav-item" href="#challenges">
-    <span>⚡</span>Tasks
-  </a>
-
-  <a class="mobile-nav-item" href="#rewards">
-    <span>✧</span>Rewards
-  </a>
-
-  <a class="mobile-nav-item" href="#profile">
-    <span>◎</span>Profile
-  </a>
+  <a class="mobile-nav-item active" href="#overview"><span>⌂</span>Home</a><a class="mobile-nav-item" href="#practice"><span>⌨</span>Practice</a><a class="mobile-nav-item" href="#challenges"><span>⚡</span>Tasks</a><a class="mobile-nav-item" href="#goals"><span>🎯</span>Goals</a><a class="mobile-nav-item" href="#rewards"><span>✧</span>Rewards</a>
 </nav>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase-config.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script>
 <script>
-  const config = window.TYPEDESK_SUPABASE_CONFIG;
-
-  if (!config || !config.url || !config.publishableKey) {
-    document.getElementById('taskList').innerHTML =
-      '<p class="empty-state">Configuration unavailable. Please refresh later.</p>';
-
-    throw new Error('TypeDesk Supabase configuration is missing.');
+(function(){
+  'use strict';
+  const config=window.TYPEDESK_SUPABASE_CONFIG;
+  const $=id=>document.getElementById(id);
+  const status=$('globalStatus');
+  if(!config||!config.url||!config.publishableKey||!window.supabase){status.textContent='TypeDesk configuration could not be loaded. Refresh the page.';return;}
+  const db=window.supabase.createClient(config.url,config.publishableKey);
+  let user=null,chart=null;
+  const setStatus=(msg,type='')=>{status.textContent=msg;status.className='dashboard-status '+type;};
+  const el=(tag,cls,txt)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n;};
+  const empty=(box,msg)=>{box.replaceChildren(el('p','empty-state',msg));};
+  const dateText=v=>new Date(v).toLocaleString([], {dateStyle:'medium',timeStyle:'short'});
+  async function sessionCheck(){const {data,error}=await db.auth.getSession();if(error||!data.session){location.replace('login.html');return false;}user=data.session.user;return true;}
+  async function loadOverview(){
+    const {data,error}=await db.rpc('get_dashboard_overview');if(error)throw error;
+    const o=data||{},p=o.profile||{},s=o.stats||{},name=p.full_name||(user.email||'Member').split('@')[0];
+    $('userName').textContent=name;$('userAvatar').textContent=name.trim().charAt(0).toUpperCase()||'U';
+    $('metricWpm').textContent=Number(s.average_wpm||0).toFixed(0);$('metricAccuracy').textContent=Number(s.average_accuracy||0).toFixed(1)+'%';
+    $('metricSessions').textContent=Number(s.total_sessions||0);$('metricBestWpm').textContent=Number(s.best_wpm||0);
+    $('kpiPoints').textContent=Number(p.total_points||0);$('walletBalance').textContent=Number(p.total_points||0);
+    $('streakCount').textContent=Number(o.streak||0)+' days';$('streakMessage').textContent=Number(o.streak||0)?'Great consistency. Keep it going!':'Complete a practice today to start.';
+    const pts=Number(p.total_points||0),next=(Math.floor(pts/100)+1)*100;$('nextRewardLabel').textContent=next+' points';$('walletFootnote').textContent=(next-pts)+' points to your next milestone.';$('walletProgressBar').style.width=(pts%100)+'%';
+    renderChart(o.chart||[]);renderRecent(o.recent||[]);await renderWeek();
   }
-
-  const supabaseClient = window.supabase.createClient(
-    config.url,
-    config.publishableKey
-  );
-
-  let typingChart = null;
-
-  async function initDashboard() {
-
-    const { data: { session }, error } =
-      await supabaseClient.auth.getSession();
-
-    if (error || !session) {
-      window.location.href = 'login.html';
-      return;
-    }
-
-    const userEmail = session.user.email || 'User';
-
-    document.getElementById('userName').textContent =
-      userEmail.split('@')[0];
-
-    document.getElementById('userAvatar').textContent =
-      userEmail.charAt(0).toUpperCase();
-
-    await loadProfile(session.user.id);
-
-    const allResults = await loadStatistics(session.user.id);
-
-    await loadRecentActivity(session.user.id);
-
-    await loadProgressChart(session.user.id);
-
-    await loadTasks();
-  }
-
-  /* PROFILE AND REWARD BALANCE */
-
-  async function loadProfile(userId) {
-
-    try {
-
-      const { data: profile, error } =
-        await supabaseClient
-          .from('user_profiles')
-          .select('total_points')
-          .eq('id', userId)
-          .maybeSingle();
-
-      if (error) {
-        console.error('Profile fetch error:', error);
-        return;
-      }
-
-      if (profile) {
-
-        const points = Number(profile.total_points || 0);
-
-        document.getElementById('walletBalance').textContent = points;
-
-        document.getElementById('kpiPoints').textContent = points;
-      }
-
-    } catch (error) {
-      console.error('Profile loading error:', error);
-    }
-  }
-
-  /* TYPING STATISTICS AND PERSONAL BEST */
-
-  async function loadStatistics(userId) {
-
-    const { data: allResults, error } =
-      await supabaseClient
-        .from('typing_results')
-        .select('wpm, accuracy')
-        .eq('user_id', userId);
-
-    if (error) {
-      console.error('Typing statistics error:', error);
-      return [];
-    }
-
-    const results = allResults || [];
-
-    document.getElementById('metricSessions').textContent =
-      results.length;
-
-    if (results.length === 0) {
-      document.getElementById('metricWpm').textContent = '0';
-      document.getElementById('metricAccuracy').textContent = '0%';
-      document.getElementById('metricBestWpm').textContent = '0';
-
-      document.getElementById('metricWpmNote').textContent =
-        'Complete your first test';
-
-      document.getElementById('metricAccuracyNote').textContent =
-        'No results yet';
-
-      return results;
-    }
-
-    const averageWpm =
-      results.reduce(
-        (sum, item) => sum + Number(item.wpm || 0),
-        0
-      ) / results.length;
-
-    const averageAccuracy =
-      results.reduce(
-        (sum, item) => sum + Number(item.accuracy || 0),
-        0
-      ) / results.length;
-
-    const personalBest = Math.max(
-      ...results.map(item => Number(item.wpm || 0))
-    );
-
-    document.getElementById('metricWpm').textContent =
-      averageWpm.toFixed(0);
-
-    document.getElementById('metricAccuracy').textContent =
-      averageAccuracy.toFixed(0) + '%';
-
-    document.getElementById('metricBestWpm').textContent =
-      personalBest;
-
-    document.getElementById('metricWpmNote').textContent =
-      'Average across saved sessions';
-
-    document.getElementById('metricAccuracyNote').textContent =
-      'Average across saved sessions';
-
-    return results;
-  }
-
-  /* RECENT ACTIVITY */
-
-  async function loadRecentActivity(userId) {
-
-    const activityBox = document.getElementById('recentActivity');
-
-    const { data: recentResults, error } =
-      await supabaseClient
-        .from('typing_results')
-        .select('wpm, accuracy, characters_typed, duration_seconds, task_id, created_at')
-        .eq('user_id', userId)
-        .order('created_at', { ascending: false })
-        .limit(5);
-
-    if (error) {
-      console.error('Recent activity error:', error);
-      activityBox.textContent = 'Could not load recent activity.';
-      return;
-    }
-
-    if (!recentResults || recentResults.length === 0) {
-      activityBox.textContent =
-        'No typing sessions completed yet.';
-      return;
-    }
-
-    activityBox.replaceChildren();
-
-    recentResults.forEach(item => {
-
-      const row = document.createElement('div');
-      row.className = 'activity-item';
-
-      const details = document.createElement('div');
-
-      const title = document.createElement('strong');
-      const date = document.createElement('small');
-
-      title.textContent = item.task_id
-        ? 'Typing Challenge'
-        : 'Free Practice';
-
-      date.textContent = new Date(item.created_at).toLocaleString();
-
-      details.append(title, date);
-
-      const score = document.createElement('div');
-
-      const speed = document.createElement('strong');
-      const accuracy = document.createElement('small');
-
-      speed.textContent = Number(item.wpm || 0) + ' WPM';
-
-      accuracy.textContent =
-        Number(item.accuracy || 0).toFixed(0) + '% Accuracy';
-
-      score.append(speed, accuracy);
-
-      row.append(details, score);
-
-      activityBox.appendChild(row);
-    });
-  }
-
-  /* TYPING PERFORMANCE CHART */
-
-  async function loadProgressChart(userId) {
-
-    const chartEmptyState =
-      document.getElementById('chartEmptyState');
-
-    const chartCanvas =
-      document.getElementById('typingProgressChart');
-
-    const { data: chartResults, error } =
-      await supabaseClient
-        .from('typing_results')
-        .select('wpm, accuracy, created_at')
-        .eq('user_id', userId)
-        .order('created_at', { ascending: false })
-        .limit(10);
-
-    if (error) {
-
-      console.error('Progress chart error:', error);
-
-      chartEmptyState.hidden = false;
-      chartEmptyState.textContent =
-        'Could not load progress chart.';
-
-      chartCanvas.hidden = true;
-
-      return;
-    }
-
-    if (!chartResults || chartResults.length === 0) {
-
-      chartEmptyState.hidden = false;
-      chartCanvas.hidden = true;
-
-      return;
-    }
-
-    chartEmptyState.hidden = true;
-    chartCanvas.hidden = false;
-
-    /* Reverse so oldest of the latest 10 appears first */
-
-    const orderedResults = [...chartResults].reverse();
-
-    const labels = orderedResults.map((item, index) => {
-      const date = new Date(item.created_at);
-
-      return 'Test ' + (index + 1) +
-        ' · ' + date.toLocaleDateString();
-    });
-
-    if (typingChart) {
-      typingChart.destroy();
-    }
-
-    typingChart = new Chart(chartCanvas, {
-
-      type: 'line',
-
-      data: {
-
-        labels: labels,
-
-        datasets: [
-
-          {
-            label: 'WPM',
-            data: orderedResults.map(item =>
-              Number(item.wpm || 0)
-            ),
-            yAxisID: 'yWpm',
-            borderColor: '#3478F6',
-            backgroundColor: 'rgba(52,120,246,0.12)',
-            pointBackgroundColor: '#3478F6',
-            pointRadius: 4,
-            pointHoverRadius: 6,
-            borderWidth: 3,
-            tension: 0.35,
-            fill: true
-          },
-
-          {
-            label: 'Accuracy (%)',
-            data: orderedResults.map(item =>
-              Number(item.accuracy || 0)
-            ),
-            yAxisID: 'yAccuracy',
-            borderColor: '#16A085',
-            backgroundColor: 'rgba(22,160,133,0.08)',
-            pointBackgroundColor: '#16A085',
-            pointRadius: 4,
-            pointHoverRadius: 6,
-            borderWidth: 3,
-            tension: 0.35,
-            fill: false
-          }
-
-        ]
-      },
-
-      options: {
-
-        responsive: true,
-
-        maintainAspectRatio: false,
-
-        interaction: {
-          intersect: false,
-          mode: 'index'
-        },
-
-        plugins: {
-
-          legend: {
-            display: false
-          },
-
-          tooltip: {
-            backgroundColor: '#17365f',
-            padding: 12,
-            cornerRadius: 10
-          }
-
-        },
-
-        scales: {
-
-          x: {
-            grid: {
-              display: false
-            },
-            ticks: {
-              color: '#8294ad',
-              maxRotation: 0,
-              autoSkip: true
-            }
-          },
-
-          yWpm: {
-            type: 'linear',
-            position: 'left',
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: 'Words per minute'
-            },
-            ticks: {
-              color: '#3478F6'
-            },
-            grid: {
-              color: 'rgba(52,120,246,0.08)'
-            }
-          },
-
-          yAccuracy: {
-            type: 'linear',
-            position: 'right',
-            min: 0,
-            max: 100,
-            title: {
-              display: true,
-              text: 'Accuracy (%)'
-            },
-            ticks: {
-              color: '#16A085'
-            },
-            grid: {
-              drawOnChartArea: false
-            }
-          }
-
-        }
-
-      }
-
-    });
-  }
-
-  /* LOAD ACTIVE TYPING CHALLENGES */
-
-  async function loadTasks() {
-
-    const taskList = document.getElementById('taskList');
-
-    const { data: tasks, error } =
-      await supabaseClient
-        .from('typing_tasks')
-        .select('*')
-        .eq('is_active', true)
-        .limit(6);
-
-    if (error) {
-
-      console.error('Task loading error:', error);
-
-      taskList.innerHTM
+  function renderChart(rows){const canvas=$('typingProgressChart'),hint=$('chartEmptyState');if(chart){chart.destroy();chart=null;}if(!rows.length||!window.Chart){canvas.hidden=true;hint.hidden=false;hint.textContent=rows.length?'Chart library unavailable.':'Complete typing sessions to see your progress.';return;}canvas.hidden=false;hint.hidden=true;const a=[...rows].reverse();chart=new Chart(canvas,{type:'line',data:{labels:a.map(x=>new Date(x.date).toLocaleDateString()),datasets:[{label:'WPM',data:a.map(x=>+x.wpm||0),yAxisID:'yWpm',borderColor:'#3478F6',backgroundColor:'rgba(52,120,246,.12)',pointBackgroundColor:'#3478F6',borderWidth:3,tension:.35,fill:true},{label:'Accuracy',data:a.map(x=>+x.accuracy||0),yAxisID:'yAccuracy',borderColor:'#16A085',pointBackgroundColor:'#16A085',borderWidth:3,tension:.35}]},options:{responsive:true,maintainAspectRatio:false,interaction:{intersect:false,mode:'index'},plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},yWpm:{type:'linear',position:'left',beginAtZero:true},yAccuracy:{type:'linear',position:'right',min:0,max:100,grid:{drawOnChartArea:false}}}}});}
+  function renderRecent(rows){const box=$('recentActivity');if(!rows.length)return empty(box,'No typing sessions completed yet.');box.replaceChildren();rows.forEach(r=>{const row=el('div','activity-item'),left=el('div'),right=el('div');left.append(el('strong','',r.title||'Typing Practice'),el('small','',dateText(r.created_at)));right.append(el('strong','',Number(r.wpm||0)+' WPM'),el('small','',Number(r.accuracy||0).toFixed(1)+'% Accuracy'));row.append(left,right);box.append(row);});}
+  async function renderWeek(){const box=$('weekStrip');box.replaceChildren();const now=new Date(),monday=(now.getDay()+6)%7,start=new Date(now);const keyOf=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');start.setDate(now.getDate()-monday);start.setHours(0,0,0,0);const end=new Date(start);end.setDate(start.getDate()+6);const {data,error}=await db.from('user_daily_activity').select('activity_date,sessions_count').gte('activity_date',keyOf(start)).lte('activity_date',keyOf(end));if(error)throw error;const active=new Set((data||[]).filter(x=>x.sessions_count>0).map(x=>x.activity_date));const labels=['M','T','W','T','F','S','S'];labels.forEach((label,i)=>{const d=new Date(start);d.setDate(start.getDate()+i);const key=keyOf(d),today=key===keyOf(new Date()),item=el('div','week-day'+(today?' current':''));if(active.has(key))item.classList.add('completed');item.append(el('span','',label),el('strong','',String(d.getDate())));box.append(item);});}
+  async function loadTasks(){const box=$('taskList');const {data,error}=await db.from('typing_tasks').select('id,title,category,time_limit_minutes,points_reward').eq('is_active',true).order('created_at',{ascending:true});if(error)throw error;if(!data||!data.length)return empty(box,'No active challenges. Try Free Practice.');box.replaceChildren();data.forEach(t=>{const row=el('article','task-row'),main=el('div','task-main'),link=el('a','task-button','Start Challenge');row.append(el('div','task-icon','⚡'));main.append(el('div','task-category',t.category||'GENERAL'),el('h3','',t.title),el('p','',Number(t.time_limit_minutes||1)+' minute challenge'));link.href='typing.html?task='+encodeURIComponent(t.id);row.append(main,el('p','task-reward','+'+Number(t.points_reward||0)+' points'),link);box.append(row);});}
+  async function loadGoals(){const box=$('goalList'),{data,error}=await db.rpc('get_my_typing_goals');if(error)throw error;if(!data||!data.length)return empty(box,'No goals yet. Create your first goal above.');box.replaceChildren();const labels={sessions:'Practice sessions',characters:'Characters typed',average_wpm:'Average WPM',average_accuracy:'Average accuracy'};data.forEach(g=>{const wrap=el('div','goal-item'),head=el('div','goal-item-heading'),track=el('div','goal-track'),fill=el('span');head.append(el('strong','',labels[g.goal_type]+' · '+g.period),el('small','',Number(g.current_value||0)+' / '+Number(g.target_value)));fill.style.width=Math.min(100,Number(g.progress_percent||0))+'%';track.append(fill);wrap.append(head,track,el('small','goal-dates','Until '+new Date(g.ends_on+'T00:00:00').toLocaleDateString()));box.append(wrap);});}
+  async function loadLeaderboard(){const box=$('leaderboardList'),{data,error}=await db.rpc('get_typing_leaderboard',{p_limit:8});if(error)throw error;if(!data||!data.length)return empty(box,'Leaderboard appears when members earn points.');box.replaceChildren();data.forEach((p,i)=>{const row=el('div','leader-row'+(p.user_id===user.id?' me':''));row.append(el('span','leader-rank',String(i+1)),el('span','leader-name',p.display_name||'Member'),el('strong','leader-points',Number(p.total_points||0)+' pts'));box.append(row);});}
+  async function loadRewards(){const box=$('rewardCatalog');const [{data:items,error:e1},{data:owned,error:e2}]=await Promise.all([db.from('rewards_catalog').select('id,title,description,points_cost,icon').eq('is_active',true).order('sort_order'),db.from('user_reward_redemptions').select('reward_id,status,points_spent,redeemed_at,rewards_catalog(title)')]);if(e1)throw e1;if(e2)throw e2;const ownedIds=new Set((owned||[]).map(x=>x.reward_id));if(!items||!items.length)empty(box,'No rewards available.');else{box.replaceChildren();items.forEach(r=>{const item=el('div','reward-item'),info=el('div','reward-info'),btn=el('button','reward-button',ownedIds.has(r.id)?'Owned':'Redeem');info.append(el('strong','',r.title),el('small','',r.description),el('small','reward-cost',r.points_cost+' points'));btn.type='button';btn.disabled=ownedIds.has(r.id);btn.addEventListener('click',()=>redeem(r.id,btn));item.append(el('span','reward-icon',r.icon||'🏆'),info,btn);box.append(item);});}const history=$('rewardHistory');if(!owned||!owned.length)empty(history,'No rewards redeemed yet.');else{history.replaceChildren();owned.forEach(r=>history.append(el('div','history-row',(r.rewards_catalog&&r.rewards_catalog.title||'Reward')+' · '+r.points_spent+' pts')));}}
+  async function loadPoints(){const box=$('pointsHistory'),{data,error}=await db.from('points_transactions').select('amount,description,created_at').order('created_at',{ascending:false}).limit(8);if(error)throw error;if(!data||!data.length)return empty(box,'No points transactions yet.');box.replaceChildren();data.forEach(t=>{const row=el('div','history-row'),amt=el('strong',t.amount>0?'positive':'negative',(t.amount>0?'+':'')+t.amount);row.append(el('span','',t.description),amt);box.append(row);});}
+  async function redeem(id,btn){btn.disabled=true;btn.textContent='Processing...';const {error}=await db.rpc('redeem_typing_reward',{p_reward_id:id});if(error){btn.disabled=false;btn.textContent='Redeem';setStatus(error.message,'error');return;}setStatus('Reward unlocked successfully.','success');await refresh();}
+  async function refresh(){const tasks=[loadOverview(),loadGoals(),loadLeaderboard(),loadRewards(),loadPoints()];const results=await Promise.allSettled(tasks);const bad=results.find(x=>x.status==='rejected');if(bad){console.error('Dashboard section error:',bad.reason);setStatus('Some dashboard data could not load. Refresh to retry.','error');}}
+  $('goalForm').addEventListener('submit',async e=>{e.preventDefault();const btn=$('goalForm').querySelector('button'),target=Number($('goalTarget').value);if(!Number.isFinite(target)||target<=0){$('goalStatus').textContent='Enter a valid target.';return;}btn.disabled=true;$('goalStatus').textContent='Saving...';const {error}=await db.rpc('create_typing_goal',{p_goal_type:$('goalType').value,p_period:$('goalPeriod').value,p_target:target});btn.disabled=false;if(error){$('goalStatus').textContent=error.message;return;}$('goalStatus').textContent='Goal saved.';await loadGoals();});
+  $('logoutBtn').addEventListener('click',async()=>{$('logoutBtn').disabled=true;const {error}=await db.auth.signOut({scope:'local'});if(error){$('logoutBtn').disabled=false;setStatus('Sign out failed. Try again.','error');return;}location.replace('login.html');});
+  document.querySelectorAll('.side-nav .nav-item,.mobile-nav-item').forEach(a=>a.addEventListener('click',()=>{document.querySelectorAll('.nav-item,.mobile-nav-item').forEach(x=>x.classList.remove('active'));a.classList.add('active');}));
+  (async()=>{try{if(!(await sessionCheck()))return;await loadTasks();await refresh();}catch(e){console.error(e);setStatus(e.message||'Dashboard could not load. Refresh and try again.','error');}})();
+})();
+</script>
+</body></html>
