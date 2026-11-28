@@ -940,10 +940,19 @@ button {
 }
 
 .tip-card {
-  padding: 19px;
-  border: 1px solid white;
+  position: relative;
+  overflow: hidden;
+  padding: 21px;
+  border: 1px solid rgba(255, 255, 255, 0.95);
   border-radius: 19px;
-  background: linear-gradient(135deg,#e4f4ff,#f5f9ff);
+  background: linear-gradient(135deg, #e4f4ff, #f5f9ff);
+  box-shadow: 0 9px 24px rgba(52, 120, 246, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tip-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 13px 28px rgba(52, 120, 246, 0.13);
 }
 
 .tip-card span {
