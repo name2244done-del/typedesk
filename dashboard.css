@@ -605,17 +605,18 @@ button {
   letter-spacing: 1px;
 }
 
-.task-card h3 {
-  margin: 8px 0;
+.task-row h3 {
+  margin: 5px 0;
   color: var(--navy);
-  font-size: 15px;
+  font-size: 14px;
   overflow-wrap: anywhere;
 }
 
-.task-card p {
+.task-row p {
   color: var(--muted);
   font-size: 11px;
   line-height: 1.6;
+
 }
 
 .task-reward {
