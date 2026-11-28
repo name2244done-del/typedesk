@@ -828,7 +828,18 @@ button {
   color: #a8f0ff;
   font-size: 26px;
 }
+.wallet-total strong {
+  text-shadow: 0 3px 14px rgba(255, 255, 255, 0.2);
+  font-variant-numeric: tabular-nums;
+}
 
+.wallet-caption {
+  letter-spacing: 0.4px;
+}
+
+.wallet-footnote {
+  max-width: 230px;
+}
 .wallet-total strong {
   font-size: 37px;
   letter-spacing: -1px;
