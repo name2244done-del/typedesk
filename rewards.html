@@ -11,19 +11,28 @@
 .balance-card{background:linear-gradient(135deg,#176de5,#4aa5fa);color:white}
 .balance-card small{opacity:.85}.balance{font-size:32px;font-weight:800;margin:10px 0}
 .reward-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.method-row{display:flex;gap:18px;margin:15px 0}
+.method-row{display:flex;gap:18px;flex-wrap:wrap;margin:15px 0}
+.method-row label{display:flex;align-items:center;gap:7px}
 .field{display:grid;gap:7px;margin:13px 0}
 .field label{font-size:12px;font-weight:700;color:#617895}
 .field input{width:100%;padding:13px;border:1px solid #dce8fa;border-radius:11px;font:inherit}
 .field input:focus{outline:2px solid #3478f655;border-color:#3478f6}
 .amount-box{padding:13px;background:#f1f7ff;border-radius:12px;display:flex;justify-content:space-between;margin:14px 0;color:#3478f6;font-weight:700}
-.primary-btn{width:100%;padding:14px;border:0;border-radius:12px;background:#3478f6;color:white;font-weight:800}
+.primary-btn{width:100%;padding:14px;border:0;border-radius:12px;background:#3478f6;color:white;font-weight:800;cursor:pointer}
+.primary-btn:disabled{opacity:.6;cursor:not-allowed}
 .note{font-size:11px;line-height:1.6;color:#8293af}
+.history-list{display:grid;gap:12px}
+.history-item{border:1px solid #e4effc;border-radius:14px;padding:15px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.history-main{min-width:0}.history-amount{font-weight:800;color:#1e5fb9}
+.history-meta{font-size:12px;color:#8293af;margin-top:5px}
+.status{font-size:11px;font-weight:800;padding:6px 10px;border-radius:20px;background:#fff5dc;color:#986500;text-transform:capitalize}
+.status.approved{background:#e8f1ff;color:#245db2}.status.rejected{background:#fff0f0;color:#b42318}.status.paid{background:#e8f8ef;color:#187344}
+.empty-history{padding:22px;text-align:center;color:#8293af;background:#f7faff;border-radius:13px}
 .modal{display:none;position:fixed;inset:0;background:#102b5666;z-index:99;place-items:center;padding:18px}
 .modal.show{display:grid}
 .modal-box{background:white;border-radius:20px;padding:25px;max-width:370px;text-align:center}
-.modal-box button{padding:12px 30px;background:#3478f6;color:white;border:0;border-radius:10px}
-@media(max-width:700px){.reward-grid{grid-template-columns:1fr}}
+.modal-box button{padding:12px 30px;background:#3478f6;color:white;border:0;border-radius:10px;cursor:pointer}
+@media(max-width:700px){.reward-grid{grid-template-columns:1fr}.history-item{align-items:flex-start}}
 </style>
 </head>
 <body>
@@ -52,46 +61,42 @@
 </section>
 <section class="reward-card">
 <h3>Withdrawal Information</h3>
-<p class="note">Choose a withdrawal method and enter the amount you want to request.</p>
+<p class="note">Choose Bank Transfer or UPI as your preferred payout method.</p>
 <p>Bank Transfer · UPI</p>
-<p class="note">The withdrawal service is not connected yet.</p>
+<p class="note">A submitted request is recorded as Pending. Submission does not transfer money. Payment setup and review must be completed separately.</p>
 </section>
 </div>
 <section class="reward-card">
 <h2>Withdraw Rewards</h2>
-<p class="note">Select your preferred withdrawal method.</p>
+<p class="note">Select a method and enter the points you want to request.</p>
 <form id="withdrawForm">
 <div class="method-row">
 <label><input type="radio" name="method" value="bank" checked> Bank Transfer</label>
-<label><input type="radio" name="method" value="upi"> UPI ID</label>
+<label><input type="radio" name="method" value="upi"> UPI</label>
 </div>
 <div class="field">
 <label for="amount">Withdrawal Points</label>
 <input id="amount" type="number" min="1" step="1" placeholder="Enter points" required>
 </div>
 <div class="amount-box"><span>Withdrawal value</span><strong id="value">₹0</strong></div>
-<div id="bankFields">
-<div class="field"><label for="bank">Bank Name</label><input id="bank" maxlength="80" placeholder="Enter bank name"></div>
-<div class="field"><label for="holder">Account Holder Name</label><input id="holder" maxlength="100" placeholder="Account holder name"></div>
-<div class="field"><label for="account">Account Number</label><input id="account" type="password" inputmode="numeric" maxlength="24" placeholder="Account number"></div>
-<div class="field"><label for="ifsc">IFSC Code</label><input id="ifsc" maxlength="11" placeholder="IFSC code"></div>
-</div>
-<div id="upiFields" hidden>
-<div class="field"><label for="upi">UPI ID</label><input id="upi" maxlength="100" placeholder="Enter UPI ID"></div>
-</div>
-<button class="primary-btn" type="submit">Submit Withdrawal Request</button>
-<p class="note">Do not enter real bank or UPI details yet. This first version does not save or transmit account details and cannot make payments.</p>
-<p id="formError" class="note"></p>
+<p class="note">Payment account details are not collected or stored on this page. For any future real payout setup, an eligible adult/parent or guardian must handle the account and provider requirements. A request remains Pending until reviewed.</p>
+<button class="primary-btn" id="submitBtn" type="submit">Submit Withdrawal Request</button>
+<p id="formError" class="note" role="alert"></p>
 </form>
+</section>
+<section class="reward-card">
+<h2>Withdrawal History</h2>
+<p class="note">Your submitted requests and their latest status.</p>
+<div id="historyList" class="history-list"><div class="empty-history">Loading withdrawal history...</div></div>
 </section>
 </div>
 </main>
 </div>
-<div class="modal" id="modal">
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
 <div class="modal-box">
-<h2>Request Preview Ready</h2>
-<p id="modalText">Your details have been checked locally. No request has been sent and no payment has been approved or made.</p>
-<button id="closeModal">Continue</button>
+<h2 id="modalTitle">Your request is submitted successfully!</h2>
+<p id="modalText">Your request has been recorded with Pending status.</p>
+<button id="closeModal" type="button">Continue</button>
 </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -102,43 +107,114 @@ const $=id=>document.getElementById(id);
 const config=window.TYPEDESK_SUPABASE_CONFIG;
 if(!config||!window.supabase){location.replace('login.html');return;}
 const db=window.supabase.createClient(config.url,config.publishableKey);
-const {data:session}=await db.auth.getSession();
-if(!session.session){location.replace('login.html');return;}
-const user=session.session.user;
-const {data:profile,error}=await db.from('user_profiles').select('total_points').eq('id',user.id).maybeSingle();
-if(error){$('pointsBalance').textContent='Unavailable';return;}
-const points=Number(profile?.total_points||0);
-$('pointsBalance').textContent=points.toLocaleString('en-IN')+' Points';
-$('rupeeBalance').textContent='₹'+points.toLocaleString('en-IN');
-$('amount').max=String(points);
-$('amount').addEventListener('input',()=>{
-const n=Math.max(0,Math.floor(Number($('amount').value)||0));
-$('value').textContent='₹'+n.toLocaleString('en-IN');
-});
-document.querySelectorAll('input[name="method"]').forEach(r=>r.addEventListener('change',()=>{
-const bank=document.querySelector('input[name="method"]:checked').value==='bank';
-$('bankFields').hidden=!bank;
-$('upiFields').hidden=bank;
-['bank','holder','account','ifsc'].forEach(id=>$(id).required=bank);
-$('upi').required=!bank;
-}));
-$('withdrawForm').addEventListener('submit',e=>{
-e.preventDefault();
-$('formError').textContent='';
-const amount=Number($('amount').value);
-if(!Number.isInteger(amount)||amount<1||amount>points){
-$('formError').textContent='Enter a valid amount within your available points.';
-return;
+const {data:sessionData,error:sessionError}=await db.auth.getSession();
+if(sessionError||!sessionData.session){location.replace('login.html');return;}
+const user=sessionData.session.user;
+let currentPoints=0;
+
+function formatNumber(value){
+ return Number(value||0).toLocaleString('en-IN');
 }
-if(!$('withdrawForm').reportValidity())return;
-$('modalText').textContent='Your request details are valid for preview: '+amount+' points (₹'+amount+'). No account details are saved, no request is sent, and no payment is approved or made.';
-$('modal').classList.add('show');
+function showBalance(value){
+ currentPoints=Number(value||0);
+ $('pointsBalance').textContent=formatNumber(currentPoints)+' Points';
+ $('rupeeBalance').textContent='₹'+formatNumber(currentPoints);
+ $('amount').max=String(currentPoints);
+}
+async function loadBalance(){
+ const {data,error}=await db.from('user_profiles').select('total_points').eq('id',user.id).maybeSingle();
+ if(error){$('pointsBalance').textContent='Unavailable';$('formError').textContent='Could not load your points balance. Refresh and try again.';return false;}
+ showBalance(data?.total_points||0);
+ return true;
+}
+function safeText(tag,className,value){
+ const node=document.createElement(tag);
+ if(className)node.className=className;
+ node.textContent=value;
+ return node;
+}
+function renderHistory(rows){
+ const list=$('historyList');
+ list.replaceChildren();
+ if(!rows||rows.length===0){
+  list.appendChild(safeText('div','empty-history','No withdrawal requests yet.'));
+  return;
+ }
+ rows.forEach(item=>{
+  const card=safeText('div','history-item','');
+  const main=safeText('div','history-main','');
+  main.appendChild(safeText('div','history-amount',formatNumber(item.points_amount)+' Points · ₹'+formatNumber(item.rupee_amount)));
+  const method=item.method==='bank'?'Bank Transfer':'UPI';
+  const date=new Date(item.created_at);
+  const dateText=Number.isNaN(date.getTime())?'Date unavailable':date.toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'});
+  main.appendChild(safeText('div','history-meta',method+' · '+dateText));
+  const status=String(item.status||'pending').toLowerCase();
+  const statusNode=safeText('span','status '+status,status.charAt(0).toUpperCase()+status.slice(1));
+  card.append(main,statusNode);
+  list.appendChild(card);
+ });
+}
+async function loadHistory(){
+ $('historyList').replaceChildren(safeText('div','empty-history','Loading withdrawal history...'));
+ const {data,error}=await db.from('withdrawal_requests')
+  .select('id,points_amount,rupee_amount,method,status,created_at')
+  .eq('user_id',user.id)
+  .order('created_at',{ascending:false});
+ if(error){
+  $('historyList').replaceChildren(safeText('div','empty-history','Could not load history. Please refresh the page.'));
+  return;
+ }
+ renderHistory(data||[]);
+}
+$('amount').addEventListener('input',()=>{
+ const n=Math.max(0,Math.floor(Number($('amount').value)||0));
+ $('value').textContent='₹'+formatNumber(n);
+});
+$('withdrawForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ $('formError').textContent='';
+ const amount=Number($('amount').value);
+ const method=document.querySelector('input[name="method"]:checked')?.value;
+ if(!Number.isSafeInteger(amount)||amount<1||amount>currentPoints){
+  $('formError').textContent='Enter a valid amount within your available points.';
+  return;
+ }
+ if(method!=='bank'&&method!=='upi'){
+  $('formError').textContent='Select a valid withdrawal method.';
+  return;
+ }
+ $('submitBtn').disabled=true;
+ $('submitBtn').textContent='Submitting...';
+ try{
+  const requestToken=crypto.randomUUID();
+  const {data,error}=await db.rpc('submit_withdrawal_request',{
+   p_points:amount,
+   p_method:method,
+   p_request_token:requestToken
+  });
+  if(error)throw error;
+  const result=Array.isArray(data)?data[0]:data;
+  if(!result||!result.request_id)throw new Error('The request could not be confirmed. Refresh and check your history.');
+  showBalance(result.new_balance);
+  $('withdrawForm').reset();
+  $('value').textContent='₹0';
+  $('modalText').textContent=formatNumber(result.points_amount)+' points (₹'+formatNumber(result.rupee_amount)+') have been recorded. Status: Pending. This is a request record, not a money transfer.';
+  $('modal').classList.add('show');
+  await loadHistory();
+ }catch(error){
+  $('formError').textContent=error.message||'Could not submit your request. Please try again.';
+ }finally{
+  $('submitBtn').disabled=false;
+  $('submitBtn').textContent='Submit Withdrawal Request';
+ }
 });
 $('closeModal').onclick=()=>$('modal').classList.remove('show');
 $('logoutBtn').onclick=async()=>{
-await db.auth.signOut({scope:'local'});
-location.replace('login.html');
+ await db.auth.signOut({scope:'local'});
+ location.replace('login.html');
 };
+await loadBalance();
+await loadHistory();
 })();
 </script>
 </body>
