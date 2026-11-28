@@ -632,6 +632,57 @@ button {
   text-align: right;
   flex-shrink: 0;
 }
+
+/* Typing Progress Chart */
+
+.progress-chart-card {
+  position: relative;
+  min-height: 285px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 19px;
+  background: rgba(255, 255, 255, 0.68);
+  box-shadow: 0 8px 25px rgba(54, 112, 190, 0.08);
+}
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 18px;
+  color: #7185a7;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.chart-legend span:first-child::before,
+.chart-legend span:last-child::before {
+  content: "";
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 7px;
+  border-radius: 50%;
+}
+
+.chart-legend span:first-child::before {
+  background: #3478F6;
+}
+
+.chart-legend span:last-child::before {
+  background: #16A085;
+}
+
+#typingProgressChart {
+  display: block;
+  width: 100% !important;
+  height: 220px !important;
+}
+
+#chartEmptyState {
+  margin-top: 12px;
+}
+
 /* Right panel */
 
 .right-panel {
