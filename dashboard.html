@@ -486,12 +486,19 @@ if (resultError) {
         })[char]);
 
       return `
-        <article class="task-card">
+                <article class="task-row">
           <div class="task-icon">${icon}</div>
-          <div class="task-category">${String(task.category || 'GENERAL')}</div>
-          <h3>${title}</h3>
-          <p>Type ${Number(task.pages) || 0} page(s) · ${Number(task.time_limit_minutes) || 0} mins</p>
-          <div class="task-reward">✦ +${Number(task.points_reward) || 0} Points</div>
+
+          <div class="task-main">
+            <div class="task-category">${String(task.category || 'GENERAL')}</div>
+            <h3>${title}</h3>
+            <p>Type ${Number(task.pages) || 0} page(s) · ${Number(task.time_limit_minutes) || 0} mins</p>
+          </div>
+
+          <div class="task-reward">
+            ✦ +${Number(task.points_reward) || 0} Points
+          </div>
+
           <a class="task-button" href="typing.html?id=${encodeURIComponent(task.id)}">
             Start Challenge <span>→</span>
           </a>
