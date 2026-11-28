@@ -820,7 +820,13 @@
           submitBtn.disabled = false;
           forgotPasswordBtn.disabled = false;
 
-          submitBtn.innerHTML =
+                    submitBtn.innerHTML =
             mode === 'signin'
               ? 'Sign In <span>→</span>'
-            
+              : 'Create Account <span>→</span>';
+        }
+      }
+    );
+  </script>
+</body>
+</html>
