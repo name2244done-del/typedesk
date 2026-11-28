@@ -965,7 +965,21 @@ button {
   .main-area {
     padding: 17px 14px 100px;
   }
+.progress-chart-card {
+  min-height: 280px;
+  padding: 16px;
+  border-radius: 17px;
+}
 
+.chart-legend {
+  gap: 12px;
+  margin-bottom: 14px;
+  font-size: 10px;
+}
+
+#typingProgressChart {
+  height: 210px !important;
+}
   .topbar {
     margin-bottom: 17px;
   }
