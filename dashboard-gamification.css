@@ -1,0 +1,61 @@
+/* TypeDesk dashboard add-on styles. Load after dashboard.css. Existing palette retained. */
+
+.dashboard-status{display:none;margin:0 0 16px;padding:11px 14px;border:1px solid #dce8fa;border-radius:12px;background:#fff;color:#526b8c;font-size:12px}
+.dashboard-status.error{display:block;border-color:#ffd4d4;background:#fff7f7;color:#a33}
+.dashboard-status.success{display:block;border-color:#ccebd9;background:#f4fff8;color:#18744b}
+
+.streak-summary{display:flex;align-items:center;gap:13px;padding:14px 10px}
+.streak-flame{font-size:34px}
+.streak-summary strong,.streak-summary small{display:block}
+.streak-summary strong{color:#17365f;font-size:18px}
+.streak-summary small{margin-top:4px;color:#8293af;font-size:10px;line-height:1.5}
+.week-strip{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:10px}
+.week-day{display:grid;justify-items:center;gap:5px;padding:8px 2px;border-radius:10px;background:#f5f8ff;color:#91a2bc;font-size:9px}
+.week-day strong{font-size:11px;color:#526b8c}
+.week-day.current{outline:1px solid #9bc7ff}
+.week-day.completed{background:#e5f8ef;color:#16845b}
+.week-day.completed strong{color:#16845b}
+
+.goal-form{display:grid;gap:7px;margin:10px 0 15px}
+.goal-form label{color:#7185a7;font-size:10px;font-weight:700}
+.goal-form select,.goal-form input{width:100%;min-height:38px;padding:8px 10px;border:1px solid #dce8fa;border-radius:10px;background:#fff;color:#294467;font:inherit;font-size:12px}
+.goal-submit{width:100%;margin-top:5px}
+.inline-status{min-height:14px;margin:0;color:#3478f6;font-size:10px}
+.goal-list{display:grid;gap:12px}
+.goal-item{padding:12px;border:1px solid #e6effb;border-radius:13px;background:#fbfdff}
+.goal-item-heading{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.goal-item-heading strong{color:#294467;font-size:11px}
+.goal-item-heading small,.goal-dates{color:#8293af;font-size:9px}
+.goal-track{height:7px;margin:9px 0 6px;border-radius:10px;background:#e8f0fc;overflow:hidden}
+.goal-track span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#24bdf5,#1764ed)}
+
+.leaderboard-list{display:grid;gap:7px}
+.leader-row{display:grid;grid-template-columns:24px minmax(0,1fr) auto;align-items:center;gap:8px;padding:9px;border-radius:11px;background:#f8fbff}
+.leader-row.me{background:#eaf4ff;outline:1px solid #cfe4ff}
+.leader-rank{color:#3478f6;font-size:11px;font-weight:800}
+.leader-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#294467;font-size:11px;font-weight:700}
+.leader-points{color:#b7791f;font-size:10px;white-space:nowrap}
+
+.reward-catalog,.reward-history{display:grid;gap:9px}
+.reward-item{display:grid;grid-template-columns:30px minmax(0,1fr) auto;align-items:center;gap:8px;padding:10px;border:1px solid #e6effb;border-radius:12px;background:#fbfdff}
+.reward-icon{font-size:22px}
+.reward-info{display:grid;gap:3px;min-width:0}
+.reward-info strong{color:#294467;font-size:11px}
+.reward-info small{color:#8293af;font-size:9px;line-height:1.4}
+.reward-info .reward-cost{color:#b7791f;font-weight:800}
+.reward-button{min-height:32px;padding:0 10px;border:0;border-radius:9px;background:#e8f2ff;color:#1764d9;font-size:10px;font-weight:800}
+.reward-button:disabled{background:#eef2f7;color:#8794a8;cursor:not-allowed}
+.reward-history-heading{margin-top:19px}
+.history-row{display:flex;justify-content:space-between;gap:8px;padding:8px 2px;border-bottom:1px solid #edf2fa;color:#7185a7;font-size:10px}
+.history-row strong{white-space:nowrap}
+.history-row .positive{color:#16845b}
+.history-row .negative{color:#b83b4b}
+.reward-history .empty-state,.reward-catalog .empty-state{padding:12px;font-size:10px}
+
+@media(max-width:760px){
+  .dashboard-status{margin-bottom:12px}
+  .right-panel{gap:13px}
+  .reward-item{grid-template-columns:26px minmax(0,1fr) auto}
+  .goal-item-heading{align-items:flex-start}
+  .leader-row{padding:8px}
+}
