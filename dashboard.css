@@ -598,7 +598,7 @@ button {
 }
 
 .task-category {
-  margin-top: 12px;
+  margin-top: 0;
   color: var(--blue);
   font-size: 9px;
   font-weight: 800;
