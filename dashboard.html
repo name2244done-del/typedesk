@@ -364,6 +364,72 @@
         activityBox.appendChild(row);
       });
     }
+        const chartEmptyState = document.getElementById('chartEmptyState');
+    const chartCanvas = document.getElementById('typingProgressChart');
+
+    const { data: chartResults, error: chartError } =
+      await supabaseClient
+        .from('typing_results')
+        .select('wpm, accuracy, created_at')
+        .eq('user_id', session.user.id)
+        .order('created_at', { ascending: true })
+        .limit(10);
+
+    if (chartError) {
+      console.error('Progress chart error:', chartError);
+      chartEmptyState.hidden = false;
+      chartEmptyState.textContent = 'Could not load progress chart.';
+      chartCanvas.hidden = true;
+    } else if (!chartResults || chartResults.length === 0) {
+      chartEmptyState.hidden = false;
+      chartCanvas.hidden = true;
+    } else {
+      chartEmptyState.hidden = true;
+      chartCanvas.hidden = false;
+
+      new Chart(chartCanvas, {
+        type: 'line',
+        data: {
+          labels: chartResults.map(item =>
+            new Date(item.created_at).toLocaleDateString()
+          ),
+          datasets: [
+            {
+              label: 'WPM',
+              data: chartResults.map(item => item.wpm),
+              borderColor: '#3478F6',
+              backgroundColor: 'rgba(52,120,246,0.12)',
+              tension: 0.35
+            },
+            {
+              label: 'Accuracy (%)',
+              data: chartResults.map(item => item.accuracy),
+              borderColor: '#16A085',
+              backgroundColor: 'rgba(22,160,133,0.12)',
+              tension: 0.35
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {
+            intersect: false,
+            mode: 'index'
+          },
+          plugins: {
+            legend: {
+              display: true
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
     await loadTasks();
   }
 
