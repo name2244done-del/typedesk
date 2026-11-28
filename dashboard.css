@@ -778,7 +778,27 @@ button {
     linear-gradient(135deg,#1687f3,#1553d0);
   box-shadow: 0 14px 30px #1477ef30;
 }
+.wallet-panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
+.wallet-panel:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 19px 38px rgba(20, 119, 239, 0.25);
+}
+
+.side-panel {
+  border-color: rgba(255, 255, 255, 0.95);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.side-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(52, 120, 246, 0.12);
+}
 .panel-top {
   display: flex;
   align-items: center;
