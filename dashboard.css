@@ -694,12 +694,18 @@ button {
 
 .progress-chart-card {
   position: relative;
-  min-height: 285px;
-  padding: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  border-radius: 19px;
-  background: rgba(255, 255, 255, 0.68);
-  box-shadow: 0 8px 25px rgba(54, 112, 190, 0.08);
+  min-height: 340px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: 0 10px 30px rgba(54, 112, 190, 0.09);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.progress-chart-card:hover {
+  border-color: #c9ddff;
+  box-shadow: 0 14px 34px rgba(52, 120, 246, 0.12);
 }
 
 .chart-legend {
