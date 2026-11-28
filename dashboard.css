@@ -1077,9 +1077,23 @@ button {
     gap: 11px;
   }
 
-  .task-card {
-    padding: 17px;
-  }
+  .task-row {
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 15px;
+}
+
+.task-main {
+  flex: 1 1 calc(100% - 55px);
+}
+
+.task-reward {
+  margin-left: 0;
+}
+
+.task-button {
+  margin-left: auto;
+}
 
   .right-panel {
     margin-top: 25px;
