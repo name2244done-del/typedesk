@@ -283,10 +283,14 @@
           .eq('id', session.user.id)
           .maybeSingle();
 
-      if (!profileError && profile) {
-        document.getElementById('walletBalance').textContent =
-          profile.total_points ?? 0;
-      }
+      
+if (!profileError && profile) {
+  const points = profile.total_points ?? 0;
+
+  document.getElementById('walletBalance').textContent = points;
+  document.getElementById('kpiPoints').textContent = points;
+}
+      
     } catch (e) {
       console.log('Profile fetch error:', e);
     }
