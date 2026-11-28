@@ -899,8 +899,15 @@ button {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 13px 0;
-  border-top: 1px solid var(--line);
+  padding: 15px 10px;
+  border-top: 1px solid rgba(52, 120, 246, 0.10);
+  border-radius: 12px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.progress-row:hover {
+  background: rgba(52, 120, 246, 0.055);
+  transform: translateX(3px);
 }
 
 .progress-icon {
