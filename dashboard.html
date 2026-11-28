@@ -5,12 +5,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard · TypeDesk</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="dashboard.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
+
 <div class="app-shell">
 
   <aside class="sidebar">
@@ -20,10 +23,12 @@
     </a>
 
     <div class="nav-label">WORKSPACE</div>
+
     <nav class="side-nav" aria-label="Main navigation">
       <a class="nav-item active" href="#overview"><span>⌂</span> Dashboard</a>
       <a class="nav-item" href="#practice"><span>⌨</span> Typing Practice</a>
       <a class="nav-item" href="#challenges"><span>⚡</span> Challenges</a>
+      <a class="nav-item" href="#typing-progress"><span>▤</span> Analytics</a>
       <a class="nav-item" href="#rewards"><span>✧</span> Rewards</a>
     </nav>
 
@@ -33,7 +38,10 @@
         <strong>Keep improving!</strong>
         <p>Practice regularly and track your progress here.</p>
       </div>
-      <button class="logout-link" id="logoutBtn"><span>↪</span> Sign Out</button>
+
+      <button class="logout-link" id="logoutBtn">
+        <span>↪</span> Sign Out
+      </button>
     </div>
   </aside>
 
@@ -67,7 +75,10 @@
 
       <section class="primary-content" id="overview">
 
+        <!-- PERFORMANCE STATISTICS -->
+
         <section class="stats-grid" aria-label="Typing statistics">
+
           <article class="stat-card">
             <div class="stat-icon blue">⌨</div>
             <div>
@@ -75,7 +86,9 @@
               <strong class="stat-value">
                 <span id="metricWpm">—</span> <small>WPM</small>
               </strong>
-              <span class="stat-note" id="metricWpmNote">Average typing speed</span>
+              <span class="stat-note" id="metricWpmNote">
+                Average typing speed
+              </span>
             </div>
           </article>
 
@@ -84,7 +97,9 @@
             <div>
               <span class="stat-label">Accuracy</span>
               <strong class="stat-value" id="metricAccuracy">—</strong>
-              <span class="stat-note" id="metricAccuracyNote">Average accuracy</span>
+              <span class="stat-note" id="metricAccuracyNote">
+                Average accuracy
+              </span>
             </div>
           </article>
 
@@ -100,14 +115,30 @@
           <article class="stat-card">
             <div class="stat-icon green">✦</div>
             <div>
+              <span class="stat-label">Personal Best</span>
+              <strong class="stat-value">
+                <span id="metricBestWpm">0</span>
+                <small>WPM</small>
+              </strong>
+              <span class="stat-note">Highest recorded speed</span>
+            </div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-icon blue">◇</div>
+            <div>
               <span class="stat-label">Available Points</span>
               <strong class="stat-value" id="kpiPoints">0</strong>
               <span class="stat-note">Your reward balance</span>
             </div>
           </article>
+
         </section>
 
+        <!-- PRACTICE MODES -->
+
         <section class="section-block" id="practice">
+
           <div class="section-heading">
             <div>
               <span class="eyebrow">CHOOSE YOUR STYLE</span>
@@ -116,6 +147,7 @@
           </div>
 
           <div class="practice-grid">
+
             <a class="practice-card" href="#challenges">
               <span class="practice-icon">⌨</span>
               <strong>Words</strong>
@@ -137,43 +169,56 @@
               <span class="card-arrow">→</span>
             </a>
 
-            <a class="practice-card" href="#challenges">
+            <a class="practice-card" href="typing.html">
               <span class="practice-icon">✎</span>
-              <strong>Custom</strong>
-              <small>Choose a challenge</small>
+              <strong>Free Practice</strong>
+              <small>Start a free session</small>
               <span class="card-arrow">→</span>
             </a>
+
           </div>
 
           <p class="feature-note">
-            Practice modes are shortcuts to the available challenges. Dedicated mode sessions will be connected when the typing module is added.
+            Choose a practice category or start a free typing session.
+            Dedicated word and sentence modes are planned for a later update.
           </p>
+
         </section>
 
+        <!-- CHALLENGES -->
+
         <section class="section-block" id="challenges">
+
           <div class="section-heading">
             <div>
               <span class="eyebrow">PRACTICE AND EARN</span>
               <h2>Typing Challenges</h2>
             </div>
+
             <span class="live-label"><i></i> LIVE TASKS</span>
           </div>
 
           <div class="task-grid" id="taskList">
             <p class="empty-state">Loading challenges...</p>
           </div>
+
         </section>
 
+        <!-- PERFORMANCE ANALYTICS -->
+
         <section class="section-block" id="typing-progress">
+
           <div class="section-heading">
             <div>
               <span class="eyebrow">PERFORMANCE TRACKER</span>
               <h2>Typing Progress</h2>
             </div>
-            <span class="live-label">LIVE STATS</span>
+
+            <span class="live-label">LATEST 10 TESTS</span>
           </div>
 
           <div class="progress-chart-card">
+
             <div class="chart-legend">
               <span>WPM History</span>
               <span>Accuracy History</span>
@@ -182,30 +227,40 @@
             <canvas id="typingProgressChart"></canvas>
 
             <p id="chartEmptyState" class="empty-state" hidden>
-              Complete more typing sessions to see your progress.
+              Complete typing sessions to see your progress.
             </p>
+
           </div>
+
         </section>
 
+        <!-- RECENT ACTIVITY -->
+
         <section class="section-block" id="recent-activity">
+
           <div class="section-heading">
             <div>
               <span class="eyebrow">YOUR PERFORMANCE</span>
               <h2>Recent Activity</h2>
             </div>
+
             <span class="live-label">LATEST 5</span>
           </div>
 
           <div id="recentActivity" class="recent-activity-list">
             <p class="empty-state">Loading recent activity...</p>
           </div>
+
         </section>
 
       </section>
 
+      <!-- RIGHT PANEL -->
+
       <aside class="right-panel">
 
         <section class="wallet-panel" id="rewards">
+
           <div class="panel-top">
             <span>YOUR REWARDS</span>
             <span class="coin-symbol">✧</span>
@@ -218,7 +273,9 @@
             <strong id="walletBalance">0</strong>
           </div>
 
-          <div class="wallet-progress"><span></span></div>
+          <div class="wallet-progress">
+            <span></span>
+          </div>
 
           <p class="wallet-footnote">
             Keep completing tasks to earn more points.
@@ -230,9 +287,11 @@
             <span>Reward history</span>
             <span class="coming-soon">Coming soon</span>
           </div>
+
         </section>
 
         <section class="side-panel" id="profile">
+
           <div class="section-heading compact">
             <div>
               <span class="eyebrow">YOUR JOURNEY</span>
@@ -260,29 +319,48 @@
             <span class="progress-icon">🎯</span>
             <div>
               <strong>Typing goals</strong>
-              <small>Start your first session</small>
+              <small>Coming soon</small>
             </div>
           </div>
+
         </section>
 
         <div class="tip-card">
           <span>✦ QUICK TIP</span>
           <p>
-            Consistency matters. A little typing practice every day can help you improve over time.
+            Consistency matters. A little typing practice every day can
+            help you improve over time.
           </p>
         </div>
 
       </aside>
+
     </div>
   </main>
 </div>
 
+<!-- MOBILE NAVIGATION -->
+
 <nav class="mobile-nav" aria-label="Mobile navigation">
-  <a class="mobile-nav-item active" href="#overview"><span>⌂</span>Home</a>
-  <a class="mobile-nav-item" href="#practice"><span>⌨</span>Practice</a>
-  <a class="mobile-nav-item" href="#challenges"><span>⚡</span>Tasks</a>
-  <a class="mobile-nav-item" href="#rewards"><span>✧</span>Rewards</a>
-  <a class="mobile-nav-item" href="#profile"><span>◎</span>Profile</a>
+  <a class="mobile-nav-item active" href="#overview">
+    <span>⌂</span>Home
+  </a>
+
+  <a class="mobile-nav-item" href="#practice">
+    <span>⌨</span>Practice
+  </a>
+
+  <a class="mobile-nav-item" href="#challenges">
+    <span>⚡</span>Tasks
+  </a>
+
+  <a class="mobile-nav-item" href="#rewards">
+    <span>✧</span>Rewards
+  </a>
+
+  <a class="mobile-nav-item" href="#profile">
+    <span>◎</span>Profile
+  </a>
 </nav>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -303,7 +381,10 @@
     config.publishableKey
   );
 
+  let typingChart = null;
+
   async function initDashboard() {
+
     const { data: { session }, error } =
       await supabaseClient.auth.getSession();
 
@@ -320,295 +401,376 @@
     document.getElementById('userAvatar').textContent =
       userEmail.charAt(0).toUpperCase();
 
-    /* Load profile points */
+    await loadProfile(session.user.id);
+
+    const allResults = await loadStatistics(session.user.id);
+
+    await loadRecentActivity(session.user.id);
+
+    await loadProgressChart(session.user.id);
+
+    await loadTasks();
+  }
+
+  /* PROFILE AND REWARD BALANCE */
+
+  async function loadProfile(userId) {
 
     try {
-      const { data: profile, error: profileError } =
+
+      const { data: profile, error } =
         await supabaseClient
           .from('user_profiles')
           .select('total_points')
-          .eq('id', session.user.id)
+          .eq('id', userId)
           .maybeSingle();
 
-      if (!profileError && profile) {
-        const points = profile.total_points ?? 0;
+      if (error) {
+        console.error('Profile fetch error:', error);
+        return;
+      }
+
+      if (profile) {
+
+        const points = Number(profile.total_points || 0);
 
         document.getElementById('walletBalance').textContent = points;
+
         document.getElementById('kpiPoints').textContent = points;
       }
-    } catch (e) {
-      console.log('Profile fetch error:', e);
+
+    } catch (error) {
+      console.error('Profile loading error:', error);
     }
+  }
 
-    /* Load average typing statistics */
+  /* TYPING STATISTICS AND PERSONAL BEST */
 
-    const { data: allResults, error: resultError } =
+  async function loadStatistics(userId) {
+
+    const { data: allResults, error } =
       await supabaseClient
         .from('typing_results')
         .select('wpm, accuracy')
-        .eq('user_id', session.user.id);
+        .eq('user_id', userId);
 
-    if (resultError) {
-      console.error('Typing statistics error:', resultError);
-    } else if (allResults && allResults.length > 0) {
-      const averageWpm =
-        allResults.reduce(
-          (sum, item) => sum + Number(item.wpm || 0),
-          0
-        ) / allResults.length;
+    if (error) {
+      console.error('Typing statistics error:', error);
+      return [];
+    }
 
-      const averageAccuracy =
-        allResults.reduce(
-          (sum, item) => sum + Number(item.accuracy || 0),
-          0
-        ) / allResults.length;
+    const results = allResults || [];
 
-      document.getElementById('metricWpm').textContent =
-        averageWpm.toFixed(0);
+    document.getElementById('metricSessions').textContent =
+      results.length;
 
-      document.getElementById('metricAccuracy').textContent =
-        averageAccuracy.toFixed(0) + '%';
+    if (results.length === 0) {
+      document.getElementById('metricWpm').textContent = '0';
+      document.getElementById('metricAccuracy').textContent = '0%';
+      document.getElementById('metricBestWpm').textContent = '0';
 
       document.getElementById('metricWpmNote').textContent =
-        'Average across all sessions';
+        'Complete your first test';
 
       document.getElementById('metricAccuracyNote').textContent =
-        'Average across all sessions';
+        'No results yet';
+
+      return results;
     }
 
-    /* Load completed session count */
+    const averageWpm =
+      results.reduce(
+        (sum, item) => sum + Number(item.wpm || 0),
+        0
+      ) / results.length;
 
-    const { count: sessionCount, error: sessionCountError } =
-      await supabaseClient
-        .from('typing_results')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', session.user.id);
+    const averageAccuracy =
+      results.reduce(
+        (sum, item) => sum + Number(item.accuracy || 0),
+        0
+      ) / results.length;
 
-    if (sessionCountError) {
-      console.error('Session count error:', sessionCountError);
-    } else {
-      document.getElementById('metricSessions').textContent =
-        sessionCount ?? 0;
-    }
+    const personalBest = Math.max(
+      ...results.map(item => Number(item.wpm || 0))
+    );
 
-    /* Load recent activity */
+    document.getElementById('metricWpm').textContent =
+      averageWpm.toFixed(0);
+
+    document.getElementById('metricAccuracy').textContent =
+      averageAccuracy.toFixed(0) + '%';
+
+    document.getElementById('metricBestWpm').textContent =
+      personalBest;
+
+    document.getElementById('metricWpmNote').textContent =
+      'Average across saved sessions';
+
+    document.getElementById('metricAccuracyNote').textContent =
+      'Average across saved sessions';
+
+    return results;
+  }
+
+  /* RECENT ACTIVITY */
+
+  async function loadRecentActivity(userId) {
 
     const activityBox = document.getElementById('recentActivity');
 
-    const { data: recentResults, error: activityError } =
+    const { data: recentResults, error } =
       await supabaseClient
         .from('typing_results')
         .select('wpm, accuracy, characters_typed, duration_seconds, task_id, created_at')
-        .eq('user_id', session.user.id)
+        .eq('user_id', userId)
         .order('created_at', { ascending: false })
         .limit(5);
 
-    if (activityError) {
-      console.error('Recent activity error:', activityError);
+    if (error) {
+      console.error('Recent activity error:', error);
       activityBox.textContent = 'Could not load recent activity.';
-    } else if (!recentResults || recentResults.length === 0) {
-      activityBox.textContent = 'No typing sessions completed yet.';
-    } else {
-      activityBox.replaceChildren();
-
-      recentResults.forEach(item => {
-        const row = document.createElement('div');
-        row.className = 'activity-item';
-
-        const details = document.createElement('div');
-        const title = document.createElement('strong');
-        const date = document.createElement('small');
-
-        title.textContent = item.task_id
-          ? 'Typing Challenge'
-          : 'Free Practice';
-
-        date.textContent = new Date(item.created_at).toLocaleString();
-
-        details.append(title, date);
-
-        const score = document.createElement('div');
-        const speed = document.createElement('strong');
-        const accuracy = document.createElement('small');
-
-        speed.textContent = item.wpm + ' WPM';
-
-        accuracy.textContent =
-          Number(item.accuracy).toFixed(0) + '% Accuracy';
-
-        score.append(speed, accuracy);
-        row.append(details, score);
-        activityBox.appendChild(row);
-      });
+      return;
     }
 
-    /* Load typing progress chart */
+    if (!recentResults || recentResults.length === 0) {
+      activityBox.textContent =
+        'No typing sessions completed yet.';
+      return;
+    }
 
-    const chartEmptyState = document.getElementById('chartEmptyState');
-    const chartCanvas = document.getElementById('typingProgressChart');
+    activityBox.replaceChildren();
 
-    const { data: chartResults, error: chartError } =
+    recentResults.forEach(item => {
+
+      const row = document.createElement('div');
+      row.className = 'activity-item';
+
+      const details = document.createElement('div');
+
+      const title = document.createElement('strong');
+      const date = document.createElement('small');
+
+      title.textContent = item.task_id
+        ? 'Typing Challenge'
+        : 'Free Practice';
+
+      date.textContent = new Date(item.created_at).toLocaleString();
+
+      details.append(title, date);
+
+      const score = document.createElement('div');
+
+      const speed = document.createElement('strong');
+      const accuracy = document.createElement('small');
+
+      speed.textContent = Number(item.wpm || 0) + ' WPM';
+
+      accuracy.textContent =
+        Number(item.accuracy || 0).toFixed(0) + '% Accuracy';
+
+      score.append(speed, accuracy);
+
+      row.append(details, score);
+
+      activityBox.appendChild(row);
+    });
+  }
+
+  /* TYPING PERFORMANCE CHART */
+
+  async function loadProgressChart(userId) {
+
+    const chartEmptyState =
+      document.getElementById('chartEmptyState');
+
+    const chartCanvas =
+      document.getElementById('typingProgressChart');
+
+    const { data: chartResults, error } =
       await supabaseClient
         .from('typing_results')
         .select('wpm, accuracy, created_at')
-        .eq('user_id', session.user.id)
-        .order('created_at', { ascending: true })
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false })
         .limit(10);
 
-    if (chartError) {
-      console.error('Progress chart error:', chartError);
+    if (error) {
+
+      console.error('Progress chart error:', error);
 
       chartEmptyState.hidden = false;
       chartEmptyState.textContent =
         'Could not load progress chart.';
 
       chartCanvas.hidden = true;
-    } else if (!chartResults || chartResults.length === 0) {
+
+      return;
+    }
+
+    if (!chartResults || chartResults.length === 0) {
+
       chartEmptyState.hidden = false;
       chartCanvas.hidden = true;
-    } else {
-      chartEmptyState.hidden = true;
-      chartCanvas.hidden = false;
 
-      new Chart(chartCanvas, {
-        type: 'line',
-        data: {
-          labels: chartResults.map(item =>
-            new Date(item.created_at).toLocaleDateString()
-          ),
-          datasets: [
-            {
-              label: 'WPM',
-              data: chartResults.map(item => item.wpm),
-              borderColor: '#3478F6',
-              backgroundColor: 'rgba(52,120,246,0.12)',
-              tension: 0.35
-            },
-            {
-              label: 'Accuracy (%)',
-              data: chartResults.map(item => item.accuracy),
-              borderColor: '#16A085',
-              backgroundColor: 'rgba(22,160,133,0.12)',
-              tension: 0.35
-            }
-          ]
+      return;
+    }
+
+    chartEmptyState.hidden = true;
+    chartCanvas.hidden = false;
+
+    /* Reverse so oldest of the latest 10 appears first */
+
+    const orderedResults = [...chartResults].reverse();
+
+    const labels = orderedResults.map((item, index) => {
+      const date = new Date(item.created_at);
+
+      return 'Test ' + (index + 1) +
+        ' · ' + date.toLocaleDateString();
+    });
+
+    if (typingChart) {
+      typingChart.destroy();
+    }
+
+    typingChart = new Chart(chartCanvas, {
+
+      type: 'line',
+
+      data: {
+
+        labels: labels,
+
+        datasets: [
+
+          {
+            label: 'WPM',
+            data: orderedResults.map(item =>
+              Number(item.wpm || 0)
+            ),
+            yAxisID: 'yWpm',
+            borderColor: '#3478F6',
+            backgroundColor: 'rgba(52,120,246,0.12)',
+            pointBackgroundColor: '#3478F6',
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            borderWidth: 3,
+            tension: 0.35,
+            fill: true
+          },
+
+          {
+            label: 'Accuracy (%)',
+            data: orderedResults.map(item =>
+              Number(item.accuracy || 0)
+            ),
+            yAxisID: 'yAccuracy',
+            borderColor: '#16A085',
+            backgroundColor: 'rgba(22,160,133,0.08)',
+            pointBackgroundColor: '#16A085',
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            borderWidth: 3,
+            tension: 0.35,
+            fill: false
+          }
+
+        ]
+      },
+
+      options: {
+
+        responsive: true,
+
+        maintainAspectRatio: false,
+
+        interaction: {
+          intersect: false,
+          mode: 'index'
         },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          interaction: {
-            intersect: false,
-            mode: 'index'
+
+        plugins: {
+
+          legend: {
+            display: false
           },
-          plugins: {
-            legend: {
-              display: true
+
+          tooltip: {
+            backgroundColor: '#17365f',
+            padding: 12,
+            cornerRadius: 10
+          }
+
+        },
+
+        scales: {
+
+          x: {
+            grid: {
+              display: false
+            },
+            ticks: {
+              color: '#8294ad',
+              maxRotation: 0,
+              autoSkip: true
             }
           },
-          scales: {
-            y: {
-              beginAtZero: true
+
+          yWpm: {
+            type: 'linear',
+            position: 'left',
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Words per minute'
+            },
+            ticks: {
+              color: '#3478F6'
+            },
+            grid: {
+              color: 'rgba(52,120,246,0.08)'
+            }
+          },
+
+          yAccuracy: {
+            type: 'linear',
+            position: 'right',
+            min: 0,
+            max: 100,
+            title: {
+              display: true,
+              text: 'Accuracy (%)'
+            },
+            ticks: {
+              color: '#16A085'
+            },
+            grid: {
+              drawOnChartArea: false
             }
           }
-        }
-      });
-    }
 
-    await loadTasks();
+        }
+
+      }
+
+    });
   }
 
-  /* Load active typing challenges */
+  /* LOAD ACTIVE TYPING CHALLENGES */
 
   async function loadTasks() {
+
     const taskList = document.getElementById('taskList');
 
-    const { data: tasks, error } = await supabaseClient
-      .from('typing_tasks')
-      .select('*')
-      .eq('is_active', true)
-      .limit(6);
+    const { data: tasks, error } =
+      await supabaseClient
+        .from('typing_tasks')
+        .select('*')
+        .eq('is_active', true)
+        .limit(6);
 
     if (error) {
+
       console.error('Task loading error:', error);
 
-      taskList.innerHTML =
-        '<p class="empty-state">Could not load challenges. Please try again later.</p>';
-
-      return;
-    }
-
-    if (!tasks || tasks.length === 0) {
-      taskList.innerHTML =
-        '<p class="empty-state">No active challenges available right now.</p>';
-
-      return;
-    }
-
-    taskList.innerHTML = tasks.map(task => {
-      let icon = '📝';
-
-      if (task.category === 'Science') icon = '🌱';
-      else if (task.category === 'Company') icon = '💼';
-      else if (task.category === 'Education') icon = '🎓';
-
-      const title = String(task.title || 'Typing Task')
-        .replace(/[&<>"']/g, char => ({
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          '"': '&quot;',
-          "'": '&#39;'
-        })[char]);
-
-      return `
-        <article class="task-row">
-          <div class="task-icon">${icon}</div>
-
-          <div class="task-main">
-            <div class="task-category">${String(task.category || 'GENERAL')}</div>
-            <h3>${title}</h3>
-            <p>Type ${Number(task.pages) || 0} page(s) · ${Number(task.time_limit_minutes) || 0} mins</p>
-          </div>
-
-          <div class="task-reward">
-            ✦ +${Number(task.points_reward) || 0} Points
-          </div>
-
-          <a class="task-button" href="typing.html?id=${encodeURIComponent(task.id)}">
-            Start Challenge <span>→</span>
-          </a>
-        </article>
-      `;
-    }).join('');
-  }
-
-  /* Sign out */
-
-  document.getElementById('logoutBtn').addEventListener('click', async () => {
-    const { error } = await supabaseClient.auth.signOut();
-
-    if (error) {
-      alert('Could not sign out. Please try again.');
-      return;
-    }
-
-    window.location.href = 'login.html';
-  });
-
-  /* Mobile navigation active state */
-
-  document.querySelectorAll('.mobile-nav-item').forEach(link => {
-    link.addEventListener('click', () => {
-      document.querySelectorAll('.mobile-nav-item')
-        .forEach(item => item.classList.remove('active'));
-
-      link.classList.add('active');
-    });
-  });
-
-  initDashboard();
-</script>
-
-<script src="desktop-notice.js"></script>
-</body>
-</html>
+      taskList.innerHTM
