@@ -956,17 +956,19 @@ button {
 }
 
 .tip-card span {
+  display: inline-block;
   color: var(--blue);
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 800;
-  letter-spacing: 1px;
+  letter-spacing: 1.1px;
 }
 
 .tip-card p {
-  margin: 10px 0 0;
-  color: #7287a9;
-  font-size: 11px;
-  line-height: 1.7;
+  max-width: 260px;
+  margin: 11px 0 0;
+  color: #647c9f;
+  font-size: 12px;
+  line-height: 1.8;
 }
 
 /* Mobile navigation */
