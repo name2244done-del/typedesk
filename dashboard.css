@@ -667,7 +667,16 @@ button {
   background: rgba(255, 255, 255, 0.58);
   box-shadow: 0 5px 18px rgba(55, 110, 190, 0.06);
 }
+.activity-item {
+  transition: transform 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
 
+.activity-item:hover {
+  transform: translateY(-2px);
+  border-color: #bfd8ff;
+  box-shadow: 0 10px 24px rgba(52, 120, 246, 0.11);
+}
 .activity-item > div {
   display: grid;
   gap: 5px;
