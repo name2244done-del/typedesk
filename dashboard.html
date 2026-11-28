@@ -294,30 +294,35 @@ if (!profileError && profile) {
     } catch (e) {
       console.log('Profile fetch error:', e);
     }
-    const { data: latestResult, error: resultError } =
-      await supabaseClient
-        .from('typing_results')
-        .select('wpm, accuracy, created_at')
-        .eq('user_id', session.user.id)
-        .order('created_at', { ascending: false })
-        .limit(1)
-        .maybeSingle();
+    const { data: allResults, error: resultError } =
+  await supabaseClient
+    .from('typing_results')
+    .select('wpm, accuracy')
+    .eq('user_id', session.user.id);
 
-    if (resultError) {
-      console.error('Typing statistics error:', resultError);
-    } else if (latestResult) {
-      document.getElementById('metricWpm').textContent =
-        latestResult.wpm;
+if (resultError) {
+  console.error('Typing statistics error:', resultError);
+} else if (allResults && allResults.length > 0) {
+  const averageWpm =
+    allResults.reduce((sum, item) => sum + Number(item.wpm || 0), 0) /
+    allResults.length;
 
-      document.getElementById('metricAccuracy').textContent =
-        Number(latestResult.accuracy).toFixed(0) + '%';
+  const averageAccuracy =
+    allResults.reduce((sum, item) => sum + Number(item.accuracy || 0), 0) /
+    allResults.length;
 
-      document.getElementById('metricWpmNote').textContent =
-        'Latest saved session';
+  document.getElementById('metricWpm').textContent =
+    averageWpm.toFixed(0);
 
-      document.getElementById('metricAccuracyNote').textContent =
-        'Latest typing accuracy';
-    }
+  document.getElementById('metricAccuracy').textContent =
+    averageAccuracy.toFixed(0) + '%';
+
+  document.getElementById('metricWpmNote').textContent =
+    'Average across all sessions';
+
+  document.getElementById('metricAccuracyNote').textContent =
+    'Average across all sessions';
+}
             const { count: sessionCount, error: sessionCountError } =
       await supabaseClient
         .from('typing_results')
