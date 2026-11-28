@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rewards & Withdrawal · TypeDesk</title>
+<link rel="stylesheet" href="dashboard.css">
+<style>
+.rewards-wrap{max-width:950px;margin:25px auto;padding:0 16px 90px}
+.reward-card{background:#fff;border:1px solid #e4effc;border-radius:20px;padding:22px;margin-bottom:18px;box-shadow:0 12px 35px #3670be12}
+.balance-card{background:linear-gradient(135deg,#176de5,#4aa5fa);color:white}
+.balance-card small{opacity:.85}.balance{font-size:32px;font-weight:800;margin:10px 0}
+.reward-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.method-row{display:flex;gap:18px;margin:15px 0}
+.field{display:grid;gap:7px;margin:13px 0}
+.field label{font-size:12px;font-weight:700;color:#617895}
+.field input{width:100%;padding:13px;border:1px solid #dce8fa;border-radius:11px;font:inherit}
+.field input:focus{outline:2px solid #3478f655;border-color:#3478f6}
+.amount-box{padding:13px;background:#f1f7ff;border-radius:12px;display:flex;justify-content:space-between;margin:14px 0;color:#3478f6;font-weight:700}
+.primary-btn{width:100%;padding:14px;border:0;border-radius:12px;background:#3478f6;color:white;font-weight:800}
+.note{font-size:11px;line-height:1.6;color:#8293af}
+.modal{display:none;position:fixed;inset:0;background:#102b5666;z-index:99;place-items:center;padding:18px}
+.modal.show{display:grid}
+.modal-box{background:white;border-radius:20px;padding:25px;max-width:370px;text-align:center}
+.modal-box button{padding:12px 30px;background:#3478f6;color:white;border:0;border-radius:10px}
+@media(max-width:700px){.reward-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app-shell">
+<aside class="sidebar">
+<a class="brand" href="dashboard.html"><span class="brand-mark">T</span><span>TypeDesk</span></a>
+<nav class="side-nav">
+<a class="nav-item" href="dashboard.html">⌂ Dashboard</a>
+<a class="nav-item active" href="rewards.html">✧ Rewards</a>
+</nav>
+<div class="sidebar-bottom">
+<button class="logout-link" id="logoutBtn">↪ Sign Out</button>
+</div>
+</aside>
+<main class="main-area">
+<header class="topbar">
+<div><div class="eyebrow">YOUR POINTS</div><div class="topbar-title">Rewards & Withdrawal</div><p class="topbar-subtitle">Manage your reward balance.</p></div>
+</header>
+<div class="rewards-wrap">
+<div class="reward-grid">
+<section class="reward-card balance-card">
+<small>Available Points</small>
+<div class="balance" id="pointsBalance">Loading...</div>
+<strong id="rupeeBalance">₹0</strong>
+<p class="note">1 Point = ₹1</p>
+</section>
+<section class="reward-card">
+<h3>Withdrawal Information</h3>
+<p class="note">Choose a withdrawal method and enter the amount you want to request.</p>
+<p>Bank Transfer · UPI</p>
+<p class="note">The withdrawal service is not connected yet.</p>
+</section>
+</div>
+<section class="reward-card">
+<h2>Withdraw Rewards</h2>
+<p class="note">Select your preferred withdrawal method.</p>
+<form id="withdrawForm">
+<div class="method-row">
+<label><input type="radio" name="method" value="bank" checked> Bank Transfer</label>
+<label><input type="radio" name="method" value="upi"> UPI ID</label>
+</div>
+<div class="field">
+<label for="amount">Withdrawal Points</label>
+<input id="amount" type="number" min="1" step="1" placeholder="Enter points" required>
+</div>
+<div class="amount-box"><span>Withdrawal value</span><strong id="value">₹0</strong></div>
+<div id="bankFields">
+<div class="field"><label for="bank">Bank Name</label><input id="bank" maxlength="80" placeholder="Enter bank name"></div>
+<div class="field"><label for="holder">Account Holder Name</label><input id="holder" maxlength="100" placeholder="Account holder name"></div>
+<div class="field"><label for="account">Account Number</label><input id="account" type="password" inputmode="numeric" maxlength="24" placeholder="Account number"></div>
+<div class="field"><label for="ifsc">IFSC Code</label><input id="ifsc" maxlength="11" placeholder="IFSC code"></div>
+</div>
+<div id="upiFields" hidden>
+<div class="field"><label for="upi">UPI ID</label><input id="upi" maxlength="100" placeholder="Enter UPI ID"></div>
+</div>
+<button class="primary-btn" type="submit">Submit Withdrawal Request</button>
+<p class="note">Do not enter real bank or UPI details yet. This first version does not save or transmit account details and cannot make payments.</p>
+<p id="formError" class="note"></p>
+</form>
+</section>
+</div>
+</main>
+</div>
+<div class="modal" id="modal">
+<div class="modal-box">
+<h2>Request Preview Ready</h2>
+<p id="modalText">Your details have been checked locally. No request has been sent and no payment has been approved or made.</p>
+<button id="closeModal">Continue</button>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script>
+(async function(){
+const $=id=>document.getElementById(id);
+const config=window.TYPEDESK_SUPABASE_CONFIG;
+if(!config||!window.supabase){location.replace('login.html');return;}
+const db=window.supabase.createClient(config.url,config.publishableKey);
+const {data:session}=await db.auth.getSession();
+if(!session.session){location.replace('login.html');return;}
+const user=session.session.user;
+const {data:profile,error}=await db.from('user_profiles').select('total_points').eq('id',user.id).maybeSingle();
+if(error){$('pointsBalance').textContent='Unavailable';return;}
+const points=Number(profile?.total_points||0);
+$('pointsBalance').textContent=points.toLocaleString('en-IN')+' Points';
+$('rupeeBalance').textContent='₹'+points.toLocaleString('en-IN');
+$('amount').max=String(points);
+$('amount').addEventListener('input',()=>{
+const n=Math.max(0,Math.floor(Number($('amount').value)||0));
+$('value').textContent='₹'+n.toLocaleString('en-IN');
+});
+document.querySelectorAll('input[name="method"]').forEach(r=>r.addEventListener('change',()=>{
+const bank=document.querySelector('input[name="method"]:checked').value==='bank';
+$('bankFields').hidden=!bank;
+$('upiFields').hidden=bank;
+['bank','holder','account','ifsc'].forEach(id=>$(id).required=bank);
+$('upi').required=!bank;
+}));
+$('withdrawForm').addEventListener('submit',e=>{
+e.preventDefault();
+$('formError').textContent='';
+const amount=Number($('amount').value);
+if(!Number.isInteger(amount)||amount<1||amount>points){
+$('formError').textContent='Enter a valid amount within your available points.';
+return;
+}
+if(!$('withdrawForm').reportValidity())return;
+$('modalText').textContent='Your request details are valid for preview: '+amount+' points (₹'+amount+'). No account details are saved, no request is sent, and no payment is approved or made.';
+$('modal').classList.add('show');
+});
+$('closeModal').onclick=()=>$('modal').classList.remove('show');
+$('logoutBtn').onclick=async()=>{
+await db.auth.signOut({scope:'local'});
+location.replace('login.html');
+};
+})();
+</script>
+</body>
+</html>
